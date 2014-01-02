@@ -1,0 +1,43 @@
+header {
+	height: 80px;
+	background: white;
+	padding: 15px;
+	border-radius: 0px 0px 15px 15px;
+}
+
+header img {
+	float: left;
+	display: block;
+}
+
+header nav {
+	display: block;
+	vertical-align: top;
+	margin-top: 10px;
+	float: right;
+}
+
+
+header nav a:hover, header nav a.active {
+	border-bottom: 1px #9b6d4f solid;
+}
+
+
+header nav ul li {
+	display: inline-block;
+	
+}
+
+header nav ul li a {
+	padding: 20px 10px;
+	text-decoration: none;
+	display: inline-block;
+	color: #9b6d4f;
+	font-weight: bold;
+	font-style: italic;
+	font-family: Arial;
+}
+
+header nav ul li:first-child a {
+	padding-left: 0;
+}

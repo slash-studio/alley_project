@@ -1,0 +1,192 @@
+#top_block {
+	margin-top: 50px;
+}
+
+#top_block img {
+	width: 400px;
+	margin-right: 20px;
+	float: left;
+}
+
+#top_block section, #top_block div {
+	display: inline-block;
+	background: white;
+	vertical-align: top;
+	font-size: 110%;
+	font-style: italic;
+}
+
+#top_block .text {
+	width: 630px;	
+	margin-bottom: 20px;
+	border-radius: 15px;
+	padding: 20px;
+	vertical-align: bottom;
+}
+
+#top_block .text h1 {
+	font-size: 150%;
+	font-family: Georgia;
+	margin-bottom: 15px;
+}
+
+#top_block .text p {
+}
+
+#top_block .adress {
+	padding: 10px 20px;
+	border-radius: 10px;
+}
+
+#top_block button {
+	background: white;
+	border: 1px #9b6d4f solid;
+	padding: 10px 15px;
+	font-size: 90%;
+	border-radius: 10px;
+	font-style: italic;
+	cursor: pointer;
+	margin-left: 25px;
+	color: #9b6d4f;
+}
+
+#top_block button:hover {
+	color: white;
+	background: #9b6d4f;
+}
+
+#courses {
+	margin: 56px auto 0;
+	text-align: center;
+}
+
+#courses ul li {
+	display: inline-block;
+	width: 210px;
+}
+
+#courses ul li span {
+	display: block;
+	margin-top: 10px;
+	font-style: italic;
+	font-size: 130%;
+}
+
+#courses ul li a {
+	text-decoration: none;
+}
+
+#bottom_block {
+	margin-top: 25px;
+	display: inline-block;
+	vertical-align: top;
+	font-style: italic;
+}
+
+#bottom_block section {
+	display: inline-block;
+	margin: 0 20px;
+	padding: 20px;
+	background: white;
+	border-radius: 15px;
+}
+
+#news > h1 {
+	font-family: Georgia;
+	font-size: 150%;
+	margin-bottom: 20px;
+}
+
+#news article img {
+	float: left;
+	margin-right: 10px;
+}
+
+#news article.main time {
+	margin-bottom: 3px;
+	display: block;
+}
+
+#news article time {
+	font-size: 80%;
+	color: #aaa;
+}
+
+#news article.other time {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+#news article.other h1 {
+	display: inline-block;
+}
+
+#news article.other {
+	margin-bottom: 5px;
+}
+
+#news article.main h1 {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+#news article a {
+	color: black;
+}
+
+#news article.main p {
+	margin-left: 110px;
+}
+
+#news article.main p a {
+	text-decoration: none;
+}
+
+#news article.main {
+	width: 450px;
+	margin-bottom: 25px;
+}
+
+#master {
+	vertical-align: top;
+}
+
+#master > h1 {
+	font-family: Georgia;
+	font-size: 150%;
+	margin-bottom: 20px;
+}
+
+#master article img {
+	float: left;
+	margin-right: 10px;
+}
+
+#master article time {
+	font-size: 100%;
+	color: #888;
+	margin-bottom: 10px;
+	display: block;
+}
+
+#master article h1 {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#master article a {
+	color: black;
+}
+
+#master article p {
+	margin-left: 110px;
+}
+
+#master article p a {
+	text-decoration: none;
+}
+
+#master article {
+	width: 450px;
+	margin-bottom: 25px;
+}
