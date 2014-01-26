@@ -10,7 +10,6 @@
 
 #top_block section, #top_block div {
 	display: inline-block;
-	background: white;
 	vertical-align: top;
 	font-size: 110%;
 	font-style: italic;
@@ -39,20 +38,7 @@
 }
 
 #top_block button {
-	background: white;
-	border: 1px #9b6d4f solid;
-	padding: 10px 15px;
-	font-size: 90%;
-	border-radius: 10px;
-	font-style: italic;
-	cursor: pointer;
 	margin-left: 25px;
-	color: #9b6d4f;
-}
-
-#top_block button:hover {
-	color: white;
-	background: #9b6d4f;
 }
 
 #courses {
@@ -87,7 +73,6 @@
 	display: inline-block;
 	margin: 0 20px;
 	padding: 20px;
-	background: white;
 	border-radius: 15px;
 }
 
