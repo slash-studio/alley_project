@@ -1,8 +1,15 @@
 <header>
-	<img src="/images/logo.png" />
-	<nav>
-		<ul>
-			<li><a href="/" class="active">Главная</a></li><li><a href="/">Новости</a></li><li><a href="/">Арт-курсы</a></li><li><a href="/">Расписание</a></li><li><a href="/">О нас</a></li>
-		</ul>
-	</nav>
+  <a href='/'><img src="/images/logo.png" /></a>
+  <nav>
+    <ul>
+      <li><a href="/" data='main'>Главная</a></li>
+      <li><a href="/news" data='news'>Новости</a></li>
+      <li><a href="/courses" data='courses'>Арт-курсы</a></li>
+      <li><a href="/timetable" data='timetable'>Расписание</a></li>
+      <li><a href="/about" data='about'>О нас</a></li>
+      <script type="text/javascript">
+        $('header a[data="{$active_item|default:'main'}"]').addClass('active');
+      </script>
+  </ul>
+  </nav>
 </header>

@@ -17,8 +17,10 @@ class TSmarty extends Smarty
       $this->setCacheDir($dir . 'cache/');
 
       // $this->caching = Smarty::CACHING_LIFETIME_CURRENT;
-      $this->assign('app_name', 'sintezf');
+      $this->assign('app_name', SMARTY_APP_NAME);
    }
 }
 
+$smarty = new TSmarty();
+$smarty->force_compile = true;
 ?>
