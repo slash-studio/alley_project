@@ -1,18 +1,5 @@
-.save_text {
-	padding: 7px 20px;
-	display: inline-block;
-	margin-right: 10px;
-	margin-top: 20px;
-}
-
 form.text_edit {
 	display: none;
-}
-
-form.text_edit label {
-	display: block;
-	margin: 20px 0 10px;
-	font-weight: bold;
 }
 
 .text_head {

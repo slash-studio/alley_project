@@ -1,0 +1,25 @@
+form.form_teacher h2 {
+	font-family: Georgia;
+	font-size: 130%;
+	margin: 20px 0;
+}
+
+form button.delete_teacher {
+	color: red;
+	border-color: red;
+}
+
+form button.delete_teacher:hover {
+	color: white;
+	background: red;
+}
+
+form button.save_teacher {
+	color: green;
+	border-color: green;
+}
+
+form button.save_teacher:hover {
+	color: white;
+	background: green;
+}
