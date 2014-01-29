@@ -6,7 +6,11 @@
 <div id="top_block">
   {if isset($error_txt)}<p class="db_error">{$error_txt}</p>{/if}
   {if $teachers|@count!=0}<h1>Учителя</h1>{/if}
+  {foreach from=$teachers item=teacher}
+    <p><a href="#teacher_{$teacher.teachers_id}">{$teacher.teachers_name}</a></p>
+  {/foreach}
   {foreach from=$teachers item=teacher name=foo}
+  <a name="teacher_{$teacher.teachers_id}"></a>
   <form action="/admin/teachers" method="post" class="form_teacher">
     <input type="hidden" class="teacher_id" name="id" value="{$teacher.teachers_id}" />
     <label for="teacher_head_{$smarty.foreach.foo.index}">Имя:</label>

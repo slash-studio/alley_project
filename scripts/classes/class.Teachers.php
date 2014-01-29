@@ -26,6 +26,7 @@ class Teachers extends Entity
             true
          )
       );
+      $this->orderFields = Array('name' => Array(static::TABLE, $this->GetFieldByName('name')));
    }
 }
 
