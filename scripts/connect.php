@@ -1,8 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/user_consts.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/class.Field.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/exception.inc';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/constants.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/user_consts.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Field.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/lib/exception.inc';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/constants.php';
 
 class DBConnect
 {

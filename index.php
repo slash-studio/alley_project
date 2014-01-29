@@ -1,29 +1,29 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/container.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/container.php';
 
 switch ($request[0]) {
    case '': case null: case false:
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/main.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/main.php';
       break;
 
    case 'news':
       SetActiveItem('news');
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/news.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/news.php';
       break;
 
    case 'courses':
       SetActiveItem('courses');
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/courses.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/courses.php';
       break;
 
    case 'timetable':
       SetActiveItem('timetable');
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/timetable.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/timetable.php';
       break;
 
    case 'about':
       SetActiveItem('about');
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/about.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/about.php';
       break;
 
    case 'admin':
@@ -39,31 +39,31 @@ switch ($request[0]) {
       }
       switch ($request[1]) {
          case '': case 'login': case null: case false:
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.login.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.login.php';
             break;
 
          case 'courses':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.courses.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.courses.php';
             break;
 
          case 'masterclasses':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.masterclasses.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.masterclasses.php';
             break;
 
          case 'news':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.news.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.news.php';
             break;
 
          case 'table':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.table.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.table.php';
             break;
 
          case 'teachers':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.teachers.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.teachers.php';
             break;
 
          case 'texts':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/admin.texts.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.texts.php';
             break;
 
          default:
