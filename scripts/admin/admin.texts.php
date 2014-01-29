@@ -6,21 +6,19 @@ if (isset($_POST['save'])) {
    $post = GetPOST();
    $post['mode']   = 'Update';
    $post['params'] = Array(
-         'id'        => $post['text_id'],
+         'id'        => $post['id'],
          'text_body' => $post['text_body'],
-         'text_head' => isset($post['text_head']) ? $post['text_head'] : null);
-   $handler = new Handler($_texts);
-   HandleAdminData('texts');
-   try {
-      
-   } catch (Exception $e) {
-      
+         'text_head' => $text_head = isset($post['text_head']) ? $post['text_head'] : null);
+   if (!empty($text_head)) {
+      $_SESSION['text_id'] = $post['id'];
+      HandleAdminData($_texts, $post, 'texts');
+   } else {
+      $smarty->assign('error_txt', 'Заголовок не может быть пустым!');
    }
-   $handler->Handle($post);
-   header('Location: /admin/texts');
+} elseif (isset($_SESSION['text_id'])) {
+   $smarty->assign('last_viewed_text_id', $_SESSION['text_id']);
+   unset($_SESSION['text_id']);
 }
-$result = $_competitiveButton->GetAll();
-$smarty->assign('competitiveStatus', $result[0]['competitive_button_status'])
-       ->assign('texts', $_texts->GetAll())
-       ->display('admin.text.tpl');
+$smarty->assign('texts', $_texts->AddOrder('name', OT_ASC)->GetAll())
+       ->display('admin.texts.tpl');
 ?>

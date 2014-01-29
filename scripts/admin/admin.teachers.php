@@ -8,7 +8,11 @@ if (isset($_POST['mode'])) {
    $name = isset($_POST['name']) ? $_POST['name'] : '';
    $info = isset($_POST['info']) ? $_POST['info'] : '';
    $post['params'] = Array('name' => $name, 'info' => $info, 'id' => $id);
-   HandleAdminData($_teachers, $post, 'teachers');
+   if (!empty($name)) {
+      HandleAdminData($_teachers, $post, 'teachers');
+   } else {
+      $smarty->assign('error_txt', 'Имя преподавателя не может быть пустым!');
+   }
 }
 $smarty->assign('teachers', $_teachers->AddOrder('name')->GetAll())
        ->display('admin.teachers.tpl');

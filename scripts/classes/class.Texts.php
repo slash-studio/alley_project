@@ -15,6 +15,11 @@ class Texts extends Entity
             false
          ),
          new Field(
+            'name',
+            null,
+            false
+         ),
+         new Field(
             'text_head',
             null,
             true,
@@ -23,10 +28,10 @@ class Texts extends Entity
          new Field(
             'text_body',
             null,
-            true,
-            Array('IsNotEmpty')
+            true
          )
       );
+      $this->orderFields = Array('name' => Array(static::TABLE, $this->GetFieldByName('name')));
    }
 }
 
