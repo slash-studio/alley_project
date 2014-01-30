@@ -1,17 +1,3 @@
-form.text_edit {
-	display: none;
-}
-
 .text_head {
 	width: 300px;
-}
-
-#choose_text {
-	width: 150px;
-	padding: 5px;
-	margin-bottom: 10px;
-}
-
-form.text_edit h2 {
-	font-size: 120%;
 }

@@ -50,8 +50,8 @@ switch ($request[0]) {
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.masterclasses.php';
             break;
 
-         case 'news':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.news.php';
+         case 'articles':
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.articles.php';
             break;
 
          case 'table':
