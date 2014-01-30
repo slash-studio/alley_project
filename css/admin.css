@@ -34,8 +34,44 @@ form button {
 	margin-top: 20px;
 }
 
-form label {
+label {
 	display: block;
 	margin: 20px 0 10px;
 	font-weight: bold;
+}
+
+form button.delete {
+	color: red;
+	border-color: red;
+}
+
+form button.delete:hover {
+	color: white;
+	background: red;
+}
+
+form button.save {
+	color: green;
+	border-color: green;
+}
+
+form button.save:hover {
+	color: white;
+	background: green;
+}
+
+#choose_item {
+	width: 150px;
+	padding: 5px;
+	margin-bottom: 30px;
+}
+
+form.item_edit {
+	display: none;
+}
+
+form h2 {
+	font-family: Georgia;
+	font-size: 130%;
+	margin: 20px 0;
 }
