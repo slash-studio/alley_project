@@ -11,6 +11,7 @@ function PackParam($table, $field, $bool = false, $cond = '', $lp = '', $rp = ''
 class Entity
 {
    const TABLE = '';
+   const ID_FLD = 'id';
 
    protected
       $selectTables,

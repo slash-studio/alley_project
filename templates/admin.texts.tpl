@@ -10,11 +10,11 @@
   <label for="choose_item">Выберите текст</label>
   <select id="choose_item" name="choose_item">
   {foreach from=$texts item=text}
-    <option value="text{$text.texts_id}">{$text.texts_name}</option>
+    <option value="item{$text.texts_id}">{$text.texts_name}</option>
   {/foreach}
   </select>
   {foreach from=$texts item=text name=foo}
-  <form action="/admin/texts" method="post" class="item_edit" id="text{$text.texts_id}">
+  <form action="/admin/texts" method="post" class="item_edit" id="item{$text.texts_id}">
     <h2>{$text.texts_name}</h2>
     <input type="hidden" class="teacher_id" name="id" value="{$text.texts_id}" />
     <label for="text_head_{$smarty.foreach.foo.index}">Заголовок:</label>
@@ -24,13 +24,6 @@
     <button class="save_text" name="save" value="Update">Сохранить</button>
   </form>
   {/foreach}
-  {if isset($last_viewed_text_id)}
-  <script type="text/javascript">
-    {literal}
-    ${/literal}('#choose_text option[value="text{$last_viewed_text_id}"]').attr('selected','selected');{literal}
-    $('#choose_text').change();
-    {/literal}
-  </script>
-  {/if}
+  {include file='admin.set_select.tpl'}
 </div>
 {/block}

@@ -11,7 +11,7 @@
         <li><a href="/admin/texts">Тексты</a></li>
         <li><a href="/admin/courses">Арт-курсы</a></li>
         <li><a href="/admin/teachers">Учителя</a></li>
-        <li><a href="/admin/news">Новости</a></li>
+        <li><a href="/admin/articles">Новости</a></li>
         <li><a href="/admin/table">Расписание</a></li>
         <li><a href="/admin/masterclasses">Мастер-класс</a></li>
       </ul>

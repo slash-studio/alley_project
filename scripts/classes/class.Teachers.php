@@ -3,6 +3,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 
 class Teachers extends Entity
 {
+   const NAME_FLD = 'name';
+   const INFO_FLD = 'info';
+
    const TABLE = 'teachers';
 
    public function __construct()
@@ -10,23 +13,23 @@ class Teachers extends Entity
       parent::__construct();
       $this->fields = Array(
          new Field(
-            'id',
+            static::ID_FLD,
             null,
             false
          ),
          new Field(
-            'name',
+            static::NAME_FLD,
             null,
             true,
             Array('IsNotEmpty')
          ),
          new Field(
-            'info',
+            static::INFO_FLD,
             null,
             true
          )
       );
-      $this->orderFields = Array('name' => Array(static::TABLE, $this->GetFieldByName('name')));
+      $this->orderFields = Array(static::NAME_FLD => Array(static::TABLE, $this->GetFieldByName(static::NAME_FLD)));
    }
 }
 

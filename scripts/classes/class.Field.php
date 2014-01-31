@@ -4,6 +4,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.SQL.php';
 
 class FieldView
 {
+   const LIKE_VIEW    = 'Like';
+   const GENERAL_VIEW = 'GENERAL';
+
    public static function Like($extra)
    {
       return ' LIKE UPPER(?)';
@@ -26,7 +29,7 @@ class Field
       $canChange,
       $validate = Array();
 
-   public function __construct($name, $value = null, $canChange = true, $validate = Array(), $view = 'General')
+   public function __construct($name, $value = null, $canChange = true, $validate = Array(), $view = FieldView::GENERAL_VIEW)
    {
       $this->name      = $name;
       $this->view      = $view;

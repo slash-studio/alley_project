@@ -1,5 +1,6 @@
 <link href="/css/style.css" rel="stylesheet" />
 <script src="/js/jquery.js"></script>
+<script src="/js/dropdown_blocks.js"></script>
 
 <!--[if lt IE 9]>
  	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>

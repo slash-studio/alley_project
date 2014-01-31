@@ -25,4 +25,8 @@ define('OT_DESC', 'DESC');
 define('OT_RAND', 'RAND()');
 
 define('SMARTY_APP_NAME', 'alley');
+
+//identifiers texts
+define('MAIN_TEXT_ID', 1);
+// define('REGISTER_TEXT_ID', 2);
 ?>

@@ -32,7 +32,7 @@ switch ($request[0]) {
       $_SESSION['admin_pass']  = !empty($_SESSION['admin_pass']) ? $_SESSION['admin_pass'] : '';
       if ($_SESSION['admin_login'] == ADMIN_LOGIN && $_SESSION['admin_pass'] == ADMIN_PASS) {
          if ($isLoginPage) {
-            header('Location: /admin/texts');
+            header('Location: /admin/newt_textbox_set_height(textbox, height)');
          }
       } elseif (!$isLoginPage) {
          header('Location: /admin/');
@@ -67,7 +67,7 @@ switch ($request[0]) {
             break;
 
          default:
-            #redirect error page
+            header('Location: /admin/texts');
             break;
       }
       break;

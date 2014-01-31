@@ -3,6 +3,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 
 class Texts extends Entity
 {
+   const NAME_FLD      = 'name';
+   const TEXT_HEAD_FLD = 'text_head';
+   const TEXT_BODY_FLD = 'text_body';
+
    const TABLE = 'texts';
 
    public function __construct()
@@ -10,28 +14,28 @@ class Texts extends Entity
       parent::__construct();
       $this->fields = Array(
          new Field(
-            'id',
+            static::ID_FLD,
             null,
             false
          ),
          new Field(
-            'name',
+            static::NAME_FLD,
             null,
             false
          ),
          new Field(
-            'text_head',
+            static::TEXT_HEAD_FLD,
             null,
             true,
             Array('IsNotEmpty')
          ),
          new Field(
-            'text_body',
+            static::TEXT_BODY_FLD,
             null,
             true
          )
       );
-      $this->orderFields = Array('name' => Array(static::TABLE, $this->GetFieldByName('name')));
+      $this->orderFields = Array(static::NAME_FLD => Array(static::TABLE, $this->GetFieldByName(static::NAME_FLD)));
    }
 }
 
