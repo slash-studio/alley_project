@@ -4,7 +4,7 @@
 {/block}
 {block name="div.main"}
 <div id="top_block">
-  <h1>Мастеркласс</h1>
+  <h1>Мастер-класс</h1>
   {if isset($error_txt)}<p class="db_error">{$error_txt}</p>{/if}
   <form action="/admin/masterclasses" method="post" id="add_masterclass">
     <label for="masterclass_head">Название:</label>
