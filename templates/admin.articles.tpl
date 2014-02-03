@@ -4,11 +4,11 @@
 {/block}
 {block name="div.main"}
 <div id="top_block">
+  <h1>Новости</h1>
   {if isset($error_txt)}<p class="db_error">{$error_txt}</p>{/if}
   {$article_menu}
   {if $article_level==2}
     {if $articles|@count!=0}
-      <h1>Новости</h1>
       <label for="choose_item">Выберите новость</label>
       <select id="choose_item" name="choose_item">
       {foreach from=$articles item=article}

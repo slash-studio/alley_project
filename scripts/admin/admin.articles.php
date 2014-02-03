@@ -3,9 +3,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.News.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/handlers/handler.php';
 
 $level = 1;
-if (!empty($year = !empty($request[2]) ? $request[2] : null)) {
+$year = !empty($request[2]) ? $request[2] : null;
+if (!empty($year)) {
    $level = 2;
-   if (!empty($month = $request[3])) {
+   $month = $request[3];
+   if (!empty($month)) {
       $smarty->assign('year', $year)
              ->assign('month', $month)
              ->assign('articles', $_news->CreateSearchYM($year, $month)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());

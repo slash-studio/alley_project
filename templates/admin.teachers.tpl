@@ -4,9 +4,9 @@
 {/block}
 {block name="div.main"}
 <div id="top_block">
+  <h1>Учителя</h1> 
   {if isset($error_txt)}<p class="db_error">{$error_txt}</p>{/if}
   {if $teachers|@count!=0}
-    <h1>Учителя</h1>
     <label for="choose_item">Выберите учителя</label>
     <select id="choose_item" name="choose_item">
     {foreach from=$teachers item=teacher}

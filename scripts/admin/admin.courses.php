@@ -1,3 +1,3 @@
 <?php
-$smarty->display('admin.courses.tpl');
+	$smarty->display('admin.courses.tpl');
 ?>

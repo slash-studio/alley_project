@@ -1,3 +1,3 @@
 <?php
-$smarty->display('admin.masterclasses.tpl');
+	$smarty->display('admin.masterclasses.tpl');
 ?>

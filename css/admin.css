@@ -60,9 +60,12 @@ form button.save:hover {
 	background: green;
 }
 
-#choose_item {
-	width: 150px;
+form select {
+	min-width: 150px;
 	padding: 5px;
+}
+
+#choose_item {
 	margin-bottom: 30px;
 }
 
