@@ -2,23 +2,28 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Teachers.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/handlers/handler.php';
 
+define('TID', LAST . 'teacher_id');
+SetLastViewedID(TID);
+
 if (isset($_POST['mode'])) {
    $post = GetPOST();
-   $id   = isset($_POST['id'])   ? $_POST['id'] : '';
-   $name = isset($_POST['name']) ? $_POST['name'] : '';
-   $info = isset($_POST['info']) ? $_POST['info'] : '';
-   $post['params'] = Array('name' => $name, 'info' => $info, 'id' => $id);
-   $_SESSION['last_viewed_teacher_id'] = $post['id'];
+   $id   = isset($post['id'])   ? $post['id'] : '';
+   $name = isset($post['name']) ? $post['name'] : '';
+   $info = isset($post['info']) ? $post['info'] : '';
+   $post['params'] = Array(
+      Teachers::NAME_FLD => $name,
+      Teachers::INFO_FLD => $info,
+      Teachers::ID_FLD   => $id
+   );
+   $_SESSION[TID] = $id;
    if (!empty($name)) {
       HandleAdminData($_teachers, $post, 'teachers');
    } else {
-      $smarty->assign('error_txt', 'Имя преподавателя не может быть пустым!');
+      SetRequiredFieldError('Имя преподавателя');
+      SetLastViewedID(TID);
    }
 }
-if (isset($_SESSION['last_viewed_teacher_id'])) {
-   $smarty->assign('last_viewed_id', $_SESSION['last_viewed_teacher_id']);
-   unset($_SESSION['last_viewed_teacher_id']);
-}
+
 $smarty->assign('teachers', $_teachers->AddOrder(Teachers::NAME_FLD)->GetAll())
        ->display('admin.teachers.tpl');
 ?>

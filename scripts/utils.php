@@ -5,6 +5,23 @@ function SetActiveItem($item = 'main')
    $smarty->assign('active_item', $item);
 }
 
+function SetLastViewedID($name)
+{
+   global $smarty;
+   if (isset($_SESSION[$name])) {
+      $smarty->assign('last_viewed_id', $_SESSION[$name]);
+      unset($_SESSION[$name]);
+   }
+}
+
+function SetRequiredFieldError($name)
+{
+   global $smarty;
+   $smarty->assign('error_txt', "$name не может быть пустым!");
+}
+
+
+
 function GetPOST()
 {
    return array_map('trim', $_POST);

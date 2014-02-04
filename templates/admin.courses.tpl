@@ -16,31 +16,38 @@
   {/if}
   {foreach from=$courses item=course name=foo}
   <form action="/admin/courses" method="post" class="item_edit" id="item{$course.courses_id}">
-  <h2>{$course.courses_name}</h2>
     <input type="hidden" class="course_id" name="id" value="{$course.courses_id}" />
     <label for="course_head_{$smarty.foreach.foo.index}">Название:</label>
     <input class="course_head" name="name" id="course_{$smarty.foreach.foo.index}" value="{$course.courses_name}" />
     <label for="course_teacher_{$smarty.foreach.foo.index}">Учитель:</label>
     <select class="course_teacher" name="teacher" id="course_teacher_{$smarty.foreach.foo.index}">
-		<option value="1">Марина Михайловна</option> <!-- ID УЧИТЕЛЯ-->
-	</select>
-	<label for="course_body_{$smarty.foreach.foo.index}">Текст:</label>
-    <textarea class="course_body" name="info" id="course_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$course.courses_info}</textarea>
+      {foreach from=$teachers item=teacher}
+        <option value="{$teacher.teachers_id}" {if $teacher.teachers_id==$course.courses_teacher_id}selected{/if}>{$teacher.teachers_name}</option>
+      {/foreach}
+    </select>
+  <label for="course_body_{$smarty.foreach.foo.index}">Текст:</label>
+    <textarea class="course_body" name="description" id="course_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$course.courses_description}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
   </form>
   {/foreach}
   {include file='admin.set_select.tpl'}
-  <form action="/admin/courses" method="post" id="add_course">
-    <h2>Добавить арт-курс</h2>
-    <label for="course_head_new">Название:</label>
-    <input class="course_head" name="name" id="course_head_new" value="" />
-	<label for="course_teacher_new">Учитель:</label>
-    <select class="course_teacher" name="teacher" id="course_teacher_new">
-		<option value="1">Марина Михайловна</option> <!-- ID УЧИТЕЛЯ-->
-	</select>
-    <label for="course_body_new">Текст:</label>
-    <textarea class="course_body" name="info" id="course_body_new" rows="5" cols="70"></textarea>
-    <button class="save" name="mode" value="Insert">Добавить</button>
-  </form>
+  {if $teachers|@count != 0}
+    <form action="/admin/courses" method="post" id="add_course">
+      <h2>Добавить арт-курс</h2>
+      <label for="course_head_new">Название:</label>
+      <input class="course_head" name="name" id="course_head_new" value="" />
+      <label for="course_teacher_new">Учитель:</label>
+      <select class="course_teacher" name="teacher" id="course_teacher_new">
+        {foreach from=$teachers item=teacher}
+          <option value="{$teacher.teachers_id}">{$teacher.teachers_name}</option>
+        {/foreach}
+      </select>
+      <label for="course_body_new">Текст:</label>
+      <textarea class="course_body" name="description" id="course_body_new" rows="5" cols="70"></textarea>
+      <button class="save" name="mode" value="Insert">Добавить</button>
+    </form>
+  {else}
+    <h2>Для добавления курса необходимо добавить учителей!</h2>
+  {/if}
 </div>
 {/block}

@@ -10,16 +10,25 @@ TO `marik`@localhost IDENTIFIED BY 'marik107';
 
 CREATE TABLE IF NOT EXISTS `teachers` (
    `id`    INT          NOT NULL AUTO_INCREMENT,
-   `name`  VARCHAR(120) NOT NULL,
+   `name`  VARCHAR(150) NOT NULL,
    `info`  TEXT,
    PRIMARY KEY(`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `courses` (
+   `id`          INT          NOT NULL AUTO_INCREMENT,
+   `name`        VARCHAR(150) NOT NULL,
+   `description` TEXT         NOT NULL,
+   `teacher_id`  INT          NOT NULL,
+   PRIMARY KEY(`id`),
+   FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS `texts` (
-   `id`        INT         NOT NULL AUTO_INCREMENT,
-   `name`      VARCHAR(50) NOT NULL,
-   `text_head` TEXT        NOT NULL,
-   `text_body` TEXT        NOT NULL,
+   `id`        INT          NOT NULL AUTO_INCREMENT,
+   `name`      VARCHAR(150) NOT NULL,
+   `text_head` TEXT         NOT NULL,
+   `text_body` TEXT         NOT NULL,
    PRIMARY KEY(`id`)
 );
 

@@ -1,8 +1,9 @@
 <?php
-if (empty($isAjaxScript)) {
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
+
+if(!isset($_SESSION)) {
    @session_start();
 }
-require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 
 $ajaxResult = Array('result' => true, 'message' => 'Операция прошла успешно!');
 

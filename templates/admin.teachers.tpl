@@ -16,7 +16,6 @@
   {/if}
   {foreach from=$teachers item=teacher name=foo}
   <form action="/admin/teachers" method="post" class="item_edit" id="item{$teacher.teachers_id}">
-  <h2>{$teacher.teachers_name}</h2>
     <input type="hidden" class="teacher_id" name="id" value="{$teacher.teachers_id}" />
     <label for="teacher_head_{$smarty.foreach.foo.index}">Имя:</label>
     <input class="teacher_head" name="name" id="teacher_head_{$smarty.foreach.foo.index}" value="{$teacher.teachers_name}" />

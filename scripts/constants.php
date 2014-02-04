@@ -4,6 +4,7 @@ define('COOKIE_LIFETIME', 86400000); //86400000 seconds in a 1000 days
 define('COOKIE_SITE', 'ruspravosl.local');
 define('LOGIN_LEN', 6);
 define('PASS_LEN', 6);
+define('LAST', 'last_viewed');
 
 //errors messages
 define('ERROR_QUERY', 'В данный момент невозможно подключение к базе данных.');
