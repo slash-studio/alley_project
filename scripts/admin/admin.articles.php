@@ -16,28 +16,29 @@ if (!empty($year)) {
    }
 }
 
+define('CID', LAST . 'news_id');
+SetLastViewedID(CID);
+
 if (isset($_POST['mode'])) {
    $post = GetPOST();
    $id   = isset($_POST['id']) ? $_POST['id'] : null;
    $post['params'] = Array(
-         'id'        => $id,
-         'text_head' => $text_head = isset($post['text_head']) ? $post['text_head'] : null,
-         'text_body' => $text_body = isset($post['text_body']) ? $post['text_body'] : null
+         News::ID_FLD        => $id,
+         News::TEXT_HEAD_FLD => $text_head = isset($post['text_head']) ? $post['text_head'] : null,
+         News::TEXT_BODY_FLD => $text_body = isset($post['text_body']) ? $post['text_body'] : null
    );
    if ($post['mode'] != 'Insert') {
-      $_SESSION['last_viewed_news_id'] = $id;
+      $_SESSION[CID] = $id;
    }
    if (empty($text_head)) {
-      $smarty->assign('error_txt', 'Заголовок новости не может быть пустым!');
+      SetRequiredFieldError('Заголовок новости');
+      SetLastViewedID(CID);
    } elseif (empty($text_body)) {
-      $smarty->assign('error_txt', 'Описание новости не может быть пустым!');
+      SetRequiredFieldError('Описание новости');
+      SetLastViewedID(CID);
    } else {
       HandleAdminData($_news, $post, "articles/$year/$month");
    }
-}
-if (isset($_SESSION['last_viewed_news_id'])) {
-   $smarty->assign('last_viewed_id', $_SESSION['last_viewed_news_id']);
-   unset($_SESSION['last_viewed_news_id']);
 }
 
 $smarty->assign('article_level', $level)

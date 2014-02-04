@@ -55,7 +55,7 @@ class News extends Entity
       try {
          global $db;
          $result = $db->Query($query);
-         if (count($result) == 1) {
+         if (!empty($result[0][static::PUBLICATION_DATE_FLD]) && count($result) == 1) {
             $result[] = $result[0];
          }
          if (count($result) != 2) return $resMenu;
