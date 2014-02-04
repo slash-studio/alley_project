@@ -1,0 +1,57 @@
+#timetable {
+	border-collapse: collapse;
+}
+
+#timetable td, #timetable th {
+	border: 1px black solid;
+	padding: 7px;
+}
+
+#timetable td {
+	min-width: 120px;
+}
+
+#timetable th {
+	font-weight: bold;
+}
+
+#timetable tr:hover {
+	background: #eee;
+}
+
+#timetable button.icon, #timetable a.icon {
+	padding: 0;
+	width: 15px;
+	height: 15px;
+	border-radius: 0;
+	margin: 0;
+	border: 0;
+	background: url('/images/icons.png') no-repeat;
+}
+
+#timetable button.delete {
+	background-color: red;
+	background-position: -15px 0;
+	visibility: hidden;
+	position: relative;
+	top: -4px;
+}
+
+#timetable div.course:hover button.delete {
+	visibility: visible;
+}
+
+#timetable td:hover a.add {
+	visibility: visible;
+}
+
+#timetable a.add {
+	background-color: green;
+	background-position: 0 0;
+	float: right;
+	visibility: hidden;
+}
+
+#add_course button {
+	padding: 3px 10px;
+}
