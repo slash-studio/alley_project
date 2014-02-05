@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/connect.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.SQL.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Field.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Order.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Search.php';
 
 function PackParam($table, $field, $bool = false, $cond = '', $lp = '', $rp = '', $relOp = '=') {
@@ -10,11 +11,12 @@ function PackParam($table, $field, $bool = false, $cond = '', $lp = '', $rp = ''
 
 class Entity
 {
-   const TABLE = '';
-   const ID_FLD = 'id';
+   const TABLE         = '';
+   const ID_FLD        = 'id';
+   const USUAL_SCHEME  = 1;
 
    protected
-      $selectTables,
+      $samplingScheme = self::USUAL_SCHEME,
       $selectFields;
 
    public
@@ -27,6 +29,21 @@ class Entity
    public function __construct()
    {
       $this->order = new SQLOrder();
+   }
+
+   public function SetSamplingScheme($newScheme)
+   {
+      $this->samplingScheme = $newScheme;
+      return $this;
+   }
+
+   public function TryToApplyUsualScheme()
+   {
+      $result = $this->samplingScheme == static::USUAL_SCHEME;
+      if ($result) {
+         self::SetSelectValues();
+      }
+      return $result;
    }
 
    public function AddOrder($fieldName, $orderType = OT_ASC)
@@ -127,28 +144,6 @@ class Entity
              . ($limit         ? " LIMIT ?, ?"       : '');
    }
 
-   public function AddExtraFields($set)
-   {
-      return $set;
-   }
-
-   public function SelectWithLang(
-      $tables, $specific = null, $where = null, $params = Array(), $join = null, $limit = false)
-   {
-      $result =
-         $this->_Select(
-            $specific,
-            $where,
-            $params,
-            $join,
-            $limit
-      );
-      foreach ($result as &$set) {
-         $set = $this->AddExtraFields($set);
-      }
-      return $result;
-   }
-
    public function _Select($specific, $where = null, $params = Array(), $join = null, $limit = false)
    {
       try {
@@ -190,17 +185,9 @@ class Entity
       return 'INNER JOIN ' . $join;
    }
 
-   public function UnsetSelectValues()
-   {
-      unset($this->selectTables);
-      unset($this->selectFields);
-   }
-
    public function SetSelectValues()
    {
       $this->CheckSearch();
-      $this->UnsetSelectValues();
-      $this->selectTables = Array(static::TABLE => $this->fields);
       $this->selectFields = SQL::GetListFieldsForSelect(SQL::PrepareFieldsForSelect(static::TABLE, $this->fields));
    }
 
@@ -208,8 +195,7 @@ class Entity
    {
       $this->SetSelectValues();
       return
-         $this->SelectWithLang(
-            $this->selectTables,
+         $this->_Select(
             $this->selectFields,
             $this->search->GetClause(),
             $this->search->GetParams(),

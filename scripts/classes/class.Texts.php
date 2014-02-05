@@ -35,7 +35,7 @@ class Texts extends Entity
             true
          )
       );
-      $this->orderFields = Array(static::NAME_FLD => Array(static::TABLE, $this->GetFieldByName(static::NAME_FLD)));
+      $this->orderFields = Array(static::NAME_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::NAME_FLD)));
    }
 }
 

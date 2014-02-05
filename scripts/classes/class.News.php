@@ -39,7 +39,7 @@ class News extends Entity
          )
       );
       $this->orderFields =
-         Array(static::PUBLICATION_DATE_FLD => Array(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)));
+         Array(static::PUBLICATION_DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)));
    }
 
    public function GetAdminMenu()

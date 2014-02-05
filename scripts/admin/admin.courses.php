@@ -28,8 +28,7 @@ if (isset($_POST['mode'])) {
       HandleAdminData($_course, $post, 'courses');
    }
 }
-
 $smarty->assign('courses', $_course->AddOrder(Course::NAME_FLD, OT_ASC)->GetAll())
-       ->assign('teachers', $_teachers->AddOrder(Teachers::NAME_FLD)->GetAll())
+       ->assign('teachers', $_teachers->SetSamplingScheme(Teachers::COURSE_SCHEME)->GetAll())
        ->display('admin.courses.tpl');
 ?>

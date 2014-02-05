@@ -13,7 +13,7 @@
         <li><a href="/admin/teachers">Учителя</a></li>
         <li><a href="/admin/articles">Новости</a></li>
         <li><a href="/admin/table">Расписание</a></li>
-        <li><a href="/admin/masterclasses">Мастер-класс</a></li>
+        <li><a href="/admin/masterclasses">Мастер-классы</a></li>
       </ul>
     </nav>
   </header>

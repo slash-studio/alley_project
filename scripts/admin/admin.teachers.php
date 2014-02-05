@@ -7,13 +7,13 @@ SetLastViewedID(TID);
 
 if (isset($_POST['mode'])) {
    $post = GetPOST();
-   $id   = isset($post['id'])   ? $post['id'] : '';
+   $id   = isset($post['id'])   ? $post['id']   : '';
    $name = isset($post['name']) ? $post['name'] : '';
    $info = isset($post['info']) ? $post['info'] : '';
    $post['params'] = Array(
+      Teachers::ID_FLD   => $id,
       Teachers::NAME_FLD => $name,
-      Teachers::INFO_FLD => $info,
-      Teachers::ID_FLD   => $id
+      Teachers::INFO_FLD => $info
    );
    $_SESSION[TID] = $id;
    if (!empty($name)) {

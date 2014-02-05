@@ -3,8 +3,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 
 class Teachers extends Entity
 {
-   const NAME_FLD = 'name';
-   const INFO_FLD = 'info';
+   const NAME_FLD      = 'name';
+   const INFO_FLD      = 'info';
+   const COURSE_SCHEME = 2;
 
    const TABLE = 'teachers';
 
@@ -29,8 +30,29 @@ class Teachers extends Entity
             true
          )
       );
-      $this->orderFields = Array(static::NAME_FLD => Array(static::TABLE, $this->GetFieldByName(static::NAME_FLD)));
+      $this->orderFields = Array(static::NAME_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::NAME_FLD)));
    }
+
+   public function SetSelectValues()
+   {
+      $this->AddOrder(static::NAME_FLD);
+      if ($this->TryToApplyUsualScheme()) return;
+      $this->CheckSearch();
+      $fields = Array();
+      switch ($this->samplingScheme) {
+         case static::COURSE_SCHEME:
+            $fields = SQL::PrepareFieldsForSelect(
+               static::TABLE,
+               Array(
+                  $this->GetFieldByName(static::ID_FLD),
+                  $this->GetFieldByName(static::NAME_FLD)
+               )
+            );
+            break;
+      }
+      $this->selectFields = SQL::GetListFieldsForSelect($fields);
+   }
+
 }
 
 $_teachers = new Teachers();
