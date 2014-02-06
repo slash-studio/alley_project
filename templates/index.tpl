@@ -30,28 +30,20 @@
   <div id="bottom_block">
     <section id="news">
       <h1>Новости</h1>
-      <article class="main">
-        <a href="#"><img src="/images/news1.jpg" /></a>
-        <h1><a href="#">Отчет с мастер-класса по гончарному делу</a></h1>
-        <time datetime="2013-12-23">2013-12-23</time>
-        <p><a href="#">Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как...</a></p>
-      </article>
-      <article class="other">
-        <time datetime="2013-12-23">2013-12-13</time>
-        <h1><a href="#">Новогодний утренник в Аллее</a></h1>
-      </article>
-      <article class="other">
-        <time datetime="2013-12-23">2013-11-25</time>
-        <h1><a href="#">2 января отменяются курсы по макраме</a></h1>
-      </article>
-      <article class="other">
-        <time datetime="2013-12-23">2013-11-21</time>
-        <h1><a href="#">Отчет с мастер-класса по валянию из шерсти</a></h1>
-      </article>
-      <article class="other">
-        <time datetime="2013-12-23">2013-11-15</time>
-        <h1><a href="#">Фотограф на новогодний утренник</a></h1>
-      </article>
+      {if $news|@count != 0}
+        <article class="main">
+          <a href="/news/{$news.news_id}"><!-- <img src="/images/news1.jpg" /> --></a>
+          <h1><a href="/news/{$news.news_id}">{$news.news_text_head}</a></h1>
+          <time datetime="{$news.news_publication_date}">{$news.news_publication_date}</time>
+          <p><a href="/news/{$news.news_id}">{$news.news_text_body}</a></p>
+        </article>
+        {foreach from=$news.news item=article}
+        <article class="other">
+          <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
+          <h1><a href="/news/{$article.news_id}">{$article.news_text_head}</a></h1>
+        </article>
+        {/foreach}
+      {/if}
     </section>
     <section id="master">
       {if $class|@count != 0}

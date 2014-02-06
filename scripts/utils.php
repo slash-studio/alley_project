@@ -25,6 +25,15 @@ function GetPOST()
    return array_map('trim', $_POST);
 }
 
+function CutString($str, $amount)
+{
+   $new_str = mb_substr($str, 0, $amount);
+   if ($str != $new_str) {
+      $new_str .= '...';
+   }
+   return $new_str;
+}
+
 function GetMonthByNumber($m)
 {
    switch ($m) {

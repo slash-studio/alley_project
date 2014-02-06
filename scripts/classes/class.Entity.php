@@ -18,14 +18,13 @@ class Entity
 
    protected
       $selectFields,
-      $samplingScheme    = self::USUAL_SCHEME,
-      $isNeedExtraFields = false;
+      $samplingScheme = self::USUAL_SCHEME;
 
    public
-      $search,
       $order,
-      $orderFields = Array(),
-      $fields = Array();
+      $search,
+      $fields      = Array(),
+      $orderFields = Array();
 
 
    public function __construct()
@@ -46,6 +45,11 @@ class Entity
          self::SetSelectValues();
       }
       return $result;
+   }
+
+   public function ModifySample($sample)
+   {
+      return $sample;
    }
 
    public function AddOrder($fieldName, $orderType = OT_ASC)
@@ -204,12 +208,7 @@ class Entity
             $this->search->GetJoins(),
             $this->search->GetLimit()
          );
-      if ($this->isNeedExtraFields) {
-         foreach ($result as &$set) {
-            $this->AddExtraFields($set);
-         }
-      }
-      return $result;
+      return $this->ModifySample($result);
    }
 
    public function GetPart()

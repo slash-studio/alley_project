@@ -48,15 +48,17 @@ class MasterClass extends Entity
          Array(static::DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::DATE_FLD)));
    }
 
-   public function AddExtraFields(&$set)
+   public function ModifySample($sample)
    {
       switch ($this->samplingScheme) {
-         case static::MAIN_PAGE_SCHEME:
+         case static::MAIN_PAGE_SCHEME;
             $key = $this->ToPrfxNm(static::DATE_FLD);
-            $date = new DateTime($set[$key]);
-            $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
-            break;
+            foreach ($sample as &$set) {
+               $date = new DateTime($set[$key]);
+               $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
+            }
       }
+      return $sample;
    }
 
    public function SetSelectValues()
@@ -67,7 +69,6 @@ class MasterClass extends Entity
       $fields = Array();
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:
-            $this->isNeedExtraFields = true;
             $this->AddLimit(1);
             $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
             break;

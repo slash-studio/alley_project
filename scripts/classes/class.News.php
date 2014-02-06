@@ -43,15 +43,28 @@ class News extends Entity
          Array(static::PUBLICATION_DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)));
    }
 
-   public function AddExtraFields(&$set)
+   public function ModifySample($sample)
    {
+      if (empty($sample)) return $sample;
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:
-            // $key = $this->ToPrfxNm(static::DATE_FLD);
-            $date = new DateTime($set[$key]);
-            $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
+            $textKey = $this->ToPrfxNm(static::TEXT_BODY_FLD);
+            $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
+            foreach ($sample as $key => &$set) {
+               $date = new DateTime($set[$dateKey]);
+               $set[$dateKey] = $date->format('d-m-Y');
+               if ($key == 0) {
+                  $set[$textKey] = CutString($set[$textKey], 130);
+               } else {
+                  unset($set[$textKey]);
+               }
+            }
+            $firstNews = array_shift($sample);
+            $firstNews['news'] = $sample;
+            $sample = $firstNews;
             break;
       }
+      return $sample;
    }
 
    public function SetSelectValues()
@@ -62,8 +75,7 @@ class News extends Entity
       $fields = Array();
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:
-            // $this->isNeedExtraFields = true;
-            $this->AddLimit(1);
+            $this->AddLimit(5);
             $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
             break;
       }
