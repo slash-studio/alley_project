@@ -43,7 +43,7 @@ class News extends Entity
          Array(static::PUBLICATION_DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)));
    }
 
-   public function ModifySample($sample)
+   public function ModifySample(&$sample)
    {
       if (empty($sample)) return $sample;
       switch ($this->samplingScheme) {
@@ -64,7 +64,6 @@ class News extends Entity
             $sample = $firstNews;
             break;
       }
-      return $sample;
    }
 
    public function SetSelectValues()

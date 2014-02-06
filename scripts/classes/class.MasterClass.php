@@ -12,6 +12,8 @@ class MasterClass extends Entity
 
    const TABLE = 'master_class';
 
+   private $dateOfInterval = 1;
+
    public function __construct()
    {
       parent::__construct();
@@ -48,7 +50,13 @@ class MasterClass extends Entity
          Array(static::DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::DATE_FLD)));
    }
 
-   public function ModifySample($sample)
+   public function ResetDateOfInterval()
+   {
+      $this->dateOfInterval = 0;
+      return $this;
+   }
+
+   public function ModifySample(&$sample)
    {
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME;
@@ -58,14 +66,26 @@ class MasterClass extends Entity
                $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
             }
       }
-      return $sample;
    }
 
    public function SetSelectValues()
    {
-      $this->AddOrder(static::DATE_FLD, OT_ASC);
-      if ($this->TryToApplyUsualScheme()) return;
       $this->CheckSearch();
+      $this->AddOrder(static::DATE_FLD, OT_ASC);
+      $this->search->AddClause(
+         CCond(
+            CCond(
+               CF(static::TABLE, $this->GetFieldByName(static::DATE_FLD)),
+               CVS('INTERVAL ' . $this->dateOfInterval . ' HOUR'),
+               'AND',
+               '+'
+            ),
+            CVS(MYSQL_NOW),
+            'AND',
+            '>'
+         )
+      );
+      if ($this->TryToApplyUsualScheme()) return;
       $fields = Array();
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:

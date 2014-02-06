@@ -2,12 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/connect.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.SQL.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Field.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Order.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Search.php';
-
-function PackParam($table, $field, $bool = false, $cond = '', $lp = '', $rp = '', $relOp = '=') {
-   return Array($table, $field, $bool ? $cond : '', $lp, $rp, $relOp);
-};
 
 class Entity
 {
@@ -29,7 +24,7 @@ class Entity
 
    public function __construct()
    {
-      $this->order = new SQLOrder();
+      $this->order = new Order();
    }
 
    public function SetSamplingScheme($newScheme)
@@ -47,9 +42,8 @@ class Entity
       return $result;
    }
 
-   public function ModifySample($sample)
+   public function ModifySample(&$sample)
    {
-      return $sample;
    }
 
    public function AddOrder($fieldName, $orderType = OT_ASC)
@@ -129,11 +123,6 @@ class Entity
       return SQL::ToTblNm(static::TABLE, $name);
    }
 
-   public function FromPrfxToTblNm($name)
-   {
-      return substr($name, strlen(static::TABLE . '_'));
-   }
-
    public function GetTable()
    {
       return static::TABLE;
@@ -208,7 +197,8 @@ class Entity
             $this->search->GetJoins(),
             $this->search->GetLimit()
          );
-      return $this->ModifySample($result);
+      $this->ModifySample($result);
+      return $result;
    }
 
    public function GetPart()
@@ -223,9 +213,9 @@ class Entity
    public function GetById($id)
    {
       $this->CheckSearch();
-      $this->search->AddClause(PackParam(static::TABLE, $this->GetFieldByName('id'), true, 'AND'), $id);
+      $this->search->AddClause(CCond(CF(static::TABLE, $this->GetFieldByName('id')), CVP($id)));
       $result = $this->GetAll();
-      $this->search->RemoveLastClause();
+      $this->search->RemoveClause();
       return !empty($result[0]) ? $result[0] : Array();
    }
 

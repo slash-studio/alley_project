@@ -1,56 +1,39 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.SQL.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Clause.php';
 
 class Search
 {
    private
       $table,
       $limit,
-      $clause,
       $joins,
       $params,
+      $clause,
       $joinFields,
       $joinParams,
       $limitParams,
-      $clauseFields,
-      $clauseParams,
-      $isChangeJoin   = true,
-      $isChangeClause = true;
+      $isChangeJoin = true;
 
 
    public function __construct(
       $table,
-      $clauseFields = Array(),
-      $clauseParams = Array(),
+      $clause       = null,
       $joinFields   = Array(),
       $joinParams   = Array(),
       $limitParams  = Array()
    )
    {
       $this->table        = $table;
+      $this->clause       = !empty($clause) ? $clause : new Clause();
       $this->limitParams  = $limitParams;
-      $this->clauseFields = $clauseFields;
-      $this->clauseParams = $clauseParams;
       $this->joinFields   = $joinFields;
       $this->joinParams   = $joinParams;
    }
 
    public function GetClause()
    {
-      if ($this->isChangeClause) {
-         $clause = '';
-         foreach ($this->clauseFields as $fields) {
-            $clause .= $fields[2]
-                     . ' '
-                     . $fields[3]
-                     . $fields[1]->GetView($fields[0], $fields[5])
-                     . $fields[4]
-                     . ' ';
-         }
-         $this->clause         = $clause;
-         $this->isChangeClause = false;
-      }
-      return $this->clause;
+      return $this->clause->GetClause();
    }
 
    public function GetJoins()
@@ -64,7 +47,7 @@ class Search
 
    public function GetParams()
    {
-      return array_merge($this->clauseParams, $this->joinParams, $this->limitParams);
+      return array_merge($this->clause->GetParams(), $this->joinParams, $this->limitParams);
    }
 
    public function GetLimit()
@@ -85,22 +68,71 @@ class Search
       return $this;
    }
 
-   public function AddClause($field, $param)
+   public function AddClause($cond)
    {
-      $this->isChangeClause = true;
-      $field[2]             = count($this->clauseFields) > 0 ? $field[2] : '';
-      $this->clauseFields[] = $field;
-      $this->clauseParams[] = $param;
+      $this->clause->AddClause($cond);
       return $this;
    }
 
-   public function RemoveLastClause()
+   public function RemoveClause()
    {
-      $this->isChangeClause = true;
-      array_pop($this->clauseFields);
-      array_pop($this->clauseParams);
+      $this->clause->RemoveClause();
       return $this;
    }
 
 }
+
+class OrderField
+{
+   private
+      $field;
+
+   public
+      $table;
+
+   public function __construct($table, $field)
+   {
+      $this->table = $table;
+      $this->field = $field;
+   }
+
+   public function GetFieldName()
+   {
+      return $this->field->name;
+   }
+}
+
+class Order
+{
+   private
+      $fields = Array();
+
+   public function AddField($fInfo, $orderType)
+   {
+      foreach ($this->fields as &$field) {
+         if ($field['info']->GetFieldName() == $fInfo->GetFieldName()) {
+            $field['type'] = $orderType;
+            return;
+         }
+      }
+      $this->fields[] = Array(
+         'info' => $fInfo,
+         'type' => $orderType
+      );
+   }
+
+   public function GetOrder()
+   {
+      $result = '';
+      $amount = count($this->fields);
+      foreach ($this->fields as $key => $field) {
+         $result .= (!empty($field['info']) ? SQL::ToTblNm($field['info']->table, $field['info']->GetFieldName()) : '')
+                  . ' '
+                  . $field['type']
+                  . ($key < $amount - 1 ? ', ' : '');
+      }
+      return $result;
+   }
+}
+
 ?>

@@ -21,9 +21,11 @@ define('ERROR_AGE', 'Возраст должен быть положительн
 define('ADMIN_LOGIN', 'admin');
 define('ADMIN_PASS', 'admin');
 
+//database consts
 define('OT_ASC', 'ASC');
 define('OT_DESC', 'DESC');
 define('OT_RAND', 'RAND()');
+define('MYSQL_NOW', 'NOW()');
 
 define('SMARTY_APP_NAME', 'alley');
 

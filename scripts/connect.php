@@ -41,6 +41,9 @@ class DBConnect
       // echo "<br>";
       $st = $this->link->prepare($query);
       if (empty($st) || !$st->execute($params)) {
+         // echo "<br>";
+         // echo "EXCEPTION";
+         // echo "<br>";
          throw new DBException(ERROR_QUERY);
       }
       return $st->fetchAll(PDO::FETCH_ASSOC);
