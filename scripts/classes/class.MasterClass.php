@@ -3,8 +3,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Teachers.php';
 
 class MasterClass extends Entity
 {
+   const MAIN_PAGE_SCHEME = 2;
+
    const NAME_FLD        = 'name';
    const DATE_FLD        = 'date_of';
+   const PHOTO_FLD       = 'photo_id';
    const DESCRIPTION_FLD = 'description';
 
    const TABLE = 'master_class';
@@ -29,6 +32,11 @@ class MasterClass extends Entity
             null,
             true
          ),
+         // new Field(
+         //    static::PHOTO_FLD,
+         //    null,
+         //    true
+         // ),
          new Field(
             static::DATE_FLD,
             null,
@@ -40,24 +48,31 @@ class MasterClass extends Entity
          Array(static::DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::DATE_FLD)));
    }
 
+   public function AddExtraFields(&$set)
+   {
+      switch ($this->samplingScheme) {
+         case static::MAIN_PAGE_SCHEME:
+            $key = $this->ToPrfxNm(static::DATE_FLD);
+            $date = new DateTime($set[$key]);
+            $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
+            break;
+      }
+   }
+
    public function SetSelectValues()
    {
       $this->AddOrder(static::DATE_FLD, OT_ASC);
       if ($this->TryToApplyUsualScheme()) return;
-      // $this->CheckSearch();
-      // $fields = Array();
-      // switch ($this->samplingScheme) {
-      //    case static::COURSE_SCHEME:
-      //       $fields = SQL::PrepareFieldsForSelect(
-      //          static::TABLE,
-      //          Array(
-      //             $this->GetFieldByName(static::ID_FLD),
-      //             $this->GetFieldByName(static::NAME_FLD)
-      //          )
-      //       );
-      //       break;
-      // }
-      // $this->selectFields = SQL::GetListFieldsForSelect($fields);
+      $this->CheckSearch();
+      $fields = Array();
+      switch ($this->samplingScheme) {
+         case static::MAIN_PAGE_SCHEME:
+            $this->isNeedExtraFields = true;
+            $this->AddLimit(1);
+            $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
+            break;
+      }
+      $this->selectFields = SQL::GetListFieldsForSelect($fields);
    }
 
    public function Insert($getLastInsertId = false)

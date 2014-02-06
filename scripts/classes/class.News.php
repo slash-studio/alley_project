@@ -3,6 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 
 class News extends Entity
 {
+   const MAIN_PAGE_SCHEME     = 2;
    const TEXT_HEAD_FLD        = 'text_head';
    const TEXT_BODY_FLD        = 'text_body';
    const PUBLICATION_DATE_FLD = 'publication_date';
@@ -40,6 +41,33 @@ class News extends Entity
       );
       $this->orderFields =
          Array(static::PUBLICATION_DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)));
+   }
+
+   public function AddExtraFields(&$set)
+   {
+      switch ($this->samplingScheme) {
+         case static::MAIN_PAGE_SCHEME:
+            // $key = $this->ToPrfxNm(static::DATE_FLD);
+            $date = new DateTime($set[$key]);
+            $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
+            break;
+      }
+   }
+
+   public function SetSelectValues()
+   {
+      $this->AddOrder(static::PUBLICATION_DATE_FLD, OT_DESC);
+      if ($this->TryToApplyUsualScheme()) return;
+      $this->CheckSearch();
+      $fields = Array();
+      switch ($this->samplingScheme) {
+         case static::MAIN_PAGE_SCHEME:
+            // $this->isNeedExtraFields = true;
+            $this->AddLimit(1);
+            $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
+            break;
+      }
+      $this->selectFields = SQL::GetListFieldsForSelect($fields);
    }
 
    public function GetAdminMenu()

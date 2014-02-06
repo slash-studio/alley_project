@@ -72,8 +72,14 @@ class Search
       return !empty($this->limitParams);
    }
 
+   public function GetLimitAmount()
+   {
+      return !empty($this->limitParams) ? $this->limitParams[1] : -1;
+   }
+
    public function AddLimit($amount, $curPage)
    {
+      $this->limitParams   = Array();
       $this->limitParams[] = $curPage;
       $this->limitParams[] = $amount;
       return $this;

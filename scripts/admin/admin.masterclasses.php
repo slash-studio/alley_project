@@ -9,8 +9,9 @@ if (isset($_POST['mode'])) {
    $date = isset($post['date'])        ? $post['date']        : '';
    $desc = isset($post['description']) ? $post['description'] : '';
    $date = new DateTime();
-   // $date->modify("+7 hour");
+   $date->modify("+2 minute");
    $date = $date->format("Y-m-d H:i:s");
+
    $post['params'] = Array(
       MasterClass::ID_FLD          => $id,
       MasterClass::NAME_FLD        => $name,

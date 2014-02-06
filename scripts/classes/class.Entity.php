@@ -13,11 +13,13 @@ class Entity
 {
    const TABLE         = '';
    const ID_FLD        = 'id';
+   const RAND_FLD      = 'rand';
    const USUAL_SCHEME  = 1;
 
    protected
-      $samplingScheme = self::USUAL_SCHEME,
-      $selectFields;
+      $selectFields,
+      $samplingScheme    = self::USUAL_SCHEME,
+      $isNeedExtraFields = false;
 
    public
       $search,
@@ -194,7 +196,7 @@ class Entity
    public function GetAll()
    {
       $this->SetSelectValues();
-      return
+      $result =
          $this->_Select(
             $this->selectFields,
             $this->search->GetClause(),
@@ -202,6 +204,21 @@ class Entity
             $this->search->GetJoins(),
             $this->search->GetLimit()
          );
+      if ($this->isNeedExtraFields) {
+         foreach ($result as &$set) {
+            $this->AddExtraFields($set);
+         }
+      }
+      return $result;
+   }
+
+   public function GetPart()
+   {
+      $result = $this->GetAll();
+      if (count($result) == 1 && $this->search->GetLimitAmount() == 1) {
+         $result = $result[0];
+      }
+      return $result;
    }
 
    public function GetById($id)
