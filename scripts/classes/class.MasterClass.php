@@ -70,7 +70,6 @@ class MasterClass extends Entity
 
    public function SetSelectValues()
    {
-      $this->CheckSearch();
       $this->AddOrder(static::DATE_FLD, OT_ASC);
       $this->search->AddClause(
          CCond(

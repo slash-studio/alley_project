@@ -51,7 +51,6 @@ class Course extends Entity
    public function SetSelectValues()
    {
       if ($this->TryToApplyUsualScheme()) return;
-      $this->CreateSearch();
       $fields = Array();
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:

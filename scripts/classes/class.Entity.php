@@ -182,12 +182,12 @@ class Entity
 
    public function SetSelectValues()
    {
-      $this->CheckSearch();
       $this->selectFields = SQL::GetListFieldsForSelect(SQL::PrepareFieldsForSelect(static::TABLE, $this->fields));
    }
 
    public function GetAll()
    {
+      $this->CheckSearch();
       $this->SetSelectValues();
       $result =
          $this->_Select(

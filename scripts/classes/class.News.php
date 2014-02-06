@@ -70,7 +70,6 @@ class News extends Entity
    {
       $this->AddOrder(static::PUBLICATION_DATE_FLD, OT_DESC);
       if ($this->TryToApplyUsualScheme()) return;
-      $this->CheckSearch();
       $fields = Array();
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:
