@@ -1,6 +1,8 @@
 {extends file='admin.tpl'}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
+  <script src="/js/ajaxupload.3.5.js"></script>
+  <script src="/js/upload_photo.js"></script>
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -22,6 +24,10 @@
     <label for="teacher_body_{$smarty.foreach.foo.index}">Текст:</label>
     <textarea class="teacher_body" name="info" id="teacher_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$teacher.teachers_info}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
+    <button class="upload" data='{literal}{{/literal}"upload_type":"teachers", "item_id":"{$teacher.teachers_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+    <ul class="imgs">
+      <!-- file_name - id, <li><a href="/scripts/uploads/' + file_name + '_s.jpg" class="block"><img src="/scripts/uploads/' + file_name + '_s.jpg" /></a><button class="x" data="' + file_name + '">x</button></li> -->
+    </ul>
   </form>
   {/foreach}
   {include file='admin.set_select.tpl'}

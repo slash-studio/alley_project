@@ -81,4 +81,3 @@ switch ($request[0]) {
       # display error page
       break;
 }
-?>

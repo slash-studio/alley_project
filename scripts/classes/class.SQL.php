@@ -64,8 +64,8 @@ class SQL
       return
          'INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') '
          . 'VALUES ('
-         . str_repeat('?, ', count($fields) - 1)
-         . '?)';
+         . (count($fields) - 1 >= 0 ? str_repeat('?, ', count($fields) - 1) . '?' : '')
+         . ')';
    }
 
    public static function GetUpdateQuery($table, $fields)

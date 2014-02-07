@@ -1,65 +1,62 @@
 $(function(){
-  new AjaxUpload($btnUpload, {
-    action: '/includes/uploadimage.php',
-    name: 'uploadimage',
-    data: {
-            type: window.page_type,
-            item_id: $data[1]
-          },
-    onSubmit: function(file, ext){
-			$name = prompt('Введите название работы');
-			if (!$name) {
-                  return false;
-			}
-			this._settings.data.work_name = $name;
-            if (!(ext && /^(jpg|jpeg)$/.test(ext))) {
-               // extension is not allowed
-               alert('This extension is not allowed. Only JPG.');
-               return false;
+  $array = [];
+  $('.upload').each(function() {
+    $btnUpload = $(this);
+    $data = JSON.parse($btnUpload.attr('data'));
+    $array[$data.item_id] = $(this);
+    new AjaxUpload($btnUpload, {
+      action: '/scripts/uploadimage.php',
+      name: 'uploadimage',
+      data: $data,
+      onSubmit: function(file, ext) {
+          if (!(ext && /^(jpg|jpeg)$/.test(ext))) {
+          // extension is not allowed
+          alert('This extension is not allowed. Only JPG.');
+          return false;
+        }
+      },
+      onComplete: function(file, response) {
+        //Add uploaded file to list
+        $btn = this._settings.data.item_id;
+        if(response != "error") {
+          file_name = response;
+          $.post(
+            "/scripts/rename.php",
+            {
+              name: file_name,
+              sizes: this._settings.data.sizes
+            },
+            function(data){
+              $array[$btn].siblings('ul').append('<li><a href="/scripts/uploads/' + file_name + '_s.jpg" class="block"><img src="/scripts/uploads/' + file_name + '_s.jpg" /></a><button class="x" data="' + file_name + '">x</button></li>');
             }
-         },
-         onComplete: function(file, response) {
-            //Add uploaded file to list
-            $btn = this._settings.data.category_id;
-			$name = this._settings.data.work_name;
-            if(response != "error") {
-               file_name = response;
-               $.post(
-                  "/includes/rename.php",
-                  {
-                    name: file_name
-                  },
-                  function(data){
-                    $array[$btn].siblings('ul').append('<li><a href="#" class="block not_checked" title="Работа не проверена"><img src="/includes/uploads/' + file_name + '_s.jpg" /></a><button class="x" data="' + file_name + '">x</button><div class="name">"' + $name + '"</div><div class="status_bar">Работа не проверена</div></li>');
-                  }
-               );
-            } else {
-               alert('File cannot be download ' + file);
-            }
-         }
-       });
+          );
+        } else {
+          alert('File cannot be download ' + file);
+        }
+      }
     });
-
-   $(document).on('click', '.imgs ul li button', function(){
-	  $button = $(this);
-      $.post(
-         "/includes/handler.Image.php",
-         {
-            type: 'Image',
-            mode: 'Delete',
-            params:
-                  {
-                     id: $button.attr('data')
-                  }
-         },
-         function(data) {
-            if (data.result) {
-               $button.parent().empty().remove();
-            } else {
-               alert(data.message);
-            }
-         },
-         "json"
-      );
-   });
+  });
+  $(document).on('click', 'ul.imgs li button', function(){
+    $button = $(this);
+    $.post(
+      "/scripts/handlers/handler.Image.php",
+      {
+        type: 'Image',
+        mode: 'Delete',
+        params:
+          {
+            id: $button.attr('data')
+          }
+      },
+      function(data) {
+        if (data.result) {
+          $button.parent().empty().remove();
+        } else {
+          alert(data.message);
+        }
+      },
+       "json"
+    );
+  });
 });
+
