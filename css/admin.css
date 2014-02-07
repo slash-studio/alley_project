@@ -79,3 +79,7 @@ form h2 {
 	font-size: 130%;
 	margin: 20px 0;
 }
+
+input {
+	width: 300px;
+}
