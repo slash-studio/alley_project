@@ -24,7 +24,7 @@
 				<td>
 					<div class="course">
 						Бисероплетение
-						<button class="icon delete" data="1" title="Удалить"></button>
+						{literal}<button class="icon delete" data='{{/literal}"course_id":"1", "i":"{$smarty.foreach.i.index}", "j":"{$smarty.foreach.j.index}"{literal}}' title="Удалить"></button>{/literal}
 					</div>
 					<div class="course">
 						Макраме
