@@ -12,7 +12,6 @@
 	display: inline-block;
 	vertical-align: top;
 	font-size: 110%;
-	font-style: italic;
 }
 
 #top_block .text {
@@ -21,12 +20,6 @@
 	border-radius: 15px;
 	padding: 20px;
 	vertical-align: bottom;
-}
-
-#top_block .text h1 {
-	font-size: 150%;
-	font-family: Georgia;
-	margin-bottom: 15px;
 }
 
 #top_block .text p {
@@ -41,32 +34,10 @@
 	margin-left: 25px;
 }
 
-#courses {
-	margin: 56px auto 0;
-	text-align: center;
-}
-
-#courses ul li {
-	display: inline-block;
-	width: 210px;
-}
-
-#courses ul li span {
-	display: block;
-	margin-top: 10px;
-	font-style: italic;
-	font-size: 130%;
-}
-
-#courses ul li a {
-	text-decoration: none;
-}
-
 #bottom_block {
 	margin-top: 25px;
 	display: inline-block;
 	vertical-align: top;
-	font-style: italic;
 }
 
 #bottom_block section {
@@ -74,12 +45,6 @@
 	margin: 0 20px;
 	padding: 20px;
 	border-radius: 15px;
-}
-
-#news > h1 {
-	font-family: Georgia;
-	font-size: 150%;
-	margin-bottom: 20px;
 }
 
 #news article img {
@@ -134,12 +99,6 @@
 
 #master {
 	vertical-align: top;
-}
-
-#master > h1 {
-	font-family: Georgia;
-	font-size: 150%;
-	margin-bottom: 20px;
 }
 
 #master article img {

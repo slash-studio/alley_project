@@ -2,6 +2,7 @@ body {
   background: #ebfdff url('/images/clouds.png');
   margin: 0 auto;
   font-family: Calibri;
+  font-style: italic;
 }
 
 #wrap {
@@ -36,4 +37,10 @@ button {
 button:hover {
   color: white;
   background: #9b6d4f;
+}
+
+h1.nice {
+  font-family: Georgia;
+  font-size: 150%;
+  margin-bottom: 20px;
 }

@@ -1,6 +1,5 @@
 {extends file='admin.tpl'}
 {block name='links' append}
-  <link href="/css/admin_texts.css" rel="stylesheet" />
   <script src="/js/select_plugin.js"></script>
 {/block}
 {block name="div.main"}

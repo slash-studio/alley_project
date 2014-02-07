@@ -1,0 +1,135 @@
+.courses {
+	margin: 56px auto 0;
+	text-align: center;
+}
+
+.courses ul li {
+	display: inline-block;
+	width: 210px;
+}
+
+.courses ul li span {
+	display: block;
+	margin-top: 10px;
+	font-style: italic;
+	font-size: 130%;
+}
+
+.courses ul li a {
+	text-decoration: none;
+}
+
+div.course {
+  margin: 50px auto 0;
+  width: 900px;
+  vertical-align: top;
+}
+
+div.course img.course_logo {
+  float: left;
+}
+
+div.course section.course_info {
+  width: 450px;
+  margin: 0 30px 0 30px;
+  display: inline-block;
+}
+
+div.course span.teacher {
+  font-size: 110%;
+  margin-bottom: 17px;
+  display: block;
+}
+
+div.course span.teacher span {
+  text-decoration: underline;
+  color: #9B6D4F;
+  cursor: pointer;
+}
+
+div.course div.teacher_info {
+  display: none;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  min-height: 150px;
+  border-bottom: 1px #aaa solid;
+}
+
+div.course div.teacher_info img.teacher_photo {
+   width: 150px;
+   height: 150px;
+   float: left;
+}
+
+div.course div.teacher_info div.teacher_right_block {
+  margin-left: 170px;
+  min-height: 150px;
+}
+
+div.timetable {
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+  margin-top: 40px;
+}
+
+div.timetable ul li {
+  vertical-align: top;
+  height: 30px;
+  margin-bottom: 5px;
+}
+
+div.timetable ul li div {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(/images/days.png) no-repeat;
+}
+
+div.timetable ul li div.day1 {
+  background-position: 0 0;
+}
+
+div.timetable ul li div.day2 {
+  background-position: -30px 0;
+}
+
+div.timetable ul li div.day3 {
+  background-position: -60px 0;
+}
+
+div.timetable ul li div.day4 {
+  background-position: -90px 0;
+}
+
+div.timetable ul li div.day5 {
+  background-position: -120px 0;
+}
+
+div.timetable ul li div.day6 {
+  background-position: -150px 0;
+}
+
+div.timetable ul li div.day7 {
+  background-position: -180px 0;
+}
+
+div.timetable ul li div.no {
+  background-position: -210px 0;
+}
+
+div.timetable ul li span {
+  font-size: 150%;
+  color: #9b6d4f;
+  vertical-align: top;
+  display: inline-block;
+  margin: 3px 0 0 7px;
+}
+
+div.course div.gallery {
+  margin: 20px 0 0 5px;
+}
+
+div.course div.gallery img {
+  margin: 5px;
+}
