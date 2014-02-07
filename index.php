@@ -15,7 +15,7 @@ switch ($request[0]) {
       SetActiveItem('courses');
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/courses.php';
       break;
-      
+
    case 'course':
       SetActiveItem('courses');
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/course.php';
@@ -81,4 +81,3 @@ switch ($request[0]) {
       # display error page
       break;
 }
-?>

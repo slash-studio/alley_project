@@ -60,6 +60,12 @@ class Search
       return !empty($this->limitParams) ? $this->limitParams[1] : -1;
    }
 
+   public function SetJoins($joinFields, $joinParams = Array())
+   {
+      $this->joinFields   = $joinFields;
+      $this->joinParams   = $joinParams;
+   }
+
    public function AddLimit($amount, $curPage)
    {
       $this->limitParams   = Array();

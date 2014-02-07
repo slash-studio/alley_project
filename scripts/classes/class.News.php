@@ -132,4 +132,3 @@ class News extends Entity
 }
 
 $_news = new News();
-?>

@@ -32,4 +32,3 @@ class LikeView extends SQLFieldView
       return 'LIKE (' . $this->arg->GetSQL() . ')';
    }
 }
-?>
