@@ -2,21 +2,21 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Validate.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.SQL.php';
 
-class FieldView
-{
-   const LIKE_VIEW    = 'Like';
-   const GENERAL_VIEW = 'GENERAL';
+// class FieldView
+// {
+//    const LIKE_VIEW    = 'Like';
+//    const GENERAL_VIEW = 'GENERAL';
 
-   public static function Like($extra)
-   {
-      return ' LIKE UPPER(?)';
-   }
+//    public static function Like($extra)
+//    {
+//       return ' LIKE UPPER(?)';
+//    }
 
-   public static function General($relOp)
-   {
-      return ' ' . $relOp . ' ?';
-   }
-}
+//    public static function General($relOp)
+//    {
+//       return ' ' . $relOp . ' ?';
+//    }
+// }
 
 class Field
 {
@@ -24,15 +24,13 @@ class Field
       $value;
 
    public
-      $view,
       $name,
       $canChange,
       $validate = Array();
 
-   public function __construct($name, $value = null, $canChange = true, $validate = Array(), $view = FieldView::GENERAL_VIEW)
+   public function __construct($name, $value = null, $canChange = true, $validate = Array())
    {
       $this->name      = $name;
-      $this->view      = $view;
       $this->value     = $value;
       $this->validate  = $validate;
       $this->canChange = $canChange;

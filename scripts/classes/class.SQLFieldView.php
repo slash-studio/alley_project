@@ -13,13 +13,22 @@ class SQLFieldView
    {
       return '';
    }
+
+   public function GetParam()
+   {
+      return $this->arg->GetParam();
+   }
+
+   public function IsParam()
+   {
+      return $this->arg->IsParam();
+   }
 }
 
 class LikeView extends SQLFieldView
 {
    public function GetSQL()
    {
-      return '';
+      return 'LIKE (' . $this->arg->GetSQL() . ')';
    }
 }
-?>

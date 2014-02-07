@@ -171,4 +171,3 @@ function CCond($left, $right, $cond = '', $op = '=', $lp = '', $rp = '')
 {
    return new ClauseCondition($left, $right, $cond, $op, $lp, $rp);
 }
-?>
