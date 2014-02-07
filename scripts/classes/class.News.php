@@ -35,8 +35,7 @@ class News extends Entity
             static::PUBLICATION_DATE_FLD,
             null,
             true,
-            Array('IsNotEmpty'),
-            FieldView::LIKE_VIEW
+            Array('IsNotEmpty')
          )
       );
       $this->orderFields =
@@ -118,12 +117,16 @@ class News extends Entity
 
    public function CreateSearchYM($year, $month)
    {
-      unset($this->search);
+      $this->search = new Search(self::TABLE);
       $date = DateTime::createFromFormat('Y n', "$year $month");
-      $whereParams[] = '%' . $date->format('Y-m') . '%';
-      $whereFields[] = PackParam(self::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD));
-
-      $this->search = new Search(self::TABLE, $whereFields, $whereParams);
+      $this->search->AddClause(
+         CCond(
+            CF(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)),
+            new LikeView(CVP('%' . $date->format('Y-m') . '%')),
+            'AND',
+            ''
+         )
+      );
       return $this;
    }
 }
