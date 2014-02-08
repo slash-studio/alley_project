@@ -16,6 +16,8 @@ $(function(){
         }
       },
       onComplete: function(file, response) {
+        // document.body.innerHTML = response;
+        // alert(response);
         //Add uploaded file to list
         $btn = this._settings.data.item_id;
         if(response != "error") {
@@ -57,6 +59,7 @@ $(function(){
       },
        "json"
     );
+    return false;
   });
 });
 

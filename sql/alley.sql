@@ -14,10 +14,12 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 
 CREATE TABLE IF NOT EXISTS `teachers` (
-   `id`    INT          NOT NULL AUTO_INCREMENT,
-   `name`  VARCHAR(150) NOT NULL,
-   `info`  TEXT,
-   PRIMARY KEY(`id`)
+   `id`       INT          NOT NULL AUTO_INCREMENT,
+   `name`     VARCHAR(150) NOT NULL,
+   `photo_id` INT          DEFAULT NULL,
+   `info`     TEXT,
+   PRIMARY KEY(`id`),
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `courses` (
@@ -25,20 +27,29 @@ CREATE TABLE IF NOT EXISTS `courses` (
    `name`        VARCHAR(150) NOT NULL,
    `description` TEXT         NOT NULL,
    `teacher_id`  INT          NOT NULL,
-   `photo_id`    INT          NOT NULL,
+   `photo_id`    INT          DEFAULT NULL,
    PRIMARY KEY(`id`),
-   FOREIGN KEY (`photo_id`)   REFERENCES `images` (`id`)   ON DELETE CASCADE,
-   FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE
+   FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`photo_id`)   REFERENCES `images`   (`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `course_images` (
+   `id`          INT NOT NULL AUTO_INCREMENT,
+   `course_id`   INT NOT NULL,
+   `photo_id`    INT NOT NULL,
+   PRIMARY KEY(`id`),
+   FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`photo_id`)  REFERENCES `images`  (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `master_class` (
    `id`          INT          NOT NULL AUTO_INCREMENT,
    `name`        VARCHAR(150) NOT NULL,
    `description` TEXT         NOT NULL,
-   `photo_id`    INT          NOT NULL,
+   `photo_id`    INT       DEFAULT NULL,
    `date_of`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY(`id`),
-   FOREIGN KEY (`photo_id`)   REFERENCES `images` (`id`) ON DELETE CASCADE
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `texts` (
@@ -54,7 +65,18 @@ CREATE TABLE IF NOT EXISTS `news` (
    `text_head`        VARCHAR(150) NOT NULL,
    `text_body`        TEXT         NOT NULL,
    `publication_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   PRIMARY KEY(`id`)
+   `photo_id`         INT       DEFAULT NULL,
+   PRIMARY KEY(`id`),
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `news_images` (
+   `id`       INT NOT NULL AUTO_INCREMENT,
+   `news_id`  INT NOT NULL,
+   `photo_id` INT NOT NULL,
+   PRIMARY KEY(`id`),
+   FOREIGN KEY (`news_id`)  REFERENCES `news`   (`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
 );
 
 INSERT INTO `texts`(`name`, `text_head`, `text_body`) VALUES

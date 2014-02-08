@@ -20,9 +20,9 @@ class Image extends Entity
    public function Delete($id)
    {
       parent::Delete($id);
-      @unlink($_SERVER['DOCUMENT_ROOT'] . '/includes/uploads/' . $id . '.jpg');
-      @unlink($_SERVER['DOCUMENT_ROOT'] . '/includes/uploads/' . $id . '_b.jpg');
-      @unlink($_SERVER['DOCUMENT_ROOT'] . '/includes/uploads/' . $id . '_s.jpg');
+      @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '.jpg');
+      @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '_b.jpg');
+      @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '_s.jpg');
    }
 
    // public function CreateSearchForCatalog($category, $contest_id)
@@ -203,4 +203,3 @@ class Image extends Entity
 }
 
 $_image = new Image();
-?>

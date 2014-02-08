@@ -4,6 +4,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 class News extends Entity
 {
    const MAIN_PAGE_SCHEME     = 2;
+
+   const PHOTO_FLD            = 'photo_id';
    const TEXT_HEAD_FLD        = 'text_head';
    const TEXT_BODY_FLD        = 'text_body';
    const PUBLICATION_DATE_FLD = 'publication_date';
@@ -36,6 +38,11 @@ class News extends Entity
             null,
             true,
             Array('IsNotEmpty')
+         ),
+         new Field(
+            static::PHOTO_FLD,
+            null,
+            true
          )
       );
       $this->orderFields =

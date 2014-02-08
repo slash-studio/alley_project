@@ -12,6 +12,7 @@ class Entity
    const USUAL_SCHEME  = 1;
 
    protected
+      $groupField = null,
       $selectFields,
       $samplingScheme = self::USUAL_SCHEME;
 
@@ -130,11 +131,13 @@ class Entity
 
    public function GetQuery($specific, $table, $where = null, $join = null, $order = null, $limit = false)
    {
+      $group = !empty($this->groupField) ? $this->groupField : null;
       return   "SELECT $specific "
              . ' FROM '
              . $table
              . (!empty($join)  ? " $join "           : '')
              . (!empty($where) ? " WHERE $where "    : '')
+             . (!empty($group) ? " GROUP BY $group"  : '')
              . (!empty($order) ? " ORDER BY $order " : '')
              . ($limit         ? " LIMIT ?, ?"       : '');
    }

@@ -86,6 +86,23 @@ class SQL
       return $result;
    }
 
+   public static function ImageSelectSQL($th, $entity, $field)
+   {
+      return
+           'IFNULL(('
+         . SQL::SimpleQuerySelect(
+               'GROUP_CONCAT(' . $entity->ToTblNm($entity::PHOTO_FLD) . ')',
+               $entity::TABLE,
+               $entity->ToTblNm($field)
+             . '='
+             . $th->ToTblNm($th::ID_FLD)
+             . ' GROUP BY '
+             . $th->ToTblNm($th::ID_FLD)
+           )
+         . '), \'\') as '
+         . $th->ToPrfxNm($th::PHOTO_FLD);
+   }
+
    public static function SimpleQuerySelect($fields, $table, $where = null)
    {
       $result = 'SELECT ' . $fields . ' FROM ' . $table;

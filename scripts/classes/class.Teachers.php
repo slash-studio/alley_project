@@ -3,9 +3,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
 
 class Teachers extends Entity
 {
-   const NAME_FLD      = 'name';
-   const INFO_FLD      = 'info';
    const COURSE_SCHEME = 2;
+
+   const NAME_FLD  = 'name';
+   const INFO_FLD  = 'info';
+   const PHOTO_FLD = 'photo_id';
 
    const TABLE = 'teachers';
 
@@ -26,6 +28,11 @@ class Teachers extends Entity
          ),
          new Field(
             static::INFO_FLD,
+            null,
+            true
+         ),
+         new Field(
+            static::PHOTO_FLD,
             null,
             true
          )
