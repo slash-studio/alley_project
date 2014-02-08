@@ -8,6 +8,7 @@ if (!empty($year)) {
    $level = 2;
    $month = $request[3];
    if (!empty($month)) {
+      print_r($_news->CreateSearchYM($year, $month)->SetSamplingScheme(News::WITH_PHOTOS_SCHEME)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());
       $smarty->assign('year', $year)
              ->assign('month', $month)
              ->assign('articles', $_news->CreateSearchYM($year, $month)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());
@@ -44,4 +45,3 @@ if (isset($_POST['mode'])) {
 $smarty->assign('article_level', $level)
        ->assign('article_menu', $_news->GetAdminMenu())
        ->display('admin.articles.tpl');
-?>

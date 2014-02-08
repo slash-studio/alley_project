@@ -23,4 +23,3 @@ if (isset($_POST['save'])) {
 }
 $smarty->assign('texts', $_texts->AddOrder(Texts::NAME_FLD, OT_ASC)->GetAll())
        ->display('admin.texts.tpl');
-?>

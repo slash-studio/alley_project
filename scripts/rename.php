@@ -66,5 +66,3 @@ imagecopyresampled($small, $im, 0, 0, 0, 0, $w, $h, $arr[0], $arr[1]);
 
 imagejpeg($big, $uploaddir . $_POST['name'] . '_b.jpg');
 imagejpeg($small, $uploaddir . $_POST['name'] . '_s.jpg');
-
-?>

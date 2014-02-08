@@ -40,4 +40,3 @@ class Texts extends Entity
 }
 
 $_texts = new Texts();
-?>

@@ -23,4 +23,3 @@ class TSmarty extends Smarty
 
 $smarty = new TSmarty();
 $smarty->force_compile = true;
-?>

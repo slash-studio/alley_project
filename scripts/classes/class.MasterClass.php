@@ -113,4 +113,3 @@ class MasterClass extends Entity
 }
 
 $_masterClass = new MasterClass();
-?>

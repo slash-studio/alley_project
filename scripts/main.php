@@ -10,4 +10,3 @@ $smarty->assign('main_text', $_texts->GetById(MAIN_TEXT_ID))
        ->assign('news', $_news->SetSamplingScheme(MasterClass::MAIN_PAGE_SCHEME)->GetAll())
        ->assign('class', $_masterClass->SetSamplingScheme(MasterClass::MAIN_PAGE_SCHEME)->GetPart())
        ->display('index.tpl');
-?>

@@ -125,4 +125,3 @@ function GetBentMonthByNumber($m)
    }
    return $result;
 }
-?>

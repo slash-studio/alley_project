@@ -26,4 +26,3 @@ if (isset($_POST['mode'])) {
 
 $smarty->assign('teachers', $_teachers->AddOrder(Teachers::NAME_FLD)->GetAll())
        ->display('admin.teachers.tpl');
-?>

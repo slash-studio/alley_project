@@ -1,9 +1,11 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Entity.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php';
 
 class News extends Entity
 {
-   const MAIN_PAGE_SCHEME     = 2;
+   const MAIN_PAGE_SCHEME   = 2;
+   const WITH_PHOTOS_SCHEME = 3;
 
    const PHOTO_FLD            = 'photo_id';
    const TEXT_HEAD_FLD        = 'text_head';
@@ -69,6 +71,13 @@ class News extends Entity
             $firstNews['news'] = $sample;
             $sample = $firstNews;
             break;
+
+         case static::WITH_PHOTOS_SCHEME:
+            $key = $this->ToPrfxNm(static::PHOTO_FLD);
+            foreach ($sample as &$set) {
+               $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
+            }
+            break;
       }
    }
 
@@ -81,6 +90,23 @@ class News extends Entity
          case static::MAIN_PAGE_SCHEME:
             $this->AddLimit(5);
             $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
+            break;
+
+         case static::WITH_PHOTOS_SCHEME:
+            global $_newsImages;
+            $fields =
+               array_merge(
+                  SQL::PrepareFieldsForSelect(
+                     static::TABLE,
+                     Array(
+                        $this->GetFieldByName(static::ID_FLD),
+                        $this->GetFieldByName(static::TEXT_HEAD_FLD),
+                        $this->GetFieldByName(static::TEXT_BODY_FLD)
+                        // $this->GetFieldByName(static::PHOTO_FLD),
+                     )
+                  )
+               );
+            $fields[] = SQL::ImageSelectSQL($this, $_newsImages, NewsImages::NEWS_FLD);
             break;
       }
       $this->selectFields = SQL::GetListFieldsForSelect($fields);

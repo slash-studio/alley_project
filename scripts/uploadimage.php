@@ -16,7 +16,7 @@ if (!in_array($ext, $filetypes)) {
             break;
 
          case 'news_photo':
-            $file = $_newsImages->SetFieldByName(NewsImages::News_FLD, $post['news'])->Insert(true);
+            $file = $_newsImages->SetFieldByName(NewsImages::NEWS_FLD, $post['news'])->Insert(true);
             break;
 
          default:

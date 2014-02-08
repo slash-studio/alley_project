@@ -58,6 +58,7 @@ class Course extends Entity
    public function ModifySample(&$sample)
    {
       switch ($this->samplingScheme) {
+         case static::INFO_SCHEME:
          case static::WITH_PHOTOS_SCHEME:
             $key = $this->ToPrfxNm(static::PHOTO_FLD);
             foreach ($sample as &$set) {
@@ -86,7 +87,7 @@ class Course extends Entity
             break;
 
          case static::WITH_PHOTOS_SCHEME:
-            global $_teachers, $_courseImages;
+            global $_courseImages;
             $fields =
                array_merge(
                   SQL::PrepareFieldsForSelect(
@@ -98,20 +99,9 @@ class Course extends Entity
                         $this->GetFieldByName(static::TEACHER_FLD),
                         // $this->GetFieldByName(static::PHOTO_FLD),
                      )
-                  ),
-                  SQL::PrepareFieldsForSelect(
-                     Teachers::TABLE,
-                     Array(
-                        $_teachers->GetFieldByName(Teachers::ID_FLD),
-                        $_teachers->GetFieldByName(Teachers::NAME_FLD)
-                     )
                   )
                );
             $fields[] = SQL::ImageSelectSQL($this, $_courseImages, $_courseImages::COURSE_FLD);
-            $this->search->SetJoins(
-               Array(Teachers::TABLE => Array(null, Array(static::TEACHER_FLD, Teachers::ID_FLD)))
-            );
-            $this->groupField = $this->ToTblNm(static::ID_FLD);
             break;
 
          case static::INFO_SCHEME:
@@ -132,6 +122,7 @@ class Course extends Entity
                      $_teachers->fields
                   )
                );
+            $fields[] = SQL::ImageSelectSQL($this, $_courseImages, CourseImages::COURSE_FLD);
             $this->search->SetJoins(Array(Teachers::TABLE => Array(null, Array(static::TEACHER_FLD, Teachers::ID_FLD))));
             break;
       }

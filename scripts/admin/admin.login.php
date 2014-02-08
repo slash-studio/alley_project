@@ -12,4 +12,3 @@ if (isset($_POST['submit'])) {
    }
 }
 $smarty->display('admin.login.tpl');
-?>

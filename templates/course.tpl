@@ -19,10 +19,9 @@
       </div>
       <p class="course_text">{$course.courses_description}</p>
       <div class="gallery">
-        <a href="#"><img src="/images/photo1.jpg" /></a>
-        <a href="#"><img src="/images/photo1.jpg" /></a>
-        <a href="#"><img src="/images/photo1.jpg" /></a>
-        <a href="#"><img src="/images/photo1.jpg" /></a>
+      {foreach from=$course.courses_photo_id item=photo name}
+        <a href="#"><img src="/scripts/uploads/{$photo}_s.jpg" /></a>
+      {/foreach}
       </div>
     </section>
     <div class="timetable">

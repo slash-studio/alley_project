@@ -100,5 +100,3 @@ class Validate
       return (date('Y-m-d', strtotime($var)) == $var);
    }
 }
-
-?>

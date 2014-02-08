@@ -63,4 +63,3 @@ class Teachers extends Entity
 }
 
 $_teachers = new Teachers();
-?>

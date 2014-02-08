@@ -73,4 +73,3 @@ function HandleAdminData($obj, $post, $url)
       $smarty->assign('error_txt', $e->getMessage());
    }
 }
-?>

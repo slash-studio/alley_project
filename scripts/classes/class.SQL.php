@@ -113,4 +113,3 @@ class SQL
       return $result;
    }
 }
-?>

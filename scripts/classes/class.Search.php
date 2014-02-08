@@ -140,5 +140,3 @@ class Order
       return $result;
    }
 }
-
-?>

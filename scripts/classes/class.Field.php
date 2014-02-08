@@ -79,4 +79,3 @@ class Field
       return $this->name;
    }
 }
-?>
