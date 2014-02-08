@@ -10,18 +10,20 @@ if (!in_array($ext, $filetypes)) {
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/utils.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php';
       $post = GetPOST();
+      $item_id = $post['item_id'];
       switch ($_POST['upload_type']) {
          case 'courses_photo':
-            $file = $_courseImages->SetFieldByName(CourseImages::COURSE_FLD, $post['course'])->Insert(true);
+            $file = $_courseImages->SetFieldByName(CourseImages::COURSE_FLD, $item_id)->Insert(true);
             break;
 
          case 'news_photo':
-            $file = $_newsImages->SetFieldByName(NewsImages::News_FLD, $post['news'])->Insert(true);
+            $file = $_newsImages->SetFieldByName(NewsImages::News_FLD, $item_id)->Insert(true);
             break;
 
          default:
             echo 'error';
             break;
+            exit;
       }
       // $file = $_image->/*SetFieldByName('user_id', $_POST['user_id'])->SetFieldByName('category_id', $_POST['category_id'])->SetFieldByName('name', $_POST['work_name'])->*/Insert(true);
       $path = $uploaddir . $file . '.jpg';

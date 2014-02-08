@@ -61,7 +61,7 @@ class Course extends Entity
          case static::WITH_PHOTOS_SCHEME:
             $key = $this->ToPrfxNm(static::PHOTO_FLD);
             foreach ($sample as &$set) {
-               $set[$key] = explode(',', $set[$key]);
+               $set[$key] = $set[$key] ? explode(',', $set[$key]) : Array();
             }
             break;
       }
