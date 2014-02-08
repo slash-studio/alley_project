@@ -30,13 +30,10 @@
     <label for="course_body_{$smarty.foreach.foo.index}">Текст:</label>
     <textarea class="course_body" name="description" id="course_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$course.courses_description}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
-    <button class="upload" data='{literal}{{/literal}"course": "{$course.courses_id}", "upload_type":"courses_photo", "item_id":"{$course.courses_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+    <button class="upload" data='{literal}{{/literal}"upload_type":"courses_photo", "make_main":"true", "item_id":"{$course.courses_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
     <ul class="imgs">
       {foreach from=$course.courses_photo_id item=photo}
-      <li>
-        <a href="/scripts/uploads/{$photo}_s.jpg" class="block"><img src="/scripts/uploads/{$photo}_s.jpg" /></a>
-        <button class="x" data="{$photo}">x</button>
-      </li>
+      <li><a href="/scripts/uploads/{$photo}_s.jpg" class="block"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><input type="radio" name="make_main" value="{$photo}" /></li>
       {/foreach}
     </ul>
   </form>
