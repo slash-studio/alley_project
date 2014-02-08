@@ -22,6 +22,10 @@ $(function(){
         $btn = this._settings.data.item_id;
         if(response != "error") {
           file_name = response;
+          $make_main = "";
+          if (this._settings.data.make_main) {
+            $make_main = '<input type="radio" name="make_main" value="' + file_name + '" />';
+          }
           $.post(
             "/scripts/rename.php",
             {
@@ -29,7 +33,7 @@ $(function(){
               sizes: this._settings.data.sizes
             },
             function(data){
-              $array[$btn].siblings('ul').append('<li><a href="/scripts/uploads/' + file_name + '_s.jpg" class="block"><img src="/scripts/uploads/' + file_name + '_s.jpg" /></a><button class="x" data="' + file_name + '">x</button></li>');
+              $array[$btn].siblings('ul').append('<li><a href="/scripts/uploads/' + file_name + '_s.jpg" class="block"><img src="/scripts/uploads/' + file_name + '_s.jpg" /></a><button class="x" data="' + file_name + '">x</button>' + $make_main + '</li>');
             }
           );
         } else {
@@ -38,6 +42,7 @@ $(function(){
       }
     });
   });
+  
   $(document).on('click', 'ul.imgs li button', function(){
     $button = $(this);
     $.post(
@@ -60,6 +65,26 @@ $(function(){
        "json"
     );
     return false;
+  });
+  $(document).on('change', 'ul.imgs li input[name=make_main]', function(){
+    $input = $(this);
+    $.post(
+      "/scripts/handlers/handler.Image.php",
+      {
+        type: 'Image',
+        mode: 'Make_main',
+        params:
+          {
+            id: $input.val()
+          }
+      },
+      function(data) {
+        if (!data.result) {
+          alert(data.message);
+        }
+      },
+       "json"
+    );
   });
 });
 

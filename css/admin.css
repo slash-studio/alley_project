@@ -117,3 +117,9 @@ ul.imgs button.x {
 ul.imgs button.x:hover {
 	background: darkred;
 }
+
+ul.imgs li input[type=radio] {
+  display: block;
+  width: 20px;
+  margin-top: 10px;
+}

@@ -24,7 +24,7 @@
     <textarea id="text_body_{$smarty.foreach.foo.index}" name="text_body" rows="10" cols="100">{$text.texts_text_body}</textarea>
     <button class="save_text" name="save" value="Update">Сохранить</button>
     {if $text.texts_id == 1}
-      <button class="upload" data='{literal}{{/literal}"upload_type":"texts", "item_id":"{$text.texts_id}", "count":"1", "width":"454", "height":"300", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+      <button class="upload" data='{literal}{{/literal}"upload_type":"texts", "make_main":"false", "item_id":"{$text.texts_id}", "count":"1", "width":"454", "height":"300", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
       <ul class="imgs">
       </ul>
     {/if}
