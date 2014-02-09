@@ -44,7 +44,7 @@ $(function(){
   });
 
   $(document).on('click', 'ul.imgs li button', function(){
-    $button = $(this);
+    var $button = $(this);
     $.post(
       "/scripts/handlers/handler.Image.php",
       {

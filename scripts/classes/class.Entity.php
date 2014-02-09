@@ -11,6 +11,8 @@ class Entity
    const RAND_FLD      = 'rand';
    const USUAL_SCHEME  = 1;
 
+   const LAST_VIEWED_ID = LAST;
+
    protected
       $groupField = null,
       $selectFields,
@@ -26,6 +28,13 @@ class Entity
    public function __construct()
    {
       $this->order = new Order();
+   }
+
+   public function SetLastViewedID($id = null)
+   {
+      if (!empty($id)) {
+         $_SESSION[static::LAST_VIEWED_ID] = $id;
+      }
    }
 
    public function SetSamplingScheme($newScheme)
@@ -244,10 +253,15 @@ class Entity
       global $db;
       list($names, $params) = $this->SetChangeParams();
       $query = SQL::GetInsertQuery(static::TABLE, $names);
-      return
-         $getLastInsertId
-         ? $db->Insert($query, $params, true)
-         : $db->Insert($query, $params);
+      if ($getLastInsertId || !empty(static::LAST_VIEWED_ID)) {
+         $resID = $db->Insert($query, $params, true);
+         if (!empty(static::LAST_VIEWED_ID)) {
+            $this->SetLastViewedID($resID);
+         }
+         return $resID;
+      } else {
+         $db->Insert($query, $params);
+      }
    }
 
    public function Delete($id)

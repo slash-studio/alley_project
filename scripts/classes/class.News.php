@@ -15,6 +15,8 @@ class News extends Entity
 
    const TABLE = 'news';
 
+   const LAST_VIEWED_ID = 'last_viewed_news_id';
+
    public function __construct()
    {
       parent::__construct();

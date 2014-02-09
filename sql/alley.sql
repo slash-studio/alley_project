@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
    `photo_id` INT          DEFAULT NULL,
    `info`     TEXT,
    PRIMARY KEY(`id`),
-   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS `courses` (
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
    `photo_id`    INT          DEFAULT NULL,
    PRIMARY KEY(`id`),
    FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE,
-   FOREIGN KEY (`photo_id`)   REFERENCES `images`   (`id`) ON DELETE CASCADE
+   FOREIGN KEY (`photo_id`)   REFERENCES `images`   (`id`) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS `course_images` (
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `news` (
    `publication_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    `photo_id`         INT       DEFAULT NULL,
    PRIMARY KEY(`id`),
-   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS `news_images` (

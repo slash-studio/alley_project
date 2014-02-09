@@ -11,6 +11,8 @@ class Teachers extends Entity
 
    const TABLE = 'teachers';
 
+   const LAST_VIEWED_ID = 'last_viewed_teachers_id';
+
    public function __construct()
    {
       parent::__construct();

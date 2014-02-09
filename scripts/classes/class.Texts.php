@@ -9,6 +9,8 @@ class Texts extends Entity
 
    const TABLE = 'texts';
 
+   const LAST_VIEWED_ID = 'last_viewed_texts_id';
+
    public function __construct()
    {
       parent::__construct();

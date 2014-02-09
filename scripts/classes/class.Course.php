@@ -16,6 +16,8 @@ class Course extends Entity
 
    const TABLE = 'courses';
 
+   const LAST_VIEWED_ID = 'last_viewed_course_id';
+
    public function __construct()
    {
       parent::__construct();

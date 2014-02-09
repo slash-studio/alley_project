@@ -33,7 +33,7 @@
       <h1 class="nice">Новости</h1>
       {if $news|@count != 0}
         <article class="main">
-          <a href="/news/{$news.news_id}"><!-- <img src="/images/news1.jpg" /> --></a>
+          <a href="/news/{$news.news_id}"><img src="/scripts/uploads/{$news.news_photo_id}_s.jpg" /></a>
           <h1><a href="/news/{$news.news_id}">{$news.news_text_head}</a></h1>
           <time datetime="{$news.news_publication_date}">{$news.news_publication_date}</time>
           <p><a href="/news/{$news.news_id}">{$news.news_text_body}</a></p>

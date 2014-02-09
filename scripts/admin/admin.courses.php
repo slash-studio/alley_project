@@ -2,8 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Course.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/handlers/handler.php';
 
-define('CID', LAST . 'course_id');
-SetLastViewedID(CID);
+SetLastViewedID(Course::LAST_VIEWED_ID);
 
 if (isset($_POST['mode'])) {
    $post        = GetPOST();
@@ -17,13 +16,13 @@ if (isset($_POST['mode'])) {
       Course::TEACHER_FLD     => $teacher,
       Course::DESCRIPTION_FLD => $description
    );
-   $_SESSION[CID] = $id;
+   $_course->SetLastViewedID($id);
    if (empty($name)) {
       SetRequiredFieldError('Название курса');
-      SetLastViewedID(CID);
+      SetLastViewedID(Course::LAST_VIEWED_ID);
    } elseif (empty($description)) {
       SetRequiredFieldError('Описание курса');
-      SetLastViewedID(CID);
+      SetLastViewedID(Course::LAST_VIEWED_ID);
    } else {
       HandleAdminData($_course, $post, 'courses');
    }

@@ -6,7 +6,7 @@
 {/block}
 {block name="div.main"}
 <div id="top_block">
-  <h1>Учителя</h1> 
+  <h1>Учителя</h1>
   {if isset($error_txt)}<p class="db_error">{$error_txt}</p>{/if}
   {if $teachers|@count!=0}
     <label for="choose_item">Выберите учителя</label>
@@ -24,9 +24,13 @@
     <label for="teacher_body_{$smarty.foreach.foo.index}">Текст:</label>
     <textarea class="teacher_body" name="info" id="teacher_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$teacher.teachers_info}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
+    {if !isset($teacher.teachers_photo_id)}
     <button class="upload" data='{literal}{{/literal}"upload_type":"teachers", "make_main":"true", "item_id":"{$teacher.teachers_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+    {/if}
     <ul class="imgs">
-      <!-- file_name - id, <li><a href="/scripts/uploads/' + file_name + '_s.jpg" class="block"><img src="/scripts/uploads/' + file_name + '_s.jpg" /></a><button class="x" data="' + file_name + '">x</button><input type="radio" name="make_main" value="' + file_name + '" /></li> -->
+      {if isset($teacher.teachers_photo_id)}
+      <li><a href="/scripts/uploads/{$teacher.teachers_photo_id}_s.jpg" class="block"><img src="/scripts/uploads/{$teacher.teachers_photo_id}_s.jpg" /></a><button class="x" data="{$teacher.teachers_photo_id}">x</button></li>
+      {/if}
     </ul>
   </form>
   {/foreach}
