@@ -89,10 +89,17 @@ ul.imgs {
 }
 
 ul.imgs li {
-	margin: 0 20px;
+	margin: 0 5px;
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
+  text-align: center;
+}
+
+ul.imgs li a {
+  display: block;
+  background: #eee;
+  min-width: 190px;
 }
 
 ul.imgs li:hover button.x {
@@ -114,12 +121,31 @@ ul.imgs button.x {
   margin: 0;
 }
 
+ul.imgs li div {
+  visibility: hidden;
+}
+
+ul.imgs li:hover div {
+  visibility: visible;
+}
+
 ul.imgs button.x:hover {
 	background: darkred;
 }
 
 ul.imgs li input[type=radio] {
-  display: block;
+  display: inline-block;
   width: 20px;
   margin-top: 10px;
+}
+
+ul.imgs label {
+  display: inline-block;
+}
+
+p.db_error {
+  color: red;
+  margin: 15px 0;
+  font-weight: bold;
+  font-size: 110%;
 }

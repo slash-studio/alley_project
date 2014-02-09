@@ -24,7 +24,7 @@ $(function(){
           file_name = response;
           $make_main = "";
           if (this._settings.data.make_main) {
-            $make_main = '<input type="radio" name="make_main" value="' + file_name + '" />';
+            $make_main = '<div><input type="radio" name="make_main" value="' + file_name + '" /><label for="make_main">Сделать главной</label></div>';
           }
           $.post(
             "/scripts/rename.php",
