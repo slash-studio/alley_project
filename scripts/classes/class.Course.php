@@ -10,6 +10,7 @@ class Course extends Entity
 
    const NAME_FLD         = 'name';
    const PHOTO_FLD        = 'photo_id';
+   const PHOTOS_FLD       = 'photos';
    const TEACHER_FLD      = 'teacher_id';
    const DESCRIPTION_FLD  = 'description';
 
@@ -60,7 +61,7 @@ class Course extends Entity
       switch ($this->samplingScheme) {
          case static::INFO_SCHEME:
          case static::WITH_PHOTOS_SCHEME:
-            $key = $this->ToPrfxNm(static::PHOTO_FLD);
+            $key = $this->ToPrfxNm(static::PHOTOS_FLD);
             foreach ($sample as &$set) {
                $set[$key] = $set[$key] ? explode(',', $set[$key]) : Array();
             }
@@ -97,7 +98,7 @@ class Course extends Entity
                         $this->GetFieldByName(static::NAME_FLD),
                         $this->GetFieldByName(static::DESCRIPTION_FLD),
                         $this->GetFieldByName(static::TEACHER_FLD),
-                        // $this->GetFieldByName(static::PHOTO_FLD),
+                        $this->GetFieldByName(static::PHOTO_FLD)
                      )
                   )
                );
@@ -114,7 +115,7 @@ class Course extends Entity
                         $this->GetFieldByName(static::ID_FLD),
                         $this->GetFieldByName(static::NAME_FLD),
                         $this->GetFieldByName(static::DESCRIPTION_FLD),
-                        // $this->GetFieldByName(static::PHOTO_FLD),
+                        $this->GetFieldByName(static::PHOTO_FLD)
                      )
                   ),
                   SQL::PrepareFieldsForSelect(

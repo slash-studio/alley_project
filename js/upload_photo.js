@@ -42,7 +42,7 @@ $(function(){
       }
     });
   });
-  
+
   $(document).on('click', 'ul.imgs li button', function(){
     $button = $(this);
     $.post(
@@ -66,16 +66,17 @@ $(function(){
     );
     return false;
   });
-  $(document).on('change', 'ul.imgs li input[name=make_main]', function(){
-    $input = $(this);
+  $(document).on('change', 'ul.imgs li input[name="make_main"]', function(){
+    var $input = $(this);
     $.post(
-      "/scripts/handlers/handler.Image.php",
+      "/scripts/handlers/handler.MainPhoto.php",
       {
-        type: 'Image',
-        mode: 'Make_main',
+        type: $input.attr('data-table'),
+        mode: 'Update',
         params:
           {
-            id: $input.val()
+            id:  $input.attr('data-id'),
+            photo_id: $input.val()
           }
       },
       function(data) {
@@ -83,7 +84,7 @@ $(function(){
           alert(data.message);
         }
       },
-       "json"
+      "json"
     );
   });
 });

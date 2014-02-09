@@ -8,6 +8,7 @@ class News extends Entity
    const WITH_PHOTOS_SCHEME = 3;
 
    const PHOTO_FLD            = 'photo_id';
+   const PHOTOS_FLD           = 'photos';
    const TEXT_HEAD_FLD        = 'text_head';
    const TEXT_BODY_FLD        = 'text_body';
    const PUBLICATION_DATE_FLD = 'publication_date';
@@ -73,7 +74,7 @@ class News extends Entity
             break;
 
          case static::WITH_PHOTOS_SCHEME:
-            $key = $this->ToPrfxNm(static::PHOTO_FLD);
+            $key = $this->ToPrfxNm(static::PHOTOS_FLD);
             foreach ($sample as &$set) {
                $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
             }
@@ -101,8 +102,8 @@ class News extends Entity
                      Array(
                         $this->GetFieldByName(static::ID_FLD),
                         $this->GetFieldByName(static::TEXT_HEAD_FLD),
-                        $this->GetFieldByName(static::TEXT_BODY_FLD)
-                        // $this->GetFieldByName(static::PHOTO_FLD),
+                        $this->GetFieldByName(static::TEXT_BODY_FLD),
+                        $this->GetFieldByName(static::PHOTO_FLD)
                      )
                   )
                );

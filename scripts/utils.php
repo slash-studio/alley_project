@@ -22,7 +22,12 @@ function SetRequiredFieldError($name, $message = null)
 
 function GetPOST()
 {
-   return array_map('trim', $_POST);
+   foreach ($_POST as &$value) {
+      if (!is_array($value)) {
+         $value = trim($value);
+      }
+   }
+   return $_POST;
 }
 
 function CutString($str, $amount)

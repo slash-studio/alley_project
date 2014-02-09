@@ -100,7 +100,7 @@ class SQL
              . $th->ToTblNm($th::ID_FLD)
            )
          . '), \'\') as '
-         . $th->ToPrfxNm($th::PHOTO_FLD);
+         . $th->ToPrfxNm($th::PHOTOS_FLD);
    }
 
    public static function SimpleQuerySelect($fields, $table, $where = null)
