@@ -87,7 +87,7 @@ DELIMITER $$
 
 CREATE PROCEDURE `remove_old_master_classes`()
 BEGIN
-   DELETE FROM `master_class` WHERE `date_of` < NOW() - INTERVAL 1 DAY;
+   DELETE FROM `master_class` WHERE `date_of` < NOW() - INTERVAL 2 HOUR;
    -- DELETE FROM `master_class` WHERE `date_of` < NOW();
 END$$
 
