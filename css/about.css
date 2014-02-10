@@ -1,0 +1,44 @@
+#left_block {
+	margin-top: 50px;
+  display: inline-block;
+}
+
+#right_block {
+	margin-top: 50px;
+}
+
+#left_block img {
+	width: 400px;
+  margin-bottom: 10px;
+}
+
+#left_block div {
+  width: 400px;
+}
+
+#left_block div.info b {
+  white-space: nowrap;
+}
+
+.block {
+	display: inline-block;
+	font-size: 110%;
+  vertical-align: top;
+}
+
+.block .text {
+	width: 630px;	
+	margin-bottom: 0;
+	padding: 20px;
+	vertical-align: bottom;
+}
+
+.block .info {
+	padding: 10px 0;
+  line-height: 1.3;
+}
+
+.block button {
+	display: block;
+  margin-top: 8px;
+}

@@ -1,33 +1,8 @@
-#top_block {
-	margin-top: 50px;
-}
-
-#top_block img {
-	width: 400px;
-	margin-right: 20px;
-	float: left;
-}
-
-#top_block section, #top_block div {
-	display: inline-block;
-	vertical-align: top;
-	font-size: 110%;
-}
-
-#top_block .text {
-	width: 630px;	
-	margin-bottom: 20px;
-	border-radius: 15px;
-	padding: 20px;
-	vertical-align: bottom;
-}
-
 #top_block .text p {
 }
 
 #top_block .adress {
 	padding: 10px 20px;
-	border-radius: 10px;
 }
 
 #top_block button {
@@ -44,7 +19,6 @@
 	display: inline-block;
 	margin: 0 20px;
 	padding: 20px;
-	border-radius: 15px;
 }
 
 #news article img {

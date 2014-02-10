@@ -14,10 +14,10 @@
       <div class="teacher_info dropdown_block">
         <img src="/scripts/uploads/{$course.teachers_photo_id}_s.jpg" class="teacher_photo" />
         <div class="teacher_right_block">
-          <p>{$course.teachers_info}</p>
+          {$course.teachers_info}
         </div>
       </div>
-      <p class="course_text">{$course.courses_description}</p>
+      <div class="course_text">{$course.courses_description}</div>
       <div class="gallery">
       {foreach from=$course.courses_photos item=photo}
         {if $course.courses_photo_id!=$photo}

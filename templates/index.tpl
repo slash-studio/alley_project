@@ -11,7 +11,7 @@
     <img src="/images/slide1.jpg" />
     <section class="text">
       <h1 class="nice">{$main_text.texts_text_head|default:''}</h1>
-      <p>{$main_text.texts_text_body|default:''}</p>
+      {$main_text.texts_text_body|default:''}
     </section>
     <div class="adress">Наш адрес: <b>ул. Санаторная 39, д. 4</b></div>
     <button>Показать на карте</button>
@@ -19,13 +19,8 @@
   <div class="courses">
     <ul>
       {foreach from=$courses item=course}
-        <li><a href="/course/{$course.courses_id}"><!-- <img src="/images/kurs1.png" /> --><span>{$course.courses_name}</span></a></li>
+        <li><a href="/course/{$course.courses_id}"><img src="/images/kurs1.png" /><span>{$course.courses_name}</span></a></li>
       {/foreach}
-<!--       <li><a href="#"><img src="/images/kurs1.png" /><span>Гончарное дело</span></a></li>
-      <li><a href="#"><img src="/images/kurs2.png" /><span>Валяние из шерсти</span></a></li>
-      <li><a href="#"><img src="/images/kurs3.png" /><span>Бисероплетение</span></a></li>
-      <li><a href="#"><img src="/images/kurs4.png" /><span>Вышивание</span></a></li>
-      <li><a href="#"><img src="/images/kurs2.png" /><span>Макраме</span></a></li> -->
     </ul>
   </div>
   <div id="bottom_block">

@@ -1,11 +1,12 @@
 .courses {
-	margin: 56px auto 0;
+	margin: 10px auto 0;
 	text-align: center;
 }
 
 .courses ul li {
 	display: inline-block;
 	width: 210px;
+  margin: 10px 0;
 }
 
 .courses ul li span {
