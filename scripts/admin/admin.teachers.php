@@ -15,12 +15,8 @@ if (isset($_POST['mode'])) {
       Teachers::INFO_FLD => $info
    );
    $_teachers->SetLastViewedID($id);
-   if (!empty($name)) {
-      HandleAdminData($_teachers, $post, 'teachers');
-   } else {
-      SetRequiredFieldError('Имя преподавателя');
-      SetLastViewedID(Teachers::LAST_VIEWED_ID);
-   }
+   HandleAdminData($_teachers, $post, 'teachers');
+   SetLastViewedID(Teachers::LAST_VIEWED_ID);
 }
 $smarty->assign('teachers', $_teachers->AddOrder(Teachers::NAME_FLD)->GetAll())
        ->display('admin.teachers.tpl');

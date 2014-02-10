@@ -17,15 +17,8 @@ if (isset($_POST['mode'])) {
       Course::DESCRIPTION_FLD => $description
    );
    $_course->SetLastViewedID($id);
-   if (empty($name)) {
-      SetRequiredFieldError('Название курса');
-      SetLastViewedID(Course::LAST_VIEWED_ID);
-   } elseif (empty($description)) {
-      SetRequiredFieldError('Описание курса');
-      SetLastViewedID(Course::LAST_VIEWED_ID);
-   } else {
-      HandleAdminData($_course, $post, 'courses');
-   }
+   HandleAdminData($_course, $post, 'courses');
+   SetLastViewedID(Course::LAST_VIEWED_ID);
 }
 $smarty->assign('courses', $_course->SetSamplingScheme(Course::WITH_PHOTOS_SCHEME)->AddOrder(Course::NAME_FLD, OT_ASC)->GetAll())
        ->assign('teachers', $_teachers->SetSamplingScheme(Teachers::COURSE_SCHEME)->GetAll())

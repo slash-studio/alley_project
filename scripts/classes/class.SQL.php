@@ -1,4 +1,6 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Clause.php';
+
 class SQL
 {
    public static function GenCall($name)
@@ -79,8 +81,8 @@ class SQL
    {
       $result = Array();
       foreach ($fields as $f) {
-         $field = self::ToTblNm($table, $f->name);
-         $result[] = "$field  as " . self::ToPrfxNm($table, $f->name);
+         $field = self::ToTblNm($table, $f->GetName());
+         $result[] = "$field  as " . self::ToPrfxNm($table, $f->GetName());
       }
 
       return $result;
@@ -93,12 +95,13 @@ class SQL
          . SQL::SimpleQuerySelect(
                'GROUP_CONCAT(' . $entity->ToTblNm($entity::PHOTO_FLD) . ')',
                $entity::TABLE,
-               $entity->ToTblNm($field)
-             . '='
-             . $th->ToTblNm($th::ID_FLD)
+               new Clause(CCond(
+                  CF($entity::TABLE, $entity->GetFieldByName($field)),
+                  CF($th::TABLE, $th->GetFieldByName($th::ID_FLD))
+               ))
+           )
              . ' GROUP BY '
              . $th->ToTblNm($th::ID_FLD)
-           )
          . '), \'\') as '
          . $th->ToPrfxNm($th::PHOTOS_FLD);
    }
@@ -107,7 +110,7 @@ class SQL
    {
       $result = 'SELECT ' . $fields . ' FROM ' . $table;
       if (!empty($where)) {
-         $result .= ' WHERE ' . $where;
+         $result .= ' WHERE ' . $where->GetClause();
       }
 
       return $result;

@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
    `name`     VARCHAR(150) NOT NULL,
    `photo_id` INT          DEFAULT NULL,
    `info`     TEXT,
-   PRIMARY KEY(`id`),
+   PRIMARY KEY (`id`),
    FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE SET NULL
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
    `description` TEXT         NOT NULL,
    `teacher_id`  INT          NOT NULL,
    `photo_id`    INT          DEFAULT NULL,
-   PRIMARY KEY(`id`),
+   PRIMARY KEY (`id`),
    FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE,
    FOREIGN KEY (`photo_id`)   REFERENCES `images`   (`id`) ON DELETE SET NULL
 );
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `course_images` (
    `id`          INT NOT NULL AUTO_INCREMENT,
    `course_id`   INT NOT NULL,
    `photo_id`    INT NOT NULL,
-   PRIMARY KEY(`id`),
+   PRIMARY KEY (`id`),
    FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
    FOREIGN KEY (`photo_id`)  REFERENCES `images`  (`id`) ON DELETE CASCADE
 );
@@ -48,16 +48,26 @@ CREATE TABLE IF NOT EXISTS `master_class` (
    `description` TEXT         NOT NULL,
    `photo_id`    INT       DEFAULT NULL,
    `date_of`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   PRIMARY KEY(`id`),
+   PRIMARY KEY (`id`),
    FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `texts` (
-   `id`        INT          NOT NULL AUTO_INCREMENT,
-   `name`      VARCHAR(150) NOT NULL,
-   `text_head` TEXT         NOT NULL,
-   `text_body` TEXT         NOT NULL,
-   PRIMARY KEY(`id`)
+   `id`         INT          NOT NULL AUTO_INCREMENT,
+   `name`       VARCHAR(150) NOT NULL,
+   `text_head`  TEXT         NOT NULL,
+   `text_body`  TEXT         NOT NULL,
+   `have_photo` INT          NOT NULL DEFAULT 0,
+   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `texts_images` (
+   `id`       INT NOT NULL AUTO_INCREMENT,
+   `text_id`  INT NOT NULL,
+   `photo_id` INT DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   FOREIGN KEY (`text_id`)  REFERENCES `texts`  (`id`),
+   FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`)  ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `news` (
@@ -66,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `news` (
    `text_body`        TEXT         NOT NULL,
    `publication_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    `photo_id`         INT       DEFAULT NULL,
-   PRIMARY KEY(`id`),
+   PRIMARY KEY (`id`),
    FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE SET NULL
 );
 
@@ -74,14 +84,16 @@ CREATE TABLE IF NOT EXISTS `news_images` (
    `id`       INT NOT NULL AUTO_INCREMENT,
    `news_id`  INT NOT NULL,
    `photo_id` INT NOT NULL,
-   PRIMARY KEY(`id`),
+   PRIMARY KEY (`id`),
    FOREIGN KEY (`news_id`)  REFERENCES `news`   (`id`) ON DELETE CASCADE,
    FOREIGN KEY (`photo_id`) REFERENCES `images` (`id`) ON DELETE CASCADE
 );
 
-INSERT INTO `texts`(`name`, `text_head`, `text_body`) VALUES
-   ('Главная страница', 'Арт-студия Аллея приглашает всех к себе!', 'Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как живопись по стеклу, анимация при помощи кофе, песка или пластилина, а также научат создавать флипбуки и "живые картины". А для самых маленьких предусмотрен курс арт-терапии, где дети научатся осознавать и выражать свою уникальность, общаться со сверстниками и преодолевать страхи.'),
-   ('Страница регистрации', 'УПС', 'Для участия в конкурсе сфотографируйте свои работы либо сделайте скан-копии рисунков. Заполните поля регистрационной формы. Не забудьте указать телефон родителей или учителя, чтобы организаторы конкурса могли связаться с вашими представителями. Получите собственный аккаунт. Это ваша страничка в конкурсе, где вы можете выложить фотографии своих работ. Не стоит ждать, что жюри примет решение на следующий день. Жюри будет работать до 18 апреля 2014 года. До этого срока под фотографией своей работой вы увидите принята она к следующему этапу конкурса или отклонена. Официально результаты будут объявлены 24 мая 2014 года.');
+INSERT INTO `texts`(`name`, `text_head`, `text_body`, `have_photo`) VALUES
+   ('Главная страница', 'Арт-студия Аллея приглашает всех к себе!', 'Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как живопись по стеклу, анимация при помощи кофе, песка или пластилина, а также научат создавать флипбуки и "живые картины". А для самых маленьких предусмотрен курс арт-терапии, где дети научатся осознавать и выражать свою уникальность, общаться со сверстниками и преодолевать страхи.', 1),
+   ('Страница курсов', 'Выберите курс который подходит именно вам!', 'Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как живопись по стеклу, анимация при помощи кофе, песка или пластилина, а также научат создавать флипбуки и "живые картины". А для самых маленьких предусмотрен курс арт-терапии, где дети научатся осознавать и выражать свою уникальность, общаться со сверстниками и преодолевать страхи.', 1),
+   ('Страница О нас 1', 'О нас 1', 'Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как живопись по стеклу, анимация при помощи кофе, песка или пластилина, а также научат создавать флипбуки и "живые картины". А для самых маленьких предусмотрен курс арт-терапии, где дети научатся осознавать и выражать свою уникальность, общаться со сверстниками и преодолевать страхи.', 1),
+   ('Страница О нас 2', 'О нас 2', 'Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как живопись по стеклу, анимация при помощи кофе, песка или пластилина, а также научат создавать флипбуки и "живые картины". А для самых маленьких предусмотрен курс арт-терапии, где дети научатся осознавать и выражать свою уникальность, общаться со сверстниками и преодолевать страхи.', 0);
 
 DELIMITER $$
 

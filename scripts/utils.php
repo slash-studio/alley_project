@@ -14,12 +14,6 @@ function SetLastViewedID($name)
    }
 }
 
-function SetRequiredFieldError($name, $message = null)
-{
-   global $smarty;
-   $smarty->assign('error_txt', empty($message) ? "$name не может быть пустым!" : $message);
-}
-
 function GetPOST()
 {
    foreach ($_POST as &$value) {

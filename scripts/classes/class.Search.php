@@ -1,6 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.SQL.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Clause.php';
 
 class Search
 {
@@ -104,7 +103,7 @@ class OrderField
 
    public function GetFieldName()
    {
-      return $this->field->name;
+      return $this->field->GetName();
    }
 }
 

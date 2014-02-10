@@ -35,7 +35,7 @@ switch ($request[0]) {
    case 'admin':
       $isLoginPage = empty($request[1]) || $request[1] == 'login';
       $_SESSION['admin_login'] = !empty($_SESSION['admin_login']) ? $_SESSION['admin_login'] : '';
-      $_SESSION['admin_pass']  = !empty($_SESSION['admin_pass']) ? $_SESSION['admin_pass'] : '';
+      $_SESSION['admin_pass']  = !empty($_SESSION['admin_pass'])  ? $_SESSION['admin_pass']  : '';
       if ($_SESSION['admin_login'] == ADMIN_LOGIN && $_SESSION['admin_pass'] == ADMIN_PASS) {
          if ($isLoginPage) {
             header('Location: /admin/newt_textbox_set_height(textbox, height)');

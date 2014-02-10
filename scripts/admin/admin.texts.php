@@ -13,12 +13,8 @@ if (isset($_POST['save'])) {
          Texts::TEXT_HEAD_FLD => $text_head = isset($post['text_head']) ? $post['text_head'] : null
    );
    $_texts->SetLastViewedID($post['id']);
-   if (!empty($text_head)) {
-      HandleAdminData($_texts, $post, 'texts');
-   } else {
-      SetRequiredFieldError('Заголовок');
-      SetLastViewedID(Texts::LAST_VIEWED_ID);
-   }
+   HandleAdminData($_texts, $post, 'texts');
+   SetLastViewedID(Texts::LAST_VIEWED_ID);
 }
 $smarty->assign('texts', $_texts->AddOrder(Texts::NAME_FLD, OT_ASC)->GetAll())
        ->display('admin.texts.tpl');

@@ -17,25 +17,22 @@ class Teachers extends Entity
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
+         $this->idField,
          new Field(
             static::NAME_FLD,
-            null,
+            StrType(150),
             true,
-            Array('IsNotEmpty')
+            'имя преподавателя',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::INFO_FLD,
-            null,
+            TextType(),
             true
          ),
          new Field(
             static::PHOTO_FLD,
-            null,
+            IntType(),
             true
          )
       );

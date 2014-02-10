@@ -21,32 +21,31 @@ class News extends Entity
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
+         $this->idField,
          new Field(
             static::TEXT_HEAD_FLD,
-            null,
+            StrType(150),
             true,
-            Array('IsNotEmpty')
+            'заголовок новости',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::TEXT_BODY_FLD,
-            null,
+            TextType(),
             true,
-            Array('IsNotEmpty')
+            'описание новости',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PUBLICATION_DATE_FLD,
-            null,
+            TimestampType(),
             true,
-            Array('IsNotEmpty')
+            'дата новости',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PHOTO_FLD,
-            null,
+            IntType(),
             true
          )
       );
@@ -98,15 +97,13 @@ class News extends Entity
          case static::WITH_PHOTOS_SCHEME:
             global $_newsImages;
             $fields =
-               array_merge(
-                  SQL::PrepareFieldsForSelect(
-                     static::TABLE,
-                     Array(
-                        $this->GetFieldByName(static::ID_FLD),
-                        $this->GetFieldByName(static::TEXT_HEAD_FLD),
-                        $this->GetFieldByName(static::TEXT_BODY_FLD),
-                        $this->GetFieldByName(static::PHOTO_FLD)
-                     )
+               SQL::PrepareFieldsForSelect(
+                  static::TABLE,
+                  Array(
+                     $this->GetFieldByName(static::ID_FLD),
+                     $this->GetFieldByName(static::TEXT_HEAD_FLD),
+                     $this->GetFieldByName(static::TEXT_BODY_FLD),
+                     $this->GetFieldByName(static::PHOTO_FLD)
                   )
                );
             $fields[] = SQL::ImageSelectSQL($this, $_newsImages, NewsImages::NEWS_FLD);

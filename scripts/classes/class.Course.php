@@ -7,6 +7,7 @@ class Course extends Entity
    const INFO_SCHEME        = 2;
    const MAIN_PAGE_SCHEME   = 3;
    const WITH_PHOTOS_SCHEME = 4;
+   const ALL_COURSES_SCHEME = 5;
 
    const NAME_FLD         = 'name';
    const PHOTO_FLD        = 'photo_id';
@@ -22,32 +23,29 @@ class Course extends Entity
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
+         $this->idField,
          new Field(
             static::NAME_FLD,
-            null,
+            StrType(150),
             true,
-            Array('IsNotEmpty')
+            'название курса',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::DESCRIPTION_FLD,
-            null,
+            TextType(),
             true,
-            Array('IsNotEmpty')
+            'описание курса',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::TEACHER_FLD,
-            null,
-            true,
-            Array('IsNotEmpty')
+            IntType(),
+            true
          ),
          new Field(
             static::PHOTO_FLD,
-            null,
+            IntType(),
             true
          )
       );
@@ -77,16 +75,19 @@ class Course extends Entity
       $fields = Array();
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME:
+         case static::ALL_COURSES_SCHEME:
             $fields = SQL::PrepareFieldsForSelect(
                static::TABLE,
                Array(
                   $this->GetFieldByName(static::ID_FLD),
                   $this->GetFieldByName(static::NAME_FLD),
-                  // $this->GetFieldByName(static::PHOTO_FLD),
+                  $this->GetFieldByName(static::PHOTO_FLD),
                )
             );
-            $this->AddOrder(static::RAND_FLD, OT_RAND);
-            $this->AddLimit(5);
+            if ($this->samplingScheme == static::MAIN_PAGE_SCHEME) {
+               $this->AddOrder(static::RAND_FLD, OT_RAND);
+               $this->AddLimit(5);
+            }
             break;
 
          case static::WITH_PHOTOS_SCHEME:

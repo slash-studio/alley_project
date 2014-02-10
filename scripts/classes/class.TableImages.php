@@ -7,6 +7,15 @@ class TableImages extends Entity
 
    const TABLE = 'course_images';
 
+   protected
+      $photoField;
+
+   public function __construct()
+   {
+      parent::__construct();
+      $this->photoField = new Field(static::PHOTO_FLD, IntType(), true);
+   }
+
    public function Insert($getLastInsertId = false)
    {
       global $db, $_image;
@@ -35,19 +44,11 @@ class CourseImages extends TableImages
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
-         new Field(
-            static::PHOTO_FLD,
-            null,
-            true
-         ),
+         $this->idField,
+         $this->photoField,
          new Field(
             static::COURSE_FLD,
-            null,
+            IntType(),
             true
          )
       );
@@ -65,24 +66,39 @@ class NewsImages extends TableImages
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
-         new Field(
-            static::PHOTO_FLD,
-            null,
-            true
-         ),
+         $this->idField,
+         $this->photoField,
          new Field(
             static::NEWS_FLD,
-            null,
+            IntType(),
             true
          )
       );
    }
 }
 
+class TextsImages extends TableImages
+{
+   const TEXT_FLD  = 'text_id';
+
+   const TABLE = 'texts_images';
+
+   public function __construct()
+   {
+      parent::__construct();
+      $this->fields = Array(
+         $this->idField,
+         $this->photoField,
+         new Field(
+            static::TEXT_FLD,
+            IntType(),
+            true
+         )
+      );
+   }
+}
+
+
+$_textsImages = new TextsImages();
 $_newsImages   = new NewsImages();
 $_courseImages = new CourseImages();

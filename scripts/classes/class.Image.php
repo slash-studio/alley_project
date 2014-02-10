@@ -8,13 +8,7 @@ class Image extends Entity
    public function __construct()
    {
       parent::__construct();
-      $this->fields = Array(
-         new Field(
-            'id',
-            null,
-            false
-         )
-      );
+      $this->fields = Array($this->idField);
    }
 
    public function Delete($id)

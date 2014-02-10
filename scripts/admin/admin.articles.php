@@ -13,6 +13,7 @@ if (!empty($year)) {
              ->assign('articles', $_news->CreateSearchYM($year, $month)->SetSamplingScheme(News::WITH_PHOTOS_SCHEME)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());
    } elseif (empty($_POST['mode']) || $_POST['mode'] != 'Insert') {
       header("Location: /admin/articles/$year/1");
+      exit;
    }
 }
 
@@ -28,16 +29,13 @@ if (isset($_POST['mode'])) {
    );
    if ($post['mode'] != 'Insert') {
       $_news->SetLastViewedID($id);
-   }
-   if (empty($text_head)) {
-      SetRequiredFieldError('Заголовок новости');
-      SetLastViewedID(News::LAST_VIEWED_ID);
-   } elseif (empty($text_body)) {
-      SetRequiredFieldError('Описание новости');
-      SetLastViewedID(News::LAST_VIEWED_ID);
    } else {
-      HandleAdminData($_news, $post, "articles/$year/$month");
+      $date = new DateTime();
+      $year = $date->format('Y');
+      $month = $date->format('n');
    }
+   HandleAdminData($_news, $post, "articles/$year/$month");
+   SetLastViewedID(News::LAST_VIEWED_ID);
 }
 
 $smarty->assign('article_level', $level)

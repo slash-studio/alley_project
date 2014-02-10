@@ -18,20 +18,17 @@ class MasterClass extends Entity
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
+         $this->idField,
          new Field(
             static::NAME_FLD,
-            null,
+            StrType(150),
             true,
-            Array('IsNotEmpty')
+            'название мастер-класса',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::DESCRIPTION_FLD,
-            null,
+            TextType(),
             true
          ),
          // new Field(
@@ -41,9 +38,10 @@ class MasterClass extends Entity
          // ),
          new Field(
             static::DATE_FLD,
-            null,
+            TimestampType(),
             true,
-            Array('IsNotEmpty')
+            'дата мастер-класса',
+            Array(Validate::IS_NOT_EMPTY)
          )
       );
       $this->orderFields =

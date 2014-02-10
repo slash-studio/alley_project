@@ -24,7 +24,7 @@ class ClauseField extends BaseClausePart
 
    public function GetSQL()
    {
-      return SQL::ToTblNm($this->table, $this->field->name);
+      return SQL::ToTblNm($this->table, $this->field->GetName());
    }
 }
 
@@ -116,6 +116,13 @@ class Clause
       $clauseParams   = Array(),
       $clauseParts    = Array(),
       $isChangeClause = true;
+
+   public function __construct($cond = null)
+   {
+      if (!empty($cond)) {
+         $this->AddClause($cond);
+      }
+   }
 
    public function AddClause($cond)
    {
