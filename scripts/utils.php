@@ -14,6 +14,26 @@ function SetLastViewedID($name)
    }
 }
 
+function GeneratePages($pages_count, $current_page)
+{
+   $result = Array();
+   if ($pages_count <= 1) {
+      return $result;
+   }
+   if ($pages_count > 7) {
+      if ($current_page <= 4) {
+         $result = array_merge(range(1, $current_page + 2), array('...', $pages_count));
+      } elseif ($current_page > 4 and $pages_count - $current_page > 4) {
+         $result = array_merge(array(1, '...'), range($current_page - 2, $current_page + 2), array('...', $pages_count));
+      } elseif ($pages_count - $current_page <= 4) {
+         $result = array_merge(array(1, '...'), range($current_page - 2, $pages_count));
+      }
+   } else {
+      $result = range(1, $pages_count);
+   }
+   return $result;
+}
+
 function GetPOST()
 {
    foreach ($_POST as &$value) {

@@ -28,15 +28,15 @@
       <h1 class="nice">Новости</h1>
       {if $news|@count != 0}
         <article class="main">
-          <a href="/news/{$news.news_id}"><img src="/scripts/uploads/{$news.news_photo_id}_s.jpg" /></a>
-          <h1><a href="/news/{$news.news_id}">{$news.news_text_head}</a></h1>
+          <a href="/article/{$news.news_id}"><img src="/scripts/uploads/{$news.news_photo_id}_s.jpg" /></a>
+          <h1><a href="/article/{$news.news_id}">{$news.news_text_head}</a></h1>
           <time datetime="{$news.news_publication_date}">{$news.news_publication_date}</time>
-          <p><a href="/news/{$news.news_id}">{$news.news_text_body}</a></p>
+          <p><a href="/article/{$news.news_id}">{$news.news_text_body}</a></p>
         </article>
         {foreach from=$news.news item=article}
         <article class="other">
           <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
-          <h1><a href="/news/{$article.news_id}">{$article.news_text_head}</a></h1>
+          <h1><a href="/article/{$article.news_id}">{$article.news_text_head}</a></h1>
         </article>
         {/foreach}
       {/if}
