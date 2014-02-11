@@ -18,7 +18,7 @@
     <div id="nav_num">
     {foreach from=$pagesNum item=t}
       {if $t == '...'} ... {else}
-      <button class="button {if $curPage == $t}active{/if}" onClick="javascript:location.assign('/news/?page={$t}')">{$t}</button>
+      <button class="button {if $curPage == $t}active{/if}" onClick="javascript:location.assign('/articles/?page={$t}')">{$t}</button>
       {/if}
     {/foreach}
     </div>
