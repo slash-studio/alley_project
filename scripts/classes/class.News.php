@@ -4,8 +4,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php
 
 class News extends Entity
 {
-   const MAIN_PAGE_SCHEME   = 2;
-   const WITH_PHOTOS_SCHEME = 3;
+   const ALL_NEWS_SCHEME    = 2;
+   const MAIN_PAGE_SCHEME   = 3;
+   const WITH_PHOTOS_SCHEME = 4;
 
    const PHOTO_FLD            = 'photo_id';
    const PHOTOS_FLD           = 'photos';
@@ -92,6 +93,19 @@ class News extends Entity
          case static::MAIN_PAGE_SCHEME:
             $this->AddLimit(5);
             $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
+            break;
+
+         case static::ALL_NEWS_SCHEME:
+            $fields =
+               SQL::PrepareFieldsForSelect(
+                  static::TABLE,
+                  Array(
+                     $this->GetFieldByName(static::ID_FLD),
+                     $this->GetFieldByName(static::TEXT_HEAD_FLD),
+                     $this->GetFieldByName(static::PUBLICATION_DATE_FLD),
+                     $this->GetFieldByName(static::PHOTO_FLD)
+                  )
+               );
             break;
 
          case static::WITH_PHOTOS_SCHEME:

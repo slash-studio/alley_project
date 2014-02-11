@@ -299,6 +299,7 @@ class Entity
 
    public function GetAllAmount()
    {
+      $this->CheckSearch();
       return
          self::SelectAmount(
             $this->search->GetClause(),
