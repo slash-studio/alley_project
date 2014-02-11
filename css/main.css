@@ -44,24 +44,24 @@ h1.nice {
   margin-bottom: 20px;
 }
 
-#top_block {
+#top_block.text_block {
 	margin-top: 50px;
   min-height: 300px;
 }
 
-#top_block img {
+#top_block.text_block img {
 	width: 400px;
 	margin-right: 20px;
 	float: left;
 }
 
-#top_block section, #top_block div {
+#top_block.text_block section, #top_block div {
 	display: inline-block;
 	vertical-align: top;
 	font-size: 110%;
 }
 
-#top_block .text {
+#top_block.text_block .text {
 	width: 630px;	
 	margin-bottom: 20px;
 	padding: 20px;

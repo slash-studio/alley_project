@@ -7,7 +7,7 @@
 {/block}
 {block name='div.main'}
   {include file="header.tpl"}
-  <div id="top_block">
+  <div id="top_block" class="text_block">
     {if $main_text.texts_have_photo && isset($main_text.texts_photo_id)}<img src="/scripts/uploads/{$main_text.texts_photo_id}_s.jpg" />{/if}
     <section class="text">
       <h1 class="nice">{$main_text.texts_text_head|default:''}</h1>
