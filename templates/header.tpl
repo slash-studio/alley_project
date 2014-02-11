@@ -3,7 +3,7 @@
   <nav>
     <ul>
       <li><a href="/" data='main'>Главная</a></li>
-      <li><a href="/news" data='news'>Новости</a></li>
+      <li><a href="/articles" data='articles'>Новости</a></li>
       <li><a href="/courses" data='courses'>Арт-курсы</a></li>
       <li><a href="/timetable" data='timetable'>Расписание</a></li>
       <li><a href="/about" data='about'>О нас</a></li>

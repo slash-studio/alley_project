@@ -6,7 +6,7 @@
 {/block}
 {block name='div.main'}
   {include file="header.tpl"}
-  <div id="top_block">
+  <div id="top_block" class="text_block">
     <img src="/images/slide1.jpg" />
     <section class="text">
       <h1 class="nice">Выберите курс который подходит именно вам!</h1>

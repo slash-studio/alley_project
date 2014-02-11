@@ -7,9 +7,9 @@ switch ($request[0]) {
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/main.php';
       break;
 
-   case 'news':
-      SetActiveItem('news');
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/news.php';
+   case 'articles':
+      SetActiveItem('articles');
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/articles.php';
       break;
 
    case 'courses':
