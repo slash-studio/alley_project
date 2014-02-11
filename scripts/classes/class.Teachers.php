@@ -11,29 +11,28 @@ class Teachers extends Entity
 
    const TABLE = 'teachers';
 
+   const LAST_VIEWED_ID = 'last_viewed_teachers_id';
+
    public function __construct()
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
+         $this->idField,
          new Field(
             static::NAME_FLD,
-            null,
+            StrType(150),
             true,
-            Array('IsNotEmpty')
+            'имя преподавателя',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::INFO_FLD,
-            null,
+            TextType(),
             true
          ),
          new Field(
             static::PHOTO_FLD,
-            null,
+            IntType(),
             true
          )
       );

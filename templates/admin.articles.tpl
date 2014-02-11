@@ -37,8 +37,8 @@
         <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
         <button class="upload" data='{literal}{{/literal}"news": "{$article.news_id}", "upload_type":"news_photo", "item_id":"{$article.news_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
         <ul class="imgs">
-          {foreach from=$article.news_photo_id item=photo}
-            <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><div><input type="radio" name="make_main" value="{$photo}" /><label for="make_main">Сделать главной</label></div></li>
+          {foreach from=$article.news_photos item=photo}
+            <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><div><input type="radio" data-table="news" data-id="{$article.news_id}" name="make_main" value="{$photo}" {if $article.news_photo_id==$photo}checked="checked"{/if} /><label for="make_main">Сделать главной</label></div></li>
           {/foreach}
         </ul>
       </form>

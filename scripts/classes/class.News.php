@@ -8,42 +8,44 @@ class News extends Entity
    const WITH_PHOTOS_SCHEME = 3;
 
    const PHOTO_FLD            = 'photo_id';
+   const PHOTOS_FLD           = 'photos';
    const TEXT_HEAD_FLD        = 'text_head';
    const TEXT_BODY_FLD        = 'text_body';
    const PUBLICATION_DATE_FLD = 'publication_date';
 
    const TABLE = 'news';
 
+   const LAST_VIEWED_ID = 'last_viewed_news_id';
+
    public function __construct()
    {
       parent::__construct();
       $this->fields = Array(
-         new Field(
-            static::ID_FLD,
-            null,
-            false
-         ),
+         $this->idField,
          new Field(
             static::TEXT_HEAD_FLD,
-            null,
+            StrType(150),
             true,
-            Array('IsNotEmpty')
+            'заголовок новости',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::TEXT_BODY_FLD,
-            null,
+            TextType(),
             true,
-            Array('IsNotEmpty')
+            'описание новости',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PUBLICATION_DATE_FLD,
-            null,
+            TimestampType(),
             true,
-            Array('IsNotEmpty')
+            'дата новости',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PHOTO_FLD,
-            null,
+            IntType(),
             true
          )
       );
@@ -73,7 +75,7 @@ class News extends Entity
             break;
 
          case static::WITH_PHOTOS_SCHEME:
-            $key = $this->ToPrfxNm(static::PHOTO_FLD);
+            $key = $this->ToPrfxNm(static::PHOTOS_FLD);
             foreach ($sample as &$set) {
                $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
             }
@@ -95,15 +97,13 @@ class News extends Entity
          case static::WITH_PHOTOS_SCHEME:
             global $_newsImages;
             $fields =
-               array_merge(
-                  SQL::PrepareFieldsForSelect(
-                     static::TABLE,
-                     Array(
-                        $this->GetFieldByName(static::ID_FLD),
-                        $this->GetFieldByName(static::TEXT_HEAD_FLD),
-                        $this->GetFieldByName(static::TEXT_BODY_FLD)
-                        // $this->GetFieldByName(static::PHOTO_FLD),
-                     )
+               SQL::PrepareFieldsForSelect(
+                  static::TABLE,
+                  Array(
+                     $this->GetFieldByName(static::ID_FLD),
+                     $this->GetFieldByName(static::TEXT_HEAD_FLD),
+                     $this->GetFieldByName(static::TEXT_BODY_FLD),
+                     $this->GetFieldByName(static::PHOTO_FLD)
                   )
                );
             $fields[] = SQL::ImageSelectSQL($this, $_newsImages, NewsImages::NEWS_FLD);

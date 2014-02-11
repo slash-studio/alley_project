@@ -2,8 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Course.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/handlers/handler.php';
 
-define('CID', LAST . 'course_id');
-SetLastViewedID(CID);
+SetLastViewedID(Course::LAST_VIEWED_ID);
 
 if (isset($_POST['mode'])) {
    $post        = GetPOST();
@@ -17,16 +16,9 @@ if (isset($_POST['mode'])) {
       Course::TEACHER_FLD     => $teacher,
       Course::DESCRIPTION_FLD => $description
    );
-   $_SESSION[CID] = $id;
-   if (empty($name)) {
-      SetRequiredFieldError('Название курса');
-      SetLastViewedID(CID);
-   } elseif (empty($description)) {
-      SetRequiredFieldError('Описание курса');
-      SetLastViewedID(CID);
-   } else {
-      HandleAdminData($_course, $post, 'courses');
-   }
+   $_course->SetLastViewedID($id);
+   HandleAdminData($_course, $post, 'courses');
+   SetLastViewedID(Course::LAST_VIEWED_ID);
 }
 $smarty->assign('courses', $_course->SetSamplingScheme(Course::WITH_PHOTOS_SCHEME)->AddOrder(Course::NAME_FLD, OT_ASC)->GetAll())
        ->assign('teachers', $_teachers->SetSamplingScheme(Teachers::COURSE_SCHEME)->GetAll())

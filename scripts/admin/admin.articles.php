@@ -8,17 +8,16 @@ if (!empty($year)) {
    $level = 2;
    $month = $request[3];
    if (!empty($month)) {
-      print_r($_news->CreateSearchYM($year, $month)->SetSamplingScheme(News::WITH_PHOTOS_SCHEME)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());
       $smarty->assign('year', $year)
              ->assign('month', $month)
-             ->assign('articles', $_news->CreateSearchYM($year, $month)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());
+             ->assign('articles', $_news->CreateSearchYM($year, $month)->SetSamplingScheme(News::WITH_PHOTOS_SCHEME)->AddOrder(News::PUBLICATION_DATE_FLD, OT_ASC)->GetAll());
    } elseif (empty($_POST['mode']) || $_POST['mode'] != 'Insert') {
       header("Location: /admin/articles/$year/1");
+      exit;
    }
 }
 
-define('CID', LAST . 'news_id');
-SetLastViewedID(CID);
+SetLastViewedID(News::LAST_VIEWED_ID);
 
 if (isset($_POST['mode'])) {
    $post = GetPOST();
@@ -29,17 +28,14 @@ if (isset($_POST['mode'])) {
          News::TEXT_BODY_FLD => $text_body = isset($post['text_body']) ? $post['text_body'] : null
    );
    if ($post['mode'] != 'Insert') {
-      $_SESSION[CID] = $id;
-   }
-   if (empty($text_head)) {
-      SetRequiredFieldError('Заголовок новости');
-      SetLastViewedID(CID);
-   } elseif (empty($text_body)) {
-      SetRequiredFieldError('Описание новости');
-      SetLastViewedID(CID);
+      $_news->SetLastViewedID($id);
    } else {
-      HandleAdminData($_news, $post, "articles/$year/$month");
+      $date = new DateTime();
+      $year = $date->format('Y');
+      $month = $date->format('n');
    }
+   HandleAdminData($_news, $post, "articles/$year/$month");
+   SetLastViewedID(News::LAST_VIEWED_ID);
 }
 
 $smarty->assign('article_level', $level)

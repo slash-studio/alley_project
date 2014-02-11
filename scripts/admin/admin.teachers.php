@@ -2,8 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Teachers.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/handlers/handler.php';
 
-define('TID', LAST . 'teacher_id');
-SetLastViewedID(TID);
+SetLastViewedID(Teachers::LAST_VIEWED_ID);
 
 if (isset($_POST['mode'])) {
    $post = GetPOST();
@@ -15,14 +14,9 @@ if (isset($_POST['mode'])) {
       Teachers::NAME_FLD => $name,
       Teachers::INFO_FLD => $info
    );
-   $_SESSION[TID] = $id;
-   if (!empty($name)) {
-      HandleAdminData($_teachers, $post, 'teachers');
-   } else {
-      SetRequiredFieldError('Имя преподавателя');
-      SetLastViewedID(TID);
-   }
+   $_teachers->SetLastViewedID($id);
+   HandleAdminData($_teachers, $post, 'teachers');
+   SetLastViewedID(Teachers::LAST_VIEWED_ID);
 }
-
 $smarty->assign('teachers', $_teachers->AddOrder(Teachers::NAME_FLD)->GetAll())
        ->display('admin.teachers.tpl');

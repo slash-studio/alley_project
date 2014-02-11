@@ -7,20 +7,22 @@
 {block name='div.main'}
   {include file="header.tpl"}
   <div class="course">
-    <img src="/images/kurs1.png" class="course_logo" />
+    <img src="/scripts/uploads/{$course.courses_photo_id}_s.jpg" class="course_logo" />
     <section class="course_info">
       <h1 class="nice">{$course.courses_name}</h1>
       <span class="teacher dropdown_head">Преподаватель: <span>{$course.teachers_name}</span></span>
       <div class="teacher_info dropdown_block">
-        <img src="/images/teacher1.jpg" class="teacher_photo" />
+        <img src="/scripts/uploads/{$course.teachers_photo_id}_s.jpg" class="teacher_photo" />
         <div class="teacher_right_block">
           {$course.teachers_info}
         </div>
       </div>
       <div class="course_text">{$course.courses_description}</div>
       <div class="gallery">
-      {foreach from=$course.courses_photo_id item=photo name}
-        <a href="#"><img src="/scripts/uploads/{$photo}_s.jpg" /></a>
+      {foreach from=$course.courses_photos item=photo}
+        {if $course.courses_photo_id!=$photo}
+          <a href="#"><img src="/scripts/uploads/{$photo}_s.jpg" /></a>
+        {/if}
       {/foreach}
       </div>
     </section>

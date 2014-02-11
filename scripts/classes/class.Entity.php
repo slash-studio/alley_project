@@ -11,8 +11,10 @@ class Entity
    const RAND_FLD      = 'rand';
    const USUAL_SCHEME  = 1;
 
+   const LAST_VIEWED_ID = LAST;
+
    protected
-      $groupField = null,
+      $idField,
       $selectFields,
       $samplingScheme = self::USUAL_SCHEME;
 
@@ -25,7 +27,15 @@ class Entity
 
    public function __construct()
    {
-      $this->order = new Order();
+      $this->order   = new Order();
+      $this->idField = new Field(static::ID_FLD, IntType(), false);
+   }
+
+   public function SetLastViewedID($id = null)
+   {
+      if (!empty($id)) {
+         $_SESSION[static::LAST_VIEWED_ID] = $id;
+      }
    }
 
    public function SetSamplingScheme($newScheme)
@@ -61,10 +71,10 @@ class Entity
       return $this;
    }
 
-   protected function GetFieldByName($name)
+   public function GetFieldByName($name)
    {
       foreach ($this->fields as &$f) {
-         if ($f->name == $name) {
+         if ($f->GetName() == $name) {
             return $f;
          }
       }
@@ -231,9 +241,15 @@ class Entity
       };
       foreach ($this->fields as $field) {
          if ($field->canChange && $field->IsSetField()) {
-            $field->Validate();
-            $names  = array_merge($names,  $GetArr($field->GetName()));
-            $params = array_merge($params, $GetArr($field->GetValue()));
+            // try {
+               $field->Validate();
+               $names  = array_merge($names,  $GetArr($field->GetName()));
+               $params = array_merge($params, $GetArr($field->GetValue()));
+            // } catch (ValidateException $e) {
+            //    if (!empty(static::LAST_VIEWED_ID)) {
+            //       $this->SetLastViewedID($this->GetFieldByName(static::ID_FLD)->GetName());
+            //    }
+            // }
          }
       }
       return Array($names, $params);
@@ -244,10 +260,15 @@ class Entity
       global $db;
       list($names, $params) = $this->SetChangeParams();
       $query = SQL::GetInsertQuery(static::TABLE, $names);
-      return
-         $getLastInsertId
-         ? $db->Insert($query, $params, true)
-         : $db->Insert($query, $params);
+      if ($getLastInsertId || !empty(static::LAST_VIEWED_ID)) {
+         $resID = $db->Insert($query, $params, true);
+         if (!empty(static::LAST_VIEWED_ID)) {
+            $this->SetLastViewedID($resID);
+         }
+         return $resID;
+      } else {
+         $db->Insert($query, $params);
+      }
    }
 
    public function Delete($id)

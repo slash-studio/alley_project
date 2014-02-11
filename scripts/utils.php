@@ -14,15 +14,14 @@ function SetLastViewedID($name)
    }
 }
 
-function SetRequiredFieldError($name, $message = null)
-{
-   global $smarty;
-   $smarty->assign('error_txt', empty($message) ? "$name не может быть пустым!" : $message);
-}
-
 function GetPOST()
 {
-   return array_map('trim', $_POST);
+   foreach ($_POST as &$value) {
+      if (!is_array($value)) {
+         $value = trim($value);
+      }
+   }
+   return $_POST;
 }
 
 function CutString($str, $amount)

@@ -9,7 +9,8 @@ if (isset($_POST['mode'])) {
    $date = isset($post['date'])        ? $post['date']        : '';
    $desc = isset($post['description']) ? $post['description'] : '';
    $date = new DateTime();
-   $date->modify("+2 minute");
+   $date->modify("+7 hour");
+   $date->modify("+5 minute");
    $date = $date->format("Y-m-d H:i:s");
 
    $post['params'] = Array(
@@ -18,13 +19,7 @@ if (isset($_POST['mode'])) {
       MasterClass::DATE_FLD        => $date,
       MasterClass::DESCRIPTION_FLD => $desc
    );
-   if (empty($name)) {
-      SetRequiredFieldError('Название мастер-класса');
-   } elseif (empty($date)) {
-      SetRequiredFieldError(null, 'Вы не указали дату мастер-класса');
-   } else {
-      HandleAdminData($_masterClass, $post, 'masterclasses');
-   }
+   HandleAdminData($_masterClass, $post, 'masterclasses');
 }
 print_r($_masterClass->ResetDateOfInterval()->GetAll());
 $smarty->assign('classes', $_masterClass->ResetDateOfInterval()->GetAll())
