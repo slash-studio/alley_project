@@ -1,6 +1,6 @@
 <?php
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/container.php';
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Image.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/container.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Image.php';
 
 switch ($request[0]) {
    case '': case null: case false:
