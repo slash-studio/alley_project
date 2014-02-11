@@ -1,55 +1,57 @@
 <?php
-$uploaddir = 'uploads/';
+$uploaddir  = 'uploads/';
 preg_match('/(.*)(\..*)/', basename($_FILES['uploadimage']['name']), $arr);
-$ext       = $arr[2];
-$filetypes = Array('.jpg', '.JPG', '.jpeg', '.JPEG');
+$ext        = $arr[2];
+$filetypes  = Array('.jpg', '.JPG', '.jpeg', '.JPEG');
+$ajaxResult = Array('result' => true, 'message' => 'Загрузка прошла успешно!', 'file_tmp' => $_FILES['uploadimage']['name']);
+$_POST['__file'] = 'upload';
+
 if (!in_array($ext, $filetypes)) {
-   echo 'error';
-} else {
-   try {
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/utils.php';
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php';
-      $post = GetPOST();
-      $item_id = $post['item_id'];
-      switch ($_POST['upload_type']) {
-         case 'texts':
-            $file = $_textsImages->SetFieldByName(TextsImages::TEXT_FLD, $item_id)->Insert(true);
-            break;
-
-         case 'courses_photo':
-            $file = $_courseImages->SetFieldByName(CourseImages::COURSE_FLD, $item_id)->Insert(true);
-            break;
-
-         case 'news_photo':
-            $file = $_newsImages->SetFieldByName(NewsImages::NEWS_FLD, $item_id)->Insert(true);
-            break;
-
-         case 'teachers':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Teachers.php';
-            try {
-               $db->link->beginTransaction();
-               $file = $_image->Insert(true);
-               $_teachers->SetFieldByName(Teachers::ID_FLD, $item_id)->SetFieldByName(Teachers::PHOTO_FLD, $file)->Update();
-               $db->link->commit();
-            } catch (DBException $e) {
-               $db->link->rollback();
-               throw new DBException($e->getMessage());
-            }
-            break;
-
-         default:
-            echo 'error';
-            break;
-            exit;
-      }
-      // $file = $_image->/*SetFieldByName('user_id', $_POST['user_id'])->SetFieldByName('category_id', $_POST['category_id'])->SetFieldByName('name', $_POST['work_name'])->*/Insert(true);
-      $path = $uploaddir . $file . '.jpg';
-      if (move_uploaded_file($_FILES['uploadimage']['tmp_name'], $path)) {
-         echo $file;
-      } else {
-         echo 'error';
-      }
-   } catch (DBException $e) {
-      echo 'error';
-   }
+  $ajaxResult['result'] = false;
+  $ajaxResult['message'] = 'Это разрешение не поддерживается. Только JPG.';
+  echo json_encode($ajaxResult);
+  exit;
 }
+
+$arr = getimagesize($_FILES['uploadimage']['tmp_name']);
+if ($_POST['width'] && $arr[0] != $_POST['width']) {
+  $ajaxResult['result'] = false;
+  $ajaxResult['message'] = 'Ширина изображения не соответствует заданному шаблону!';
+  echo json_encode($ajaxResult);
+  exit;
+}
+
+if ($_POST['height'] && $arr[1] != $_POST['height']) {
+  $ajaxResult['result'] = false;
+  $ajaxResult['message'] = 'Высота изображения не соответствует заданному шаблону!';
+  echo json_encode($ajaxResult);
+  exit;
+}
+
+if ($_FILES['uploadimage']['size'] > $_POST['maxSize']) {
+  $ajaxResult['result'] = false;
+  $ajaxResult['message'] = 'Размер изображения превышает максимальный!';
+  echo json_encode($ajaxResult);
+  exit;
+}  
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/php_for_upload.php';
+
+$ajax_other_res = checkOther();
+if ($ajax_other_res['result']) {
+  $ajaxResult['result'] = $ajax_other_res['result'];
+  $ajaxResult['message'] = $ajax_other_res['message'];
+  echo json_encode($ajaxResult);
+  exit;
+} 
+
+$path = $uploaddir . $_POST['__file'] . '.jpg';
+if (move_uploaded_file($_FILES['uploadimage']['tmp_name'], $path)) {
+  $ajaxResult['file'] = $_POST['__file'];
+} else {
+  $ajaxResult['result'] = false;
+  $ajaxResult['message'] = 'Ошибка при загрузке файла на сервер!';
+}
+echo json_encode($ajaxResult);
+
+?>
