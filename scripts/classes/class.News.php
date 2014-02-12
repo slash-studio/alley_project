@@ -4,9 +4,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php
 
 class News extends Entity
 {
-   const ALL_NEWS_SCHEME    = 2;
-   const MAIN_PAGE_SCHEME   = 3;
-   const WITH_PHOTOS_SCHEME = 4;
+   const INFO_SCHEME        = 2;
+   const OTHER_SCHEME       = 3;
+   const MAIN_PAGE_SCHEME   = 4;
+   const WITH_PHOTOS_SCHEME = 5;
 
    const PHOTO_FLD            = 'photo_id';
    const PHOTOS_FLD           = 'photos';
@@ -17,6 +18,8 @@ class News extends Entity
    const TABLE = 'news';
 
    const LAST_VIEWED_ID = 'last_viewed_news_id';
+
+   const NEWS_ON_PAGE = 2;
 
    public function __construct()
    {
@@ -54,6 +57,15 @@ class News extends Entity
          Array(static::PUBLICATION_DATE_FLD => new OrderField(static::TABLE, $this->GetFieldByName(static::PUBLICATION_DATE_FLD)));
    }
 
+   public function CutNewsBody($news, $delimiter = ' ')
+   {
+      $amount = $delimiter == ' ' ? 5 : 1;
+      $arr = explode($delimiter, $news);
+      $result = implode($delimiter, array_slice($arr, 0, $amount));
+      $result .= $delimiter == '' && count($arr) >= 5 ? '...' : '';
+      return $result;
+   }
+
    public function ModifySample(&$sample)
    {
       if (empty($sample)) return $sample;
@@ -81,6 +93,28 @@ class News extends Entity
                $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
             }
             break;
+
+         case static::INFO_SCHEME:
+            $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
+            foreach ($sample as $key => &$set) {
+               $date = new DateTime($set[$dateKey]);
+               $set[$dateKey] = $date->format('d-m-Y');
+            }
+            break;
+
+         case static::OTHER_SCHEME:
+            $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
+            $textKey = $this->ToPrfxNm(static::TEXT_BODY_FLD);
+            foreach ($sample as $key => &$set) {
+               $date = new DateTime($set[$dateKey]);
+               $set[$textKey] = $this->CutNewsBody($set[$textKey]);
+               $set[$dateKey] = $date->format('d-m-Y');
+            }
+            $resArr = array_chunk($sample, 3);
+            $arr['left_news']  = isset($resArr[0]) ? $resArr[0] : Array();
+            $arr['right_news'] = isset($resArr[1]) ? $resArr[1] : Array();
+            $sample = $arr;
+            break;
       }
    }
 
@@ -95,35 +129,71 @@ class News extends Entity
             $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
             break;
 
-         case static::ALL_NEWS_SCHEME:
-            $fields =
-               SQL::PrepareFieldsForSelect(
-                  static::TABLE,
-                  Array(
-                     $this->GetFieldByName(static::ID_FLD),
-                     $this->GetFieldByName(static::TEXT_HEAD_FLD),
-                     $this->GetFieldByName(static::PUBLICATION_DATE_FLD),
-                     $this->GetFieldByName(static::PHOTO_FLD)
-                  )
-               );
-            break;
-
+         case static::INFO_SCHEME:
          case static::WITH_PHOTOS_SCHEME:
             global $_newsImages;
             $fields =
+               Array(
+                  $this->GetFieldByName(static::ID_FLD),
+                  $this->GetFieldByName(static::TEXT_HEAD_FLD),
+                  $this->GetFieldByName(static::TEXT_BODY_FLD),
+                  $this->GetFieldByName(static::PHOTO_FLD)
+               );
+            if ($this->samplingScheme == static::INFO_SCHEME) {
+               $fields[] = $this->GetFieldByName(static::PUBLICATION_DATE_FLD);
+            }
+            $fields =
                SQL::PrepareFieldsForSelect(
                   static::TABLE,
-                  Array(
-                     $this->GetFieldByName(static::ID_FLD),
-                     $this->GetFieldByName(static::TEXT_HEAD_FLD),
-                     $this->GetFieldByName(static::TEXT_BODY_FLD),
-                     $this->GetFieldByName(static::PHOTO_FLD)
-                  )
+                  $fields
                );
             $fields[] = SQL::ImageSelectSQL($this, $_newsImages, NewsImages::NEWS_FLD);
             break;
+
+         case static::OTHER_SCHEME:
+            $this->AddLimit(6, 1);
+            $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
+            break;
       }
       $this->selectFields = SQL::GetListFieldsForSelect($fields);
+   }
+
+   public function GetNews($page)
+   {
+      global $db;
+      $sample = Array();
+      try {
+         $dateField = $this->ToTblNm(static::PUBLICATION_DATE_FLD);
+         $queryPart =
+            SQL::SimpleQuerySelect(
+               SQL::GetListFieldsForSelect(
+                  SQL::PrepareFieldsForSelect(
+                     static::TABLE,
+                     $this->fields
+                  )
+               ),
+               static::TABLE
+         );
+         $query = '('
+                . $queryPart
+                . " ORDER BY $dateField DESC limit 0, 1) UNION ("
+                . $queryPart
+                . " ORDER BY $dateField DESC limit ?, ?)";
+         $sample = $db->Query($query, Array($page * static::NEWS_ON_PAGE + 1, static::NEWS_ON_PAGE));
+         $textKey = $this->ToPrfxNm(static::TEXT_BODY_FLD);
+         $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
+         foreach ($sample as $key => &$set) {
+            $date = new DateTime($set[$dateKey]);
+            $set[$dateKey] = $date->format('d-m-Y');
+            $set[$textKey] = $key == 0 ? $this->CutNewsBody($set[$textKey], '.') : $this->CutNewsBody($set[$textKey]);
+         }
+         $firstNews = array_shift($sample);
+         $resArr = array_chunk($sample, intval(static::NEWS_ON_PAGE / 2));
+         $firstNews['left_news']  = isset($resArr[0]) ? $resArr[0] : Array();
+         $firstNews['right_news'] = isset($resArr[1]) ? $resArr[1] : Array();
+         $sample = $firstNews;
+      } catch (DBException $e) {}
+      return $sample;
    }
 
    public function GetAdminMenu()
