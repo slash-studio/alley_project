@@ -11,7 +11,7 @@ class Entity
    const RAND_FLD      = 'rand';
    const USUAL_SCHEME  = 1;
 
-   const LAST_VIEWED_ID = LAST;
+   const LAST_VIEWED_ID = 'last_viewed_';
 
    protected
       $idField,
@@ -241,15 +241,15 @@ class Entity
       };
       foreach ($this->fields as $field) {
          if ($field->canChange && $field->IsSetField()) {
-            // try {
+            try {
                $field->Validate();
                $names  = array_merge($names,  $GetArr($field->GetName()));
                $params = array_merge($params, $GetArr($field->GetValue()));
-            // } catch (ValidateException $e) {
-            //    if (!empty(static::LAST_VIEWED_ID)) {
-            //       $this->SetLastViewedID($this->GetFieldByName(static::ID_FLD)->GetName());
-            //    }
-            // }
+            } catch (ValidateException $e) {
+               if (!empty(static::LAST_VIEWED_ID)) {
+                  $this->SetLastViewedID($this->GetFieldByName(static::ID_FLD)->GetName());
+               }
+            }
          }
       }
       return Array($names, $params);
@@ -260,15 +260,15 @@ class Entity
       global $db;
       list($names, $params) = $this->SetChangeParams();
       $query = SQL::GetInsertQuery(static::TABLE, $names);
-      /*if ($getLastInsertId || !empty(self::LAST_VIEWED_ID)) {
+      if ($getLastInsertId || !empty(static::LAST_VIEWED_ID)) {
          $resID = $db->Insert($query, $params, true);
          if (!empty(self::LAST_VIEWED_ID)) {
             $this->SetLastViewedID($resID);
          }
          return $resID;
-      } else {*/
+      } else {
          $db->Insert($query, $params);
-      //}
+      }
    }
 
    public function Delete($id)
