@@ -260,15 +260,15 @@ class Entity
       global $db;
       list($names, $params) = $this->SetChangeParams();
       $query = SQL::GetInsertQuery(static::TABLE, $names);
-      if ($getLastInsertId || !empty(static::LAST_VIEWED_ID)) {
+      /*if ($getLastInsertId || !empty(self::LAST_VIEWED_ID)) {
          $resID = $db->Insert($query, $params, true);
-         if (!empty(static::LAST_VIEWED_ID)) {
+         if (!empty(self::LAST_VIEWED_ID)) {
             $this->SetLastViewedID($resID);
          }
          return $resID;
-      } else {
+      } else {*/
          $db->Insert($query, $params);
-      }
+      //}
    }
 
    public function Delete($id)
