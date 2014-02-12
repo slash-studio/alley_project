@@ -1,4 +1,5 @@
 #top_block .text p {
+
 }
 
 #top_block .adress {
@@ -56,6 +57,11 @@
 
 #news article a {
 	color: black;
+}
+
+#news p, #master p {
+  margin-bottom: 0;
+  text-indent: 0;
 }
 
 #news article.main p {

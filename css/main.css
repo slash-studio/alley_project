@@ -67,3 +67,8 @@ h1.nice {
 	padding: 20px;
 	vertical-align: bottom;
 }
+
+p {
+  margin-bottom: 8px;
+  text-indent: 10px;
+}

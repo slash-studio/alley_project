@@ -11,6 +11,11 @@ switch ($request[0]) {
       SetActiveItem('articles');
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/articles.php';
       break;
+      
+   case 'article':
+      SetActiveItem('articles');
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/article.php';
+      break;
 
    case 'courses':
       SetActiveItem('courses');
