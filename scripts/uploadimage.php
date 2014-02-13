@@ -28,22 +28,22 @@ if ($_POST['height'] && $arr[1] != $_POST['height']) {
   exit;
 }
 
-if ($_FILES['uploadimage']['size'] > $_POST['maxSize']) {
-  $ajaxResult['result'] = false;
-  $ajaxResult['message'] = 'Размер изображения превышает максимальный!';
-  echo json_encode($ajaxResult);
-  exit;
-}  
+//undefined index maxSize
+// $_POST['maxSize'] = 500;
+// if ($_FILES['uploadimage']['size'] > $_POST['maxSize']) {
+//   $ajaxResult['result'] = false;
+//   $ajaxResult['message'] = 'Размер изображения превышает максимальный!';
+//   echo json_encode($ajaxResult);
+//   exit;
+// }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/php_for_upload.php';
-
-$ajax_other_res = checkOther();
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/php_for_upload.php';
 if ($ajax_other_res['result']) {
   $ajaxResult['result'] = $ajax_other_res['result'];
   $ajaxResult['message'] = $ajax_other_res['message'];
   echo json_encode($ajaxResult);
   exit;
-} 
+}
 
 $path = $uploaddir . $_POST['__file'] . '.jpg';
 if (move_uploaded_file($_FILES['uploadimage']['tmp_name'], $path)) {

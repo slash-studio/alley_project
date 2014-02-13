@@ -21,6 +21,8 @@ $(function(){
         }
       },
       onComplete: function(file, response) {
+        document.innerHTML = response;
+        alert(response);
         //Add uploaded file to list
         $buttonId = this._settings.data.buttonId;
         $response = JSON.parse(response);
@@ -78,7 +80,7 @@ $(function(){
     );
     return false;
   });
-  
+
   $(document).on('change', 'ul.imgs li input[name="make_main"]', function(){
     var $input = $(this);
     $.post(
