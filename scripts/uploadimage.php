@@ -41,7 +41,7 @@ if (!$ajaxOtherResult['result']) {
   $ajaxResult['message'] = $ajaxOtherResult['message'];
   echo json_encode($ajaxResult);
   exit;
-} 
+}
 
 $path = $uploaddir . $_POST['__file'] . '.jpg';
 if (move_uploaded_file($_FILES['uploadimage']['tmp_name'], $path)) {

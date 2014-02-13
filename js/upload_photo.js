@@ -37,6 +37,8 @@ $(function(){
         }
       },
       onComplete: function(file, response) {
+        document.innerHTML = response;
+        alert(response);
         //Add uploaded file to list
         $buttonId = this._settings.data.buttonId;
         $sizes = this._settings.data.sizes;
