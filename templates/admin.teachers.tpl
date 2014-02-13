@@ -1,8 +1,10 @@
 {extends file='admin.tpl'}
+{block name='title' append} - Учителя{/block}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
   <script src="/js/ajaxupload.3.5.js"></script>
   <script src="/js/upload_photo.js"></script>
+  <link href="/css/upload_photos.css" rel="stylesheet" />
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -24,14 +26,14 @@
     <label for="teacher_body_{$smarty.foreach.foo.index}">Текст:</label>
     <textarea class="teacher_body" name="info" id="teacher_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$teacher.teachers_info}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
-    {if !isset($teacher.teachers_photo_id)}
-    <button class="upload" data='{literal}{{/literal}"upload_type":"teachers", "make_main":"true", "item_id":"{$teacher.teachers_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
-    {/if}
-    <ul class="imgs">
-      {if isset($teacher.teachers_photo_id)}
-      <li><a href="/scripts/uploads/{$teacher.teachers_photo_id}_s.jpg" class="block"><img src="/scripts/uploads/{$teacher.teachers_photo_id}_s.jpg" /></a><button class="x" data="{$teacher.teachers_photo_id}">x</button></li>
-      {/if}
-    </ul>
+    <div class="upload_photos">
+      <button class="upload" data='{literal}{{/literal}"buttonId": "{$teacher.teachers_id}", "upload_type":"teachers", "makeMain":"false", "maxSize":"1024000", "item_id":"{$teacher.teachers_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+      <ul>
+        {if isset($teacher.teachers_photo_id)}
+          <li><a href="/scripts/uploads/{$teacher.teachers_photo_id}_s.jpg"><img src="/scripts/uploads/{$teacher.teachers_photo_id}_s.jpg" /></a><button class="x" data="{$teacher.teachers_photo_id}">x</button></li>
+        {/if}
+      </ul>
+    </div>
   </form>
   {/foreach}
   {include file='admin.set_select.tpl'}

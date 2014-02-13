@@ -1,6 +1,6 @@
 <?php
 $uploaddir = 'uploads/';
-$path      = $uploaddir . $_POST['name'] . '.jpg';
+$path      = $uploaddir . $_POST['file'] . '.jpg';
 $im        = imagecreatefromjpeg($path);
 $arr       = getimagesize($path);
 
@@ -19,12 +19,12 @@ function resize($image, $new_height, $path, $width, $height)
 
 $arr[1] = resize($path,
    BIG_SIZE_HEIGHT,
-   $uploaddir . $_POST['name'] . '_b.jpg',
+   $uploaddir . $_POST['file'] . '_b.jpg',
    $arr[0],
    $arr[1]);
 $arr[1] = resize($path,
    SMALL_SIZE_HEIGHT,
-   $uploaddir . $_POST['name'] . '_s.jpg',
+   $uploaddir . $_POST['file'] . '_s.jpg',
    $arr[0],
    BIG_SIZE_HEIGHT);
 
@@ -39,9 +39,9 @@ function resize($image, $size, $path)
 }
 
 $image = new Imagick($path);
-$image = resize($image, BIG_SIZE_WIDTH, $uploaddir . $_POST['name'] . '_b.jpg');
-$image = resize($image, MIDDLE_SIZE_WIDTH, $uploaddir . $_POST['name'] . '_m.jpg');
-$image = resize($image, SMALL_SIZE_WIDTH, $uploaddir . $_POST['name'] . '_s.jpg');
+$image = resize($image, BIG_SIZE_WIDTH, $uploaddir . $_POST['file'] . '_b.jpg');
+$image = resize($image, MIDDLE_SIZE_WIDTH, $uploaddir . $_POST['file'] . '_m.jpg');
+$image = resize($image, SMALL_SIZE_WIDTH, $uploaddir . $_POST['file'] . '_s.jpg');
 $image->clear();
 $image->destroy();
 */
@@ -64,5 +64,5 @@ $h = SMALL_SIZE_HEIGHT;
 $small = imagecreatetruecolor($w, $h);
 imagecopyresampled($small, $im, 0, 0, 0, 0, $w, $h, $arr[0], $arr[1]);
 
-imagejpeg($big, $uploaddir . $_POST['name'] . '_b.jpg');
-imagejpeg($small, $uploaddir . $_POST['name'] . '_s.jpg');
+imagejpeg($big, $uploaddir . $_POST['file'] . '_b.jpg');
+imagejpeg($small, $uploaddir . $_POST['file'] . '_s.jpg');

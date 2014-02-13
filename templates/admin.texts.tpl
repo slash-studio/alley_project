@@ -1,8 +1,10 @@
 {extends file='admin.tpl'}
+{block name='title' append} - Тексты{/block}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
   <script src="/js/ajaxupload.3.5.js"></script>
   <script src="/js/upload_photo.js"></script>
+  <link href="/css/upload_photos.css" rel="stylesheet" />
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -24,10 +26,14 @@
     <textarea id="text_body_{$smarty.foreach.foo.index}" name="text_body" rows="10" cols="100">{$text.texts_text_body}</textarea>
     <button class="save_text" name="save" value="Update">Сохранить</button>
     {if $text.texts_have_photo}
-      <button class="upload" data='{literal}{{/literal}"upload_type":"texts", "make_main":"false", "item_id":"{$text.texts_id}", "count":"1", "width":"454", "height":"300", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
-      <ul class="imgs">
-      <li><a href="/scripts/uploads/{$text.texts_photo_id}_s.jpg" class="block"><img src="/scripts/uploads/{$text.texts_photo_id}_s.jpg" /></a><button class="x" data="{$text.texts_photo_id}">x</button></li>
+    <div class="upload_photos">
+      <button class="upload" data='{literal}{{/literal}"buttonId": "{$text.texts_id}", "upload_type":"texts", "makeMain":"false", "maxSize":"1024000", "item_id":"{$text.texts_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+      <ul>
+        {if isset($text.texts_photo_id)}
+          <li><a href="/scripts/uploads/{$text.texts_photo_id}_s.jpg"><img src="/scripts/uploads/{$text.texts_photo_id}_s.jpg" /></a><button class="x" data="{$text.texts_photo_id}">x</button></li>
+        {/if}
       </ul>
+    </div>
     {/if}
   </form>
   {/foreach}

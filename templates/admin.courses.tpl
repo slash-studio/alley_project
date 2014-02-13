@@ -1,8 +1,10 @@
 {extends file='admin.tpl'}
+{block name='title' append} - Арт-курсы{/block}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
   <script src="/js/ajaxupload.3.5.js"></script>
   <script src="/js/upload_photo.js"></script>
+  <link href="/css/upload_photos.css" rel="stylesheet" />
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -30,12 +32,14 @@
     <label for="course_body_{$smarty.foreach.foo.index}">Текст:</label>
     <textarea class="course_body" name="description" id="course_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$course.courses_description}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
-    <button class="upload" data='{literal}{{/literal}"upload_type":"courses_photo", "make_main":"true", "item_id":"{$course.courses_id}", "count":"1", "width":"", "height":"", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
-    <ul class="imgs">
-      {foreach from=$course.courses_photos item=photo}
-        <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><div><input type="radio" name="make_main" value="{$photo}" data-table="course" data-id="{$course.courses_id}" {if $course.courses_photo_id==$photo}checked="checked"{/if} /><label for="make_main">Сделать главной</label></div></li>
-      {/foreach}
-    </ul>
+    <div class="upload_photos">
+      <button class="upload" data='{literal}{{/literal}"buttonId": "{$course.courses_id}", "makeMain":"true", "upload_type":"courses_photo", "maxSize":"1024000", "item_id":"{$course.courses_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
+      <ul>
+        {foreach from=$course.courses_photos item=photo}
+          <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><div><input type="radio" data-table="course" data-id="{$course.courses_id}" name="make_main" value="{$photo}" {if $course.courses_id==$photo}checked="checked"{/if} /><label for="make_main">Сделать главной</label></div></li>
+        {/foreach}
+      </ul>
+    </div>
   </form>
   {/foreach}
   {include file='admin.set_select.tpl'}

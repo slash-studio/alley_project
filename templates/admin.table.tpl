@@ -1,4 +1,5 @@
 {extends file='admin.tpl'}
+{block name='title' append} - Расписание{/block}
 {block name='links' append}
   <link href="/css/admin_table.css" rel="stylesheet" />
   <link href="/colorbox/colorbox.css" rel="stylesheet" />

@@ -246,7 +246,8 @@ class Entity
                $names  = array_merge($names,  $GetArr($field->GetName()));
                $params = array_merge($params, $GetArr($field->GetValue()));
             } catch (ValidateException $e) {
-               if (!empty(static::LAST_VIEWED_ID)) {
+               $last_v = static::LAST_VIEWED_ID;
+               if (!empty($last_v)) {
                   $this->SetLastViewedID($this->GetFieldByName(static::ID_FLD)->GetName());
                }
             }

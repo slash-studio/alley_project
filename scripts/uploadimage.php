@@ -34,13 +34,11 @@ if ($_FILES['uploadimage']['size'] > $_POST['maxSize']) {
   echo json_encode($ajaxResult);
   exit;
 }  
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/php_for_upload.php';
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/php_for_upload.php';
-
-$ajax_other_res = checkOther();
-if ($ajax_other_res['result']) {
-  $ajaxResult['result'] = $ajax_other_res['result'];
-  $ajaxResult['message'] = $ajax_other_res['message'];
+if (!$ajaxOtherResult['result']) {
+  $ajaxResult['result'] = $ajaxOtherResult['result'];
+  $ajaxResult['message'] = $ajaxOtherResult['message'];
   echo json_encode($ajaxResult);
   exit;
 } 
@@ -48,6 +46,7 @@ if ($ajax_other_res['result']) {
 $path = $uploaddir . $_POST['__file'] . '.jpg';
 if (move_uploaded_file($_FILES['uploadimage']['tmp_name'], $path)) {
   $ajaxResult['file'] = $_POST['__file'];
+  
 } else {
   $ajaxResult['result'] = false;
   $ajaxResult['message'] = 'Ошибка при загрузке файла на сервер!';
