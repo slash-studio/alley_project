@@ -28,7 +28,9 @@ class Teachers extends Entity
          new Field(
             static::INFO_FLD,
             TextType(),
-            true
+            true,
+            'информация о преподавателе',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PHOTO_FLD,
