@@ -11,7 +11,7 @@ switch ($request[0]) {
       SetActiveItem('articles');
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/articles.php';
       break;
-      
+
    case 'article':
       SetActiveItem('articles');
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/article.php';
@@ -48,6 +48,7 @@ switch ($request[0]) {
       } elseif (!$isLoginPage) {
          header('Location: /admin/');
       }
+      $request[1] = !empty($request[1]) ? $request[1] : null;
       switch ($request[1]) {
          case '': case 'login': case null: case false:
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.login.php';
@@ -75,6 +76,12 @@ switch ($request[0]) {
 
          case 'texts':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.texts.php';
+            break;
+
+         case 'logout':
+            unset($_SESSION['admin_login']);
+            unset($_SESSION['admin_pass']);
+            header('Location: /admin');
             break;
 
          default:

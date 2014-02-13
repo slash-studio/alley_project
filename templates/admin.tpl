@@ -15,6 +15,7 @@
         <li><a href="/admin/articles">Новости</a></li>
         <li><a href="/admin/table">Расписание</a></li>
         <li><a href="/admin/masterclasses">Мастер-классы</a></li>
+        <li><a href="/admin/logout">Выход</a></li>
       </ul>
     </nav>
   </header>
