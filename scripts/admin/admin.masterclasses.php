@@ -10,7 +10,7 @@ if (isset($_POST['mode'])) {
    $desc = isset($post['description']) ? $post['description'] : '';
    $date = new DateTime();
    $date->modify("+7 hour");
-   $date->modify("+5 minute");
+   $date->modify("+25 minute");
    $date = $date->format("Y-m-d H:i:s");
 
    $post['params'] = Array(
