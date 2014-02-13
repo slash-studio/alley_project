@@ -4,8 +4,12 @@ $path      = $uploaddir . $_POST['file'] . '.jpg';
 $im        = imagecreatefromjpeg($path);
 $arr       = getimagesize($path);
 
-const BIG_SIZE_HEIGHT    = 400;
-const SMALL_SIZE_HEIGHT  = 150;
+$sizes = $_POST['sizes'];
+
+$sizes = explode(',', $_POST['sizes']);
+
+const BIG_SIZE_HEIGHT    = 200;
+const SMALL_SIZE_HEIGHT  = 80;
 
 $arr = getimagesize($path);
 /*
