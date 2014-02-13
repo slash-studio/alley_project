@@ -31,6 +31,19 @@ try {
          throw new DBException($e->getMessage());
       }
       break;
+      
+    case 'masterclass':
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.MasterClass.php';
+      try {
+         $db->link->beginTransaction();
+         $_POST['__file'] = $_image->Insert(true);
+         $_masterClass->SetFieldByName(MasterClass::ID_FLD, $item_id)->SetFieldByName(MasterClass::PHOTO_FLD, $_POST['__file'])->Update();
+         $db->link->commit();
+      } catch (DBException $e) {
+         $db->link->rollback();
+         throw new DBException($e->getMessage());
+      }
+      break;
 
     default:
       $ajaxOtherResult['result'] = false;

@@ -31,9 +31,9 @@
       <div class="upload_photos">
         <button class="upload" data='{literal}{{/literal}"buttonId": "{$class.master_class_id}", "makeMain":"false", "upload_type":"masterclass", "maxSize":"1024000", "item_id":"{$class.master_class_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
         <ul>
-          {foreach from=$class.master_class_photos item=photo}
-            <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button></li>
-          {/foreach}
+          {if isset($class.master_class_photo_id)}
+            <li><a href="/scripts/uploads/{$class.master_class_photo_id}_s.jpg"><img src="/scripts/uploads/{$class.master_class_photo_id}_s.jpg" /></a><button class="x" data="{$class.master_class_photo_id}">x</button></li>
+          {/if}
         </ul>
       </div>
     </form>
