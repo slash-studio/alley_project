@@ -84,63 +84,24 @@ input {
 	width: 300px;
 }
 
-ul.imgs {
-  margin-top: 20px;
-}
 
-ul.imgs li {
-	margin: 0 5px;
-	display: inline-block;
-	vertical-align: top;
-	position: relative;
-  text-align: center;
-}
-
-ul.imgs li a {
-  display: block;
-  background: #eee;
-  min-width: 190px;
-}
-
-ul.imgs li:hover button.x {
-	display: block;
-}
-
-ul.imgs button.x {
-	width: 20px;
-	height: 20px;
-	background: red;
-	display: none;
-  border-radius: 0;
-  padding: 0;
-  border: 0;
-  color: white;
-	position: absolute;
-	top: 0;
-	right: 0;
-  margin: 0;
-}
-
-ul.imgs li div {
+div.upload_photos ul li div {
   visibility: hidden;
 }
 
-ul.imgs li:hover div {
+div.upload_photos ul li:hover div {
   visibility: visible;
 }
 
-ul.imgs button.x:hover {
-	background: darkred;
-}
-
-ul.imgs li input[type=radio] {
+div.upload_photos ul li input[type=radio] {
   display: inline-block;
   width: 20px;
   margin-top: 10px;
 }
 
-ul.imgs label {
+div.upload_photos ul label {
   display: inline-block;
+  font-size: 80%;
 }
 
 p.db_error {

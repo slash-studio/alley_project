@@ -31,11 +31,11 @@ class MasterClass extends Entity
             TextType(),
             true
          ),
-         // new Field(
-         //    static::PHOTO_FLD,
-         //    null,
-         //    true
-         // ),
+         new Field(
+            static::PHOTO_FLD,
+            IntType(),
+            true
+         ),
          new Field(
             static::DATE_FLD,
             TimestampType(),

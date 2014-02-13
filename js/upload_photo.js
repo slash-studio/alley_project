@@ -1,6 +1,21 @@
 $(function(){
+
+  function checkDisable() {
+    $('button.upload').each(function() {
+      $btnUpload = $(this);
+      $data = JSON.parse($btnUpload.attr('data'));
+      if ($btnUpload.siblings('ul').children('li').length >= $data.count) {
+        $btnUpload.hide();
+      } else {
+        $btnUpload.show();
+      }
+    });
+  }
+  
+  checkDisable();
+  
   $array = [];
-  $('.upload').each(function() {
+  $('button.upload').each(function() {
     $btnUpload = $(this);
     $data = JSON.parse($btnUpload.attr('data'));
     $array[$data.buttonId] = $(this);
@@ -10,7 +25,8 @@ $(function(){
       data: $data,
       onSubmit: function(file, ext) {
         $photosCount = this._settings.data.count;
-        if ($('div.upload_photos ul li').length >= $photosCount) {
+        $buttonId = this._settings.data.buttonId;
+        if ($array[$buttonId].siblings('ul').children('li').length >= $photosCount) {
           alert('Нельзя загрузить больше чем ' + $photosCount + ' фотографий!');
           return false;
         }
@@ -25,6 +41,8 @@ $(function(){
         alert(response);
         //Add uploaded file to list
         $buttonId = this._settings.data.buttonId;
+        $sizes = this._settings.data.sizes;
+        $count = this._settings.data.count;
         $response = JSON.parse(response);
         $fileName = $response.file;
         $fileTmpName = $response.file_tmp;
@@ -36,14 +54,12 @@ $(function(){
           $.post(
             "/scripts/rename.php",
             {
-              file: fileName,
-              sizes: this._settings.data.sizes
+              file: $fileName,
+              sizes: $sizes
             },
             function(data){
-              $array[$buttonId].siblings('ul').append('<li><a href="/scripts/uploads/' + $fileName + '_b.jpg"><img src="/scripts/uploads/' + $fileName + '_s.jpg" /></a><button class="x" data="' + $fileName + '">x</button>' + $make_main + '</li>');
-              if ($array[$buttonId].siblings('ul').siblings('li').length >= this._settings.data.count) {
-                $array[$buttonId].hide();
-              }
+              $array[$buttonId].siblings('ul').append('<li><a href="/scripts/uploads/' + $fileName + '_b.jpg"><img src="/scripts/uploads/' + $fileName + '_s.jpg" /></a><button class="x" data="' + $fileName + '">x</button>' + $makeMain + '</li>');
+              checkDisable();
             }
           );
         } else {
@@ -53,9 +69,10 @@ $(function(){
     });
   });
 
-  $(document).on('click', 'ul.imgs li button', function(){
+  
+    
+  $(document).on('click', 'div.upload_photos ul li button', function(){
     $button = $(this);
-    $data = JSON.parse($btnUpload.attr('data'));
     $.post(
       "/scripts/handlers/handler.Image.php",
       {
@@ -69,9 +86,7 @@ $(function(){
       function(data) {
         if (data.result) {
           $button.parent().empty().remove();
-          if ($button.siblings('ul').siblings('li').length < $data.count) {
-            $button.show();
-          }
+          checkDisable();
         } else {
           alert(data.message);
         }
@@ -80,8 +95,8 @@ $(function(){
     );
     return false;
   });
-
-  $(document).on('change', 'ul.imgs li input[name="make_main"]', function(){
+  
+  $(document).on('change', 'div.upload_photos ul li input[name="make_main"]', function(){
     var $input = $(this);
     $.post(
       "/scripts/handlers/handler.MainPhoto.php",

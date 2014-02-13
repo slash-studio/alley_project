@@ -21,6 +21,5 @@ if (isset($_POST['mode'])) {
    );
    HandleAdminData($_masterClass, $post, 'masterclasses');
 }
-print_r($_masterClass->ResetDateOfInterval()->GetAll());
 $smarty->assign('classes', $_masterClass->ResetDateOfInterval()->GetAll())
        ->display('admin.masterclasses.tpl');
