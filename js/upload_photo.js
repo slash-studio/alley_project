@@ -37,20 +37,20 @@ $(function(){
         }
       },
       onComplete: function(file, response) {
-        document.innerHTML = response;
-        alert(response);
-        //Add uploaded file to list
-        $buttonId = this._settings.data.buttonId;
-        $sizes = this._settings.data.sizes;
-        $count = this._settings.data.count;
         $response = JSON.parse(response);
-        $fileName = $response.file;
-        $fileTmpName = $response.file_tmp;
-        $makeMain = "";
-        if (this._settings.data.makeMain) {
-          $makeMain = '<div><input type="radio" name="make_main" value="' + $fileName + '" /><label for="make_main">Сделать главной</label></div>';
-        }
         if ($response.result) {
+          $('#resize_photo img.src_image').attr('src', '/scripts/uploads/' + $response.file + '.jpg');
+          $.colorbox({inline:true, width:"600px", height:"500px", href:"#resize_photo"});
+          /*
+          $buttonId = this._settings.data.buttonId;
+          $sizes = this._settings.data.sizes;
+          $count = this._settings.data.count;
+          $fileName = $response.file;
+          $fileTmpName = $response.file_tmp;
+          $makeMain = "";
+          if (this._settings.data.makeMain == true) {
+            $makeMain = '<div><input type="radio" name="make_main" value="' + $fileName + '" /><label for="make_main">Сделать главной</label></div>';
+          }
           $.post(
             "/scripts/rename.php",
             {
@@ -61,15 +61,15 @@ $(function(){
               $array[$buttonId].siblings('ul').append('<li><a href="/scripts/uploads/' + $fileName + '_b.jpg"><img src="/scripts/uploads/' + $fileName + '_s.jpg" /></a><button class="x" data="' + $fileName + '">x</button>' + $makeMain + '</li>');
               checkDisable();
             }
-          );
+          );*/
         } else {
           alert('Файл ' + $fileTmpName + ' не может быть загружен. ' + $response.message);
         }
       }
     });
   });
-
   
+
     
   $(document).on('click', 'div.upload_photos ul li button', function(){
     $button = $(this);
