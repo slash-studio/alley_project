@@ -32,3 +32,11 @@ class LikeView extends SQLFieldView
       return 'LIKE (' . $this->arg->GetSQL() . ')';
    }
 }
+
+class MD5View extends SQLFieldView
+{
+   public function GetSQL()
+   {
+      return 'MD5(' . $this->arg->GetSQL() . ')';
+   }
+}

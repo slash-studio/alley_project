@@ -20,7 +20,7 @@ class Teachers extends Entity
          $this->idField,
          new Field(
             static::NAME_FLD,
-            StrType(150),
+            StrType(120),
             true,
             'имя преподавателя',
             Array(Validate::IS_NOT_EMPTY)
