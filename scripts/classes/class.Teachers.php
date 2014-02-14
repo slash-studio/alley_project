@@ -20,7 +20,7 @@ class Teachers extends Entity
          $this->idField,
          new Field(
             static::NAME_FLD,
-            StrType(150),
+            StrType(120),
             true,
             'имя преподавателя',
             Array(Validate::IS_NOT_EMPTY)
@@ -28,7 +28,9 @@ class Teachers extends Entity
          new Field(
             static::INFO_FLD,
             TextType(),
-            true
+            true,
+            'информация о преподавателе',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PHOTO_FLD,

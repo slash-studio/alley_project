@@ -11,7 +11,7 @@
 	{literal}
 	$(function(){
 		$('a.masterclass_href').colorbox({inline:true, width:"600px", height:"500px"});
-	});	
+	});
 	{/literal}
   </script>
 {/block}
@@ -58,7 +58,7 @@
         <a href="#masterclass_open" class="masterclass_href"><img src="/scripts/uploads/{$class.master_class_photo_id}_s.jpg" /></a>
         <h1><a href="#masterclass_open" class="masterclass_href">{$class.master_class_name}</a></h1>
         <time datetime="">{$class.master_class_date_of}</time>
-        <p><a href="#masterclass_open" class="masterclass_href">{$class.cut_body}...</a></p>
+        <p><a href="#masterclass_open" class="masterclass_href">{$class.master_class_cut_description}</a></p>
       </article>
       <div style="display: none">
         <div id="masterclass_open">
@@ -66,7 +66,6 @@
           <time datetime="">{$class.master_class_date_of}</time>
           <img src="/scripts/uploads/{$class.master_class_photo_id}_b.jpg" />
           <p>{$class.master_class_description}</p>
-          
         </div>
       </div>
       {/if}

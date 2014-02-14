@@ -29,7 +29,9 @@ class MasterClass extends Entity
          new Field(
             static::DESCRIPTION_FLD,
             TextType(),
-            true
+            true,
+            'описание мастер-класса',
+            Array(Validate::IS_NOT_EMPTY)
          ),
          new Field(
             static::PHOTO_FLD,
@@ -59,9 +61,12 @@ class MasterClass extends Entity
       switch ($this->samplingScheme) {
          case static::MAIN_PAGE_SCHEME;
             $key = $this->ToPrfxNm(static::DATE_FLD);
+            $textKey = $this->ToPrfxNm(static::DESCRIPTION_FLD);
+            $cutTextKey = $this->ToPrfxNm('cut_' . static::DESCRIPTION_FLD);
             foreach ($sample as &$set) {
                $date = new DateTime($set[$key]);
                $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
+               $set[$cutTextKey] = CutString($set[$textKey], 130);
             }
       }
    }
