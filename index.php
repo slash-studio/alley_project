@@ -56,7 +56,7 @@ switch ($request[0]) {
          case 'courses':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.courses.php';
             break;
-            
+
          case 'change_pass':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.change_pass.php';
             break;
@@ -80,7 +80,7 @@ switch ($request[0]) {
          case 'texts':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.texts.php';
             break;
-            
+
          case 'resize_photo':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.resize_photo.php';
             break;

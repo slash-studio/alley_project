@@ -32,6 +32,26 @@ class Admin extends Entity
       );
    }
 
+   private function CheckPermissions($login, $pass)
+   {
+      $this->CreateSearch();
+      $this->search->AddClause(
+         CCond(
+            CF(static::TABLE, $this->GetFieldByName(static::LOGIN_FLD)),
+            CVP($login)
+         )
+      );
+      $this->search->AddClause(
+         CCond(
+            CF(static::TABLE, $this->GetFieldByName(static::PASS_FLD)),
+            new MD5View(CVP($pass)),
+            'AND'
+         )
+      );
+      $adminInfo = $this->GetPart();
+      return !empty($adminInfo);
+   }
+
    public function IsAdmin($login = null, $pass = null)
    {
       if (!empty($login) && !empty($pass)) {
@@ -41,33 +61,62 @@ class Admin extends Entity
          $admin_login = $_SESSION['admin_login'];
          $admin_pass  = $_SESSION['admin_pass'];
       } else return false;
-      $this->CreateSearch();
-      $this->search->AddClause(
-         CCond(
-            CF(static::TABLE, $this->GetFieldByName(static::LOGIN_FLD)),
-            CVP($admin_login)
-         )
-      );
-      $this->search->AddClause(
-         CCond(
-            CF(static::TABLE, $this->GetFieldByName(static::PASS_FLD)),
-            new MD5View(CVP($admin_pass)),
-            'AND'
-         )
-      );
-      $adminInfo = $this->GetPart();
-      $result = !empty($adminInfo);
-      $this->SetSessionParams($admin_login, $admin_pass);
+      $result = $this->CheckPermissions($admin_login, $admin_pass);
+      if ($result) {
+         $this->SetSessionParams($admin_login, $admin_pass);
+      }
       return $result;
    }
 
-   public function Update()
+   public function ChangeData($login, $pass, $new_pass)
    {
-      parent::Update();
-      $this->SetSessionParams(
-         $this->GetFieldByName(static::LOGIN_FLD)->GetValue(),
-         $this->GetFieldByName(static::PASS_FLD)->GetValue()
-      );
+      global $smarty;
+      if (empty($pass)) {
+         $smarty->assign('error_txt', 'Необходимо ввести пароль!');
+      } else if (empty($login)) {
+         $smarty->assign('error_txt', 'Логин не может быть пустым!');
+      } else if (!$this->CheckPermissions($_SESSION['admin_login'], $pass)) {
+         $smarty->assign('error_txt', 'Неправильный пароль!');
+      } else {
+         $this->SetFieldByName(static::ID_FLD, ADMIN_ID);
+         $this->SetFieldByName(static::LOGIN_FLD, $login);
+         $session_pass = $pass;
+         if (!empty($new_pass)) {
+            $session_pass = $new_pass;
+            $this->SetFieldByName(static::PASS_FLD, $new_pass);
+         }
+         try {
+            parent::Update();
+            $this->SetSessionParams(
+               $login,
+               $session_pass
+            );
+            header('Location: /admin/texts');
+            exit;
+         } catch (Exception $e) {
+            $smarty->assign('error_txt', 'В данный момент невозможно обновить данные. Попробуйте позже.');
+         }
+      }
+   }
+
+   public function SetSelectValues()
+   {
+      $this->selectFields =
+         SQL::GetListFieldsForSelect(
+            SQL::PrepareFieldsForSelect(
+               static::TABLE,
+               Array(
+                  $this->idField,
+                  $this->GetFieldByName(static::LOGIN_FLD)
+               )
+            )
+         );
+   }
+
+   public function GetById($id)
+   {
+      $this->ResetSearch();
+      return parent::GetById($id);
    }
 
    private function SetSessionParams($login, $pass)

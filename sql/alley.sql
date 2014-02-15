@@ -100,7 +100,9 @@ DROP TRIGGER IF EXISTS `update_admin`;
 DELIMITER //
 CREATE TRIGGER `update_admin` BEFORE UPDATE ON `admin`
 FOR EACH ROW BEGIN
-   SET new.pass_md5 = MD5(new.pass_md5);
+   IF new.pass_md5 != old.pass_md5 THEN
+      SET new.pass_md5 = MD5(new.pass_md5);
+   END IF;
 END//
 DELIMITER ;
 

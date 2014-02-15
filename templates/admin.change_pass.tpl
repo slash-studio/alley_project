@@ -7,15 +7,15 @@
 {block name='page'}
 <div id="floater">&nbsp;</div>
 <div id="center_block">
-  <form action="/admin/change_pass" method="POST" ENCTYPE="multipart/form-data">
-    {if isset($invalid_pass)}<p class="invalid_pass">Неправильное имя пользователя или пароль</p>{/if}
+  <form action="/admin/change_pass" method="POST">
+    {if isset($error_txt)}<p class="db_error">{$error_txt}</p>{/if}
     <label for="login">Логин</label>
-    <input type="text" name="login" id="login" value="{$admin_login|default:''}">
+    <input type="text" name="login" id="login" value="{$admin.admin_login|default:''}">
     <label for="pass">Пароль</label>
     <input type="password" name="pass" id="pass">
     <label for="new_pass">Новый пароль</label>
     <input type="password" name="new_pass" id="new_pass">
-    <button type="submit" name="submit" value="submit">Изменить</button>
+    <button type="submit" name="mode" value="Update">Изменить</button>
   </form>
 </div>
 {/block}

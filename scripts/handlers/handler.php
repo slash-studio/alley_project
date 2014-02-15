@@ -62,13 +62,15 @@ class Handler
    }
 }
 
-function HandleAdminData($obj, $post, $url)
+function HandleAdminData($obj, $post, $url = null)
 {
    $handler = new Handler($obj);
    try {
       $handler->Handle($post);
-      header("Location: /admin/$url");
-      exit;
+      if (!empty($url)) {
+         header("Location: /admin/$url");
+         exit;
+      }
    } catch (Exception $e) {
       global $smarty;
       $smarty->assign('error_txt', $e->getMessage());
