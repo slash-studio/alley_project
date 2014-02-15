@@ -16,10 +16,6 @@ define('ERROR_PASS_LEN', 'Пароль должен быть длиннее ' . 
 define('ERROR_LOGIN_LEN', 'Логин должен быть длиннее ' . (LOGIN_LEN - 1) . '-ти символов.');
 define('ERROR_AGE', 'Возраст должен быть положительным числом.');
 
-//admin settings
-define('ADMIN_LOGIN', 'admin');
-define('ADMIN_PASS', 'admin');
-
 //database consts
 define('OT_ASC', 'ASC');
 define('OT_DESC', 'DESC');
