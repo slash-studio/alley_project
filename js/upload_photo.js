@@ -39,8 +39,7 @@ $(function(){
       onComplete: function(file, response) {
         $response = JSON.parse(response);
         if ($response.result) {
-          $('#resize_photo img.src_image').attr('src', '/scripts/uploads/' + $response.file + '.jpg');
-          $.colorbox({inline:true, width:"600px", height:"500px", href:"#resize_photo"});
+          $.colorbox({width:"600px", height:"500px", href:"/admin/resize_photo/?id=" + $response.file, iframe: true});
           /*
           $buttonId = this._settings.data.buttonId;
           $sizes = this._settings.data.sizes;

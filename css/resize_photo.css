@@ -1,0 +1,11 @@
+#resize_photo {
+}
+
+#resize_photo img.src_image {
+}
+
+#resize_photo span.info {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+}

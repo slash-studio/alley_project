@@ -7,9 +7,6 @@
   <script src="/js/upload_photo.js"></script>
   <link href="/colorbox/colorbox.css" rel="stylesheet" />
   <script src="/colorbox/jquery.colorbox.js"></script>
-  <link href="/imgareaselect/css/imgareaselect-default.css" rel="stylesheet" />
-  <script src="/imgareaselect/js/jquery.imgareaselect.js"></script>
-
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -42,7 +39,6 @@
     {/if}
   </form>
   {/foreach}
-  {include file='admin.resize_photo.tpl'}
   {include file='admin.set_select.tpl'}
 </div>
 {/block}
