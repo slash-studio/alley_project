@@ -1,5 +1,5 @@
 div.upload_photos {
-  display: block !important;
+  display: none;
 }
 
 div.upload_photos ul {
@@ -37,6 +37,3 @@ div.upload_photos ul button.x {
   margin: 0;
   cursor: pointer;
 }
-
-
-/*-----------------------------*/

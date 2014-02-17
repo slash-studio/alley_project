@@ -82,8 +82,8 @@ switch ($request[0]) {
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.texts.php';
             break;
             
-         case 'resize_photo':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.resize_photo.php';
+         case 'upload_photo':
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/upload_photo.php';
             break;
 
          case 'logout':

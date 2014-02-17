@@ -25,7 +25,7 @@
         <label for="choose_item">Выберите новость</label>
         <select id="choose_item" name="choose_item">
         {foreach from=$articles item=article}
-          <option value="item{$article.news_id}">{$article.news_text_head}</option>
+          <option value="{$article.news_id}">{$article.news_text_head}</option>
         {/foreach}
         </select>
       {/if}

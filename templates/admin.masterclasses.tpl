@@ -14,7 +14,7 @@
     <label for="choose_item">Выберите арт-курс</label>
     <select id="choose_item" name="choose_item">
     {foreach from=$classes item=class}
-      <option value="item{$class.master_class_id}">{$class.master_class_name}</option>
+      <option value="{$class.master_class_id}">{$class.master_class_name}</option>
     {/foreach}
     </select>
   {/if}

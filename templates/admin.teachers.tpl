@@ -14,7 +14,7 @@
     <label for="choose_item">Выберите учителя</label>
     <select id="choose_item" name="choose_item">
     {foreach from=$teachers item=teacher}
-      <option value="item{$teacher.teachers_id}">{$teacher.teachers_name}</option>
+      <option value="{$teacher.teachers_id}">{$teacher.teachers_name}</option>
     {/foreach}
     </select>
   {/if}

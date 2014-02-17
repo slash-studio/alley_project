@@ -1,0 +1,17 @@
+#wrap {
+  width: 1000px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+#upload_photo button.upload, #resize_photo button.go_end {
+  margin: 20px auto;
+  display: block;
+  background: #FFF;
+  border: 1px solid #9B6D4F;
+  padding: 10px 15px;
+  font-size: 90%;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #9B6D4F;
+}

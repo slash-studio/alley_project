@@ -14,16 +14,16 @@ if (!in_array($ext, $filetypes)) {
 }
 
 $arr = getimagesize($_FILES['uploadimage']['tmp_name']);
-if ($_POST['width'] && $arr[0] != $_POST['width']) {
+if ($_POST['width'] && $arr[0] < $_POST['width']) {
   $ajaxResult['result'] = false;
-  $ajaxResult['message'] = 'Ширина изображения не соответствует заданному шаблону!';
+  $ajaxResult['message'] = 'Ширина изображения меньше допустимой!';
   echo json_encode($ajaxResult);
   exit;
 }
 
-if ($_POST['height'] && $arr[1] != $_POST['height']) {
+if ($_POST['height'] && $arr[1] < $_POST['height']) {
   $ajaxResult['result'] = false;
-  $ajaxResult['message'] = 'Высота изображения не соответствует заданному шаблону!';
+  $ajaxResult['message'] = 'Высота изображения меньше допустимой!';
   echo json_encode($ajaxResult);
   exit;
 }
@@ -43,6 +43,8 @@ if (!$ajaxOtherResult['result']) {
   exit;
 }
 
+$ajaxResult['width'] = $arr[0];
+$ajaxResult['height'] = $arr[1];
 $path = $uploaddir . $_POST['__file'] . '.jpg';
 if (move_uploaded_file($_FILES['uploadimage']['tmp_name'], $path)) {
   $ajaxResult['file'] = $_POST['__file'];

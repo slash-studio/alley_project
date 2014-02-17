@@ -40,6 +40,10 @@ label {
 	font-weight: bold;
 }
 
+#top_block div.upload_photos {
+  font-size: 100%;
+}
+
 form button.delete {
 	color: red;
 	border-color: red;
