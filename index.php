@@ -42,7 +42,7 @@ switch ($request[0]) {
       $isLoginPage = empty($request[1]) || $request[1] == 'login';
       if ($_admin->IsAdmin()) {
          if ($isLoginPage) {
-            header('Location: /admin/newt_textbox_set_height(textbox, height)');
+            header('Location: /admin/texts');
          }
       } elseif (!$isLoginPage) {
          header('Location: /admin/');
