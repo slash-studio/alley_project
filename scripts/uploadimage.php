@@ -8,11 +8,11 @@ $_POST['__file'] = 'upload';
 
 try {
   require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Admin.php';
-
+/*
   if (!$_admin->IsAdmin()) {
     throw new Exception('Вы не можете загружать фотографии.');
   }
-
+*/
   if (!in_array($ext, $filetypes)) {
     throw new Exception('Это разрешение не поддерживается. Только JPG.');
   }
@@ -25,6 +25,9 @@ try {
   if ($_POST['height'] && $arr[1] < $_POST['height']) {
     throw new Exception('Высота изображения меньше допустимой!');
   }
+  
+  $ajaxResult['width'] = $arr[0];
+  $ajaxResult['height'] = $arr[1];
 
   if ($_FILES['uploadimage']['size'] > $_POST['maxSize']) {
     throw new Exception('Размер изображения превышает максимальный!');
