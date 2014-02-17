@@ -38,12 +38,11 @@ switch ($request[0]) {
       break;
 
    case 'admin':
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Admin.php';
       $isLoginPage = empty($request[1]) || $request[1] == 'login';
-      $_SESSION['admin_login'] = !empty($_SESSION['admin_login']) ? $_SESSION['admin_login'] : '';
-      $_SESSION['admin_pass']  = !empty($_SESSION['admin_pass'])  ? $_SESSION['admin_pass']  : '';
-      if ($_SESSION['admin_login'] == ADMIN_LOGIN && $_SESSION['admin_pass'] == ADMIN_PASS) {
+      if ($_admin->IsAdmin()) {
          if ($isLoginPage) {
-            header('Location: /admin/newt_textbox_set_height(textbox, height)');
+            header('Location: /admin/texts');
          }
       } elseif (!$isLoginPage) {
          header('Location: /admin/');
@@ -57,7 +56,7 @@ switch ($request[0]) {
          case 'courses':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.courses.php';
             break;
-            
+
          case 'change_pass':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.change_pass.php';
             break;
