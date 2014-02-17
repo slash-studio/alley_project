@@ -24,4 +24,5 @@ define('OT_RAND', 'RAND()');
 define('MYSQL_NOW', 'NOW()');
 
 define('SMARTY_APP_NAME', 'alley');
+
 // define('REGISTER_TEXT_ID', 2);

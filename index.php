@@ -80,7 +80,7 @@ switch ($request[0]) {
          case 'texts':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/admin.texts.php';
             break;
-            
+
          case 'upload_photo':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/admin/upload_photo.php';
             break;

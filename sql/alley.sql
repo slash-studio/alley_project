@@ -96,6 +96,30 @@ CREATE TABLE IF NOT EXISTS `admin` (
    PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `time` (
+   `id`    INT      NOT NULL AUTO_INCREMENT,
+   `start` DATETIME NOT NULL,
+   `end`   DATETIME NOT NULL,
+   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `days_of_week` (
+   `id`   INT         NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(13) NOT NULL,
+   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `timetable` (
+   `id`        INT NOT NULL AUTO_INCREMENT,
+   `day_id`    INT NOT NULL,
+   `time_id`   INT NOT NULL,
+   `course_id` INT NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY (`day_id`)    REFERENCES `days_of_week` (`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`time_id`)   REFERENCES `time` (`id`)         ON DELETE CASCADE,
+   FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)      ON DELETE CASCADE
+);
+
 DROP TRIGGER IF EXISTS `update_admin`;
 DELIMITER //
 CREATE TRIGGER `update_admin` BEFORE UPDATE ON `admin`
@@ -113,6 +137,15 @@ INSERT INTO `texts`(`name`, `text_head`, `text_body`, `have_photo`) VALUES
    ('Страница О нас 2', 'О нас 2', 'Aрт-студия "Аллея" приглашает детей помладше — в рамках занятий их познакомят с основами анимации и такими вещами, как живопись по стеклу, анимация при помощи кофе, песка или пластилина, а также научат создавать флипбуки и "живые картины". А для самых маленьких предусмотрен курс арт-терапии, где дети научатся осознавать и выражать свою уникальность, общаться со сверстниками и преодолевать страхи.', 0);
 
 INSERT INTO `admin`(`login`, `pass_md5`) VALUES('admin', '21232f297a57a5a743894a0e4a801fc3');
+
+INSERT INTO `days_of_week`(`name`) VALUES
+   ('Понедельник'),
+   ('Вторник'),
+   ('Среда'),
+   ('Четверг'),
+   ('Пятница'),
+   ('Суббота'),
+   ('Воскресенье');
 
 DELIMITER //
 

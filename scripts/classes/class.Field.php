@@ -5,14 +5,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/lib/exception.inc';
 abstract class Validate
 {
    const IS_BOOL             = 1;
-   const IS_FLOAT            = 2;
-   const IS_EMAIL            = 3;
-   const IS_PHONE            = 4;
-   const IS_NUMERIC          = 5;
-   const IS_POSITIVE         = 6;
-   const IS_NOT_EMPTY        = 7;
-   const IS_POSITIVE_OR_ZERO = 8;
-   const IS_NOT_EMPTY_STRING = 9;
+   const IS_TIME             = 2;
+   const IS_FLOAT            = 3;
+   const IS_EMAIL            = 4;
+   const IS_PHONE            = 5;
+   const IS_NUMERIC          = 6;
+   const IS_POSITIVE         = 7;
+   const IS_NOT_EMPTY        = 8;
+   const IS_POSITIVE_OR_ZERO = 9;
+   const IS_NOT_EMPTY_STRING = 10;
 
 }
 
@@ -138,6 +139,15 @@ class Field
             case Validate::IS_NOT_EMPTY_STRING:
                $isException  = $value === '';
                $exceptionStr = "$alias не может иметь пустое значение!";
+               break;
+
+            case Validate::IS_TIME:
+               $isException  = !strtotime($value);
+               if (!$isException) {
+                  $date = new DateTime($value);
+                  $this->SetValue($date->format('Y-m-d H:i:s'));
+               }
+               $exceptionStr = "$value не является правильным временем!";
                break;
 
             case Validate::IS_BOOL:
