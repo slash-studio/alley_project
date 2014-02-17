@@ -10,6 +10,6 @@ array_unshift($times, '');
 array_unshift($daysOfWeek, '');
 $smarty->assign('times', $times)
        ->assign('days', $daysOfWeek)
-       ->assign('timetable', $_timetable->GetAll())
+       ->assign('timetable', $_timetable->SetSamplingScheme(Timetable::TABLE_SCHEME)->GetAll())
        ->assign('courses', $_course->SetSamplingScheme(Course::TIMETABLE_SCHEME)->GetAll())
        ->display('admin.table.tpl');

@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Teachers.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Timetable.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php';
 
 class Course extends Entity
@@ -152,6 +153,20 @@ class Course extends Entity
             break;
       }
       $this->selectFields = SQL::GetListFieldsForSelect($fields);
+   }
+
+   public function GetTimetable($id)
+   {
+      global $_timetable;
+      $_timetable->SetSamplingScheme(Timetable::COURSE_SCHEME);
+      $_timetable->CheckSearch();
+      $_timetable->search->AddClause(
+         CCond(
+            CF(Timetable::TABLE, $_timetable->GetFieldByName(Timetable::COURSE_FLD)),
+            CVP($id)
+         )
+      );
+      return $_timetable->GetAll();
    }
 }
 
