@@ -1,0 +1,21 @@
+#timetable {
+	border-collapse: collapse;
+  width: 100%;
+}
+
+#timetable td, #timetable th {
+	border: 1px black solid;
+	padding: 7px;
+}
+
+#timetable td {
+	min-width: 120px;
+}
+
+#timetable th {
+	font-weight: bold;
+}
+
+#timetable tr:hover {
+	background: #eee;
+}
