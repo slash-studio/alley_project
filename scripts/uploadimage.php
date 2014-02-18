@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION)) {
+   @session_start();
+}
 $uploaddir  = 'uploads/';
 preg_match('/(.*)(\..*)/', basename($_FILES['uploadimage']['name']), $arr);
 $ext        = $arr[2];
@@ -8,11 +11,11 @@ $_POST['__file'] = 'upload';
 
 try {
   require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Admin.php';
-/*
+
   if (!$_admin->IsAdmin()) {
     throw new Exception('Вы не можете загружать фотографии.');
   }
-*/
+
   if (!in_array($ext, $filetypes)) {
     throw new Exception('Это разрешение не поддерживается. Только JPG.');
   }
