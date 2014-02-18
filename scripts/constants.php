@@ -1,7 +1,7 @@
 <?php
 //numeric and string constants
 define('COOKIE_LIFETIME', 86400000); //86400000 seconds in a 1000 days
-define('COOKIE_SITE', 'ruspravosl.local');
+define('COOKIE_SITE', 'alley.local');
 define('LOGIN_LEN', 6);
 define('PASS_LEN', 6);
 define('ADMIN_ID', 1);

@@ -25,7 +25,7 @@ try {
   if ($_POST['height'] && $arr[1] < $_POST['height']) {
     throw new Exception('Высота изображения меньше допустимой!');
   }
-  
+
   $ajaxResult['width'] = $arr[0];
   $ajaxResult['height'] = $arr[1];
 
