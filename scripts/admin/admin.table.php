@@ -1,4 +1,15 @@
 <?php
-$smarty->assign('table_side', array('', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'))
-       ->assign('table_head', array('', '10:00 - 12:00', '12:15 - 14:15', '14:30 - 16:30', '16:45 - 18:45'))
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Time.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.DayOfWeek.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Course.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Timetable.php';
+
+$times = $_time->GetAll();
+$daysOfWeek = $_dayOfWeek->GetAll();
+array_unshift($times, '');
+array_unshift($daysOfWeek, '');
+$smarty->assign('times', $times)
+       ->assign('days', $daysOfWeek)
+       ->assign('timetable', $_timetable->SetSamplingScheme(Timetable::TABLE_SCHEME)->GetAll())
+       ->assign('courses', $_course->SetSamplingScheme(Course::TIMETABLE_SCHEME)->GetAll())
        ->display('admin.table.tpl');

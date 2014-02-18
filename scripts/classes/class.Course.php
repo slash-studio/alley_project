@@ -1,13 +1,15 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Teachers.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Timetable.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.TableImages.php';
 
 class Course extends Entity
 {
    const INFO_SCHEME        = 2;
    const MAIN_PAGE_SCHEME   = 3;
-   const WITH_PHOTOS_SCHEME = 4;
-   const ALL_COURSES_SCHEME = 5;
+   const TIMETABLE_SCHEME   = 4;
+   const WITH_PHOTOS_SCHEME = 5;
+   const ALL_COURSES_SCHEME = 6;
 
    const NAME_FLD         = 'name';
    const PHOTO_FLD        = 'photo_id';
@@ -66,6 +68,15 @@ class Course extends Entity
                $set[$key] = $set[$key] ? explode(',', $set[$key]) : Array();
             }
             break;
+
+         case static::TIMETABLE_SCHEME:
+            $result = Array();
+            $key = $this->ToPrfxNm(static::ID_FLD);
+            foreach ($sample as &$set) {
+               $result[$set[$this->ToPrfxNm(static::ID_FLD)]] = $set[$this->ToPrfxNm(static::NAME_FLD)];
+            }
+            $sample = $result;
+            break;
       }
    }
 
@@ -88,6 +99,17 @@ class Course extends Entity
                $this->AddOrder(static::RAND_FLD, OT_RAND);
                $this->AddLimit(5);
             }
+            break;
+
+         case static::TIMETABLE_SCHEME;
+            $fields = SQL::PrepareFieldsForSelect(
+               static::TABLE,
+               Array(
+                  $this->idField,
+                  $this->GetFieldByName(static::NAME_FLD)
+               )
+            );
+            $this->AddOrder(static::NAME_FLD);
             break;
 
          case static::WITH_PHOTOS_SCHEME:
@@ -131,6 +153,20 @@ class Course extends Entity
             break;
       }
       $this->selectFields = SQL::GetListFieldsForSelect($fields);
+   }
+
+   public function GetTimetable($id)
+   {
+      global $_timetable;
+      $_timetable->SetSamplingScheme(Timetable::COURSE_SCHEME);
+      $_timetable->CheckSearch();
+      $_timetable->search->AddClause(
+         CCond(
+            CF(Timetable::TABLE, $_timetable->GetFieldByName(Timetable::COURSE_FLD)),
+            CVP($id)
+         )
+      );
+      return $_timetable->GetAll();
    }
 }
 

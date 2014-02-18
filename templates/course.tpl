@@ -29,13 +29,17 @@
     </section>
     <div class="timetable">
       <ul>
-        <li><div class="yes day1"></div><span>10:00 - 14:00</span></li>
-        <li><div class="no"></div></li>
+        {section name=foo start=1 loop=7 step=1}
+          <li>
+            <div class="{if isset($courseTime[$smarty.section.foo.index])}yes day{$smarty.section.foo.index}{else}no{/if}"></div>{if isset($courseTime[$smarty.section.foo.index])}{foreach from=$courseTime[$smarty.section.foo.index] item=timePart}<span>{$timePart.time_start} - {$timePart.time_end}</span>{/foreach}{/if}
+          </li>
+        {/section}
+<!--         <li><div class="no yes"></div></li>
         <li><div class="no"></div></li>
         <li><div class="yes day4"></div><span>10:00 - 14:00</span></li>
         <li><div class="no"></div></li>
         <li><div class="yes day6"></div><span>10:00 - 14:00</span></li>
-        <li><div class="yes day7"></div><span>10:00 - 14:00</span></li>
+        <li><div class="yes day7"></div><span>10:00 - 14:00</span></li> -->
       </ul>
     </div>
   </div>
