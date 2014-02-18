@@ -7,17 +7,21 @@
 {/block}
 {block name='div.main'}
   {include file="header.tpl"}
+  {if $news.top_news|@count > 0}
   <article class="news_not_open">
     <div class="left_block">
-      {if isset($news.news_photo_id)}<img src="/scripts/uploads/{$news.news_photo_id}_s.jpg" />{/if}
+      <img src="/scripts/uploads/{$news.top_news.news_photo_id}_s.jpg" />
     </div>
     <div class="right_block">
-      <h1 class="nice">{$news.news_text_head}</h1>
-      <time datetime="{$news.news_publication_date}">{$news.news_publication_date}</time>
-      <p>{$news.news_text_body}</p>
+      <h1 class="nice">{$news.top_news.news_text_head|default:''}</h1>
+      <time datetime="{$news.news_publication_date|default:''}">{$news.top_news.news_publication_date|default:''}</time>
+      <p>{$news.top_news.news_text_body|default:''}</p>
     </div>
   </article>
+  {/if}
+
   <section id="other_news">
+    {if $news.left_news|@count > 0}
     <h1 class="nice">Новости</h1>
     <section class="news" id="news_left">
     {foreach from=$news.left_news item=article}
@@ -39,6 +43,9 @@
       </article>
     {/foreach}
     </section>
+    {elseif $news.top_news|@count == 0}
+      <h2>Новости еще не добавлены</h2>
+    {/if}
     <div id="nav_num">
     {foreach from=$pagesNum item=t}
       {if $t == '...'} ... {else}

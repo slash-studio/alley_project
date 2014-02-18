@@ -59,10 +59,11 @@ class News extends Entity
 
    public function CutNewsBody($news, $delimiter = ' ')
    {
-      $amount = $delimiter == ' ' ? 5 : 1;
+      $amount = 14;
+      $amount = $delimiter == ' ' ? $amount : 1;
       $arr = explode($delimiter, $news);
       $result = implode($delimiter, array_slice($arr, 0, $amount));
-      $result .= $delimiter == '' && count($arr) >= 5 ? '...' : '';
+      $result .= $delimiter == ' ' && count($arr) >= $amount ? '...' : '';
       return $result;
    }
 
@@ -151,7 +152,7 @@ class News extends Entity
             break;
 
          case static::OTHER_SCHEME:
-            $this->AddLimit(6, 1);
+            $this->AddLimit(6, 0);
             $fields = SQL::PrepareFieldsForSelect(static::TABLE, $this->fields);
             break;
       }
@@ -187,7 +188,7 @@ class News extends Entity
             $set[$dateKey] = $date->format('d-m-Y');
             $set[$textKey] = $key == 0 ? $this->CutNewsBody($set[$textKey], '.') : $this->CutNewsBody($set[$textKey]);
          }
-         $firstNews = array_shift($sample);
+         $firstNews['top_news'] = array_shift($sample);
          $resArr = array_chunk($sample, intval(static::NEWS_ON_PAGE / 2));
          $firstNews['left_news']  = isset($resArr[0]) ? $resArr[0] : Array();
          $firstNews['right_news'] = isset($resArr[1]) ? $resArr[1] : Array();

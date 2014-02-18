@@ -8,6 +8,14 @@ if (!empty($id)) {
 if (empty($id) || empty($article)) {
    header('Location: /articles');
 }
+$_news->SetSamplingScheme(News::OTHER_SCHEME)->search->AddClause(
+   CCond(
+      CF(News::TABLE, $_news->GetFieldByName(News::ID_FLD)),
+      CVP($id),
+      'AND',
+      '!='
+   )
+);
 $smarty->assign('article', $article)
-       ->assign('news', $_news->SetSamplingScheme(News::OTHER_SCHEME)->GetAll())
+       ->assign('news', $_news->GetAll())
        ->display('article.tpl');
