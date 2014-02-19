@@ -5,6 +5,11 @@ function SetActiveItem($item = 'main')
    $smarty->assign('active_item', $item);
 }
 
+function DateToMySqlDate($date_str)
+{
+   return !empty($date_str) ? (new DateTime($date_str))->format('Y-m-d H:i:s') : null;
+}
+
 function SetLastViewedID($name)
 {
    global $smarty;

@@ -65,7 +65,7 @@ class MasterClass extends Entity
             $cutTextKey = $this->ToPrfxNm('cut_' . static::DESCRIPTION_FLD);
             foreach ($sample as &$set) {
                $date = new DateTime($set[$key]);
-               $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n'));
+               $set[$key] = $date->format('j') . ' ' . GetBentMonthByNumber($date->format('n')) . ' в ' . $date->format('H:i');
                $set[$cutTextKey] = CutString($set[$textKey], 130);
             }
       }

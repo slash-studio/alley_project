@@ -23,9 +23,10 @@ if (isset($_POST['mode'])) {
    $post = GetPOST();
    $id   = isset($_POST['id']) ? $_POST['id'] : null;
    $post['params'] = Array(
-         News::ID_FLD        => $id,
-         News::TEXT_HEAD_FLD => $text_head = isset($post['text_head']) ? $post['text_head'] : null,
-         News::TEXT_BODY_FLD => $text_body = isset($post['text_body']) ? $post['text_body'] : null
+         News::ID_FLD               => $id,
+         News::TEXT_HEAD_FLD        => isset($post['text_head']) ? $post['text_head']             : null,
+         News::TEXT_BODY_FLD        => isset($post['text_body']) ? $post['text_body']             : null,
+         News::PUBLICATION_DATE_FLD => isset($post['date'])      ? DateToMySqlDate($post['date']) : null
    );
    if ($post['mode'] != 'Insert') {
       $_news->SetLastViewedID($id);

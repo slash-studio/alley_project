@@ -19,7 +19,7 @@ class News extends Entity
 
    const LAST_VIEWED_ID = 'last_viewed_news_id';
 
-   const NEWS_ON_PAGE = 2;
+   const NEWS_ON_PAGE = 10;
 
    public function __construct()
    {
@@ -90,7 +90,9 @@ class News extends Entity
 
          case static::WITH_PHOTOS_SCHEME:
             $key = $this->ToPrfxNm(static::PHOTOS_FLD);
+            $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
             foreach ($sample as &$set) {
+               $set[$dateKey] = (new DateTime($set[$dateKey]))->format('d-m-Y H:i');
                $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
             }
             break;
@@ -98,8 +100,7 @@ class News extends Entity
          case static::INFO_SCHEME:
             $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
             foreach ($sample as $key => &$set) {
-               $date = new DateTime($set[$dateKey]);
-               $set[$dateKey] = $date->format('d-m-Y');
+               $set[$dateKey] = (new DateTime($set[$dateKey]))->format('d-m-Y H:i');
             }
             break;
 
@@ -138,7 +139,8 @@ class News extends Entity
                   $this->GetFieldByName(static::ID_FLD),
                   $this->GetFieldByName(static::TEXT_HEAD_FLD),
                   $this->GetFieldByName(static::TEXT_BODY_FLD),
-                  $this->GetFieldByName(static::PHOTO_FLD)
+                  $this->GetFieldByName(static::PHOTO_FLD),
+                  $this->GetFieldByName(static::PUBLICATION_DATE_FLD)
                );
             if ($this->samplingScheme == static::INFO_SCHEME) {
                $fields[] = $this->GetFieldByName(static::PUBLICATION_DATE_FLD);

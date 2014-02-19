@@ -19,6 +19,7 @@
   <script>
     $(function() {
       $( ".date_pick" ).datetimepicker($.extend($.datepicker.regional['ru'],{
+        dateFormat: "dd-mm-yy",
         stepMinute: 5
       }));
     });
@@ -45,7 +46,7 @@
         <label for="article_head_{$smarty.foreach.foo.index}">Заголовок:</label>
         <input class="article_head" name="text_head" id="article_head_{$smarty.foreach.foo.index}" value="{$article.news_text_head}" />
         <label for="article_date_{$smarty.foreach.foo.index}">Дата:</label>
-        <input class="article_date date_pick" name="date" id="article_date_{$smarty.foreach.foo.index}" value="{$article.news_date_of}" />
+        <input class="article_date date_pick" name="date" id="article_date_{$smarty.foreach.foo.index}" value="{$article.news_publication_date}" />
         <label for="article_body_{$smarty.foreach.foo.index}">Текст:</label>
         <textarea class="article_body" name="text_body" id="article_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$article.news_text_body}</textarea>
         <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>

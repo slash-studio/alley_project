@@ -9,6 +9,7 @@
   <script>
     $(function() {
       $( ".date_pick" ).datetimepicker($.extend($.datepicker.regional['ru'],{
+        dateFormat: "dd-mm-yy",
         stepMinute: 5
       }));
     });
