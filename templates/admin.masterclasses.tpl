@@ -2,9 +2,17 @@
 {block name='title' append} - Мастер-классы{/block}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
-  <script src="/js/ajaxupload.3.5.js"></script>
-  <script src="/js/upload_photo.js"></script>
   <link href="/css/upload_photos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/jquery-ui-timepicker-addon.js"></script>
+  <script>
+    $(function() {
+      $( ".date_pick" ).datetimepicker($.extend($.datepicker.regional['ru'],{
+        stepMinute: 5
+      }));
+    });
+  </script>
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -24,7 +32,7 @@
       <label for="class_head_{$smarty.foreach.foo.index}">Название:</label>
       <input class="class_head" name="name" id="class_{$smarty.foreach.foo.index}" value="{$class.master_class_name}" />
       <label for="class_date_{$smarty.foreach.foo.index}">Дата:</label>
-      <input class="class_date" name="date" type="datetime" id="class_date_{$smarty.foreach.foo.index}" value="{$class.master_class_date_of}" />
+      <input class="class_date date_pick" name="date" type="datetime" id="class_date_{$smarty.foreach.foo.index}" value="{$class.master_class_date_of}" />
       <label for="class_body_{$smarty.foreach.foo.index}">Текст:</label>
       <textarea class="class_body" name="description" id="class_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$class.master_class_description}</textarea>
       <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
@@ -43,7 +51,7 @@
     <label for="masterclass_head">Название:</label>
     <input class="masterclass_head" name="name" id="masterclass_head" value="" />
     <label for="masterclass_date">Дата:</label>
-    <input class="masterclass_date" type="datetime" name="date" id="masterclass_date" value="" />
+    <input class="masterclass_date date_pick" name="date" id="masterclass_date" value="" />
     <label for="masterclass_body">Текст:</label>
     <textarea class="masterclass_body" name="description" id="masterclass_body" rows="5" cols="70"></textarea>
     <button class="save" name="mode" value="Insert">Добавить</button>
