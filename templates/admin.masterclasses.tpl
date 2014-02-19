@@ -32,7 +32,7 @@
       <label for="class_head_{$smarty.foreach.foo.index}">Название:</label>
       <input class="class_head" name="name" id="class_{$smarty.foreach.foo.index}" value="{$class.master_class_name}" />
       <label for="class_date_{$smarty.foreach.foo.index}">Дата:</label>
-      <input class="class_date date_pick" name="date" type="datetime" id="class_date_{$smarty.foreach.foo.index}" value="{$class.master_class_date_of}" />
+      <input class="class_date date_pick" name="date" id="class_date_{$smarty.foreach.foo.index}" value="{$class.master_class_date_of}" />
       <label for="class_body_{$smarty.foreach.foo.index}">Текст:</label>
       <textarea class="class_body" name="description" id="class_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$class.master_class_description}</textarea>
       <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>

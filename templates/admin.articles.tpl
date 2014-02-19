@@ -13,6 +13,16 @@
     });
   {/literal}
   </script>
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/jquery-ui-timepicker-addon.js"></script>
+  <script>
+    $(function() {
+      $( ".date_pick" ).datetimepicker($.extend($.datepicker.regional['ru'],{
+        stepMinute: 5
+      }));
+    });
+  </script>
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -34,6 +44,8 @@
         <input type="hidden" class="article_id" name="id" value="{$article.news_id}" />
         <label for="article_head_{$smarty.foreach.foo.index}">Заголовок:</label>
         <input class="article_head" name="text_head" id="article_head_{$smarty.foreach.foo.index}" value="{$article.news_text_head}" />
+        <label for="article_date_{$smarty.foreach.foo.index}">Дата:</label>
+        <input class="article_date date_pick" name="date" id="article_date_{$smarty.foreach.foo.index}" value="{$article.news_date_of}" />
         <label for="article_body_{$smarty.foreach.foo.index}">Текст:</label>
         <textarea class="article_body" name="text_body" id="article_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$article.news_text_body}</textarea>
         <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
@@ -53,6 +65,8 @@
       <h2>Добавить новость</h2>
       <label for="article_head_new">Заголовок:</label>
       <input class="article_head" name="text_head" id="article_head_new" value="" />
+      <label for="article_date_new">Дата:</label>
+      <input class="article_date date_pick" name="date" id="article_date_new" value="" />
       <label for="article_body_new">Текст:</label>
       <textarea class="article_body" name="text_body" id="article_body_new" rows="5" cols="70"></textarea>
       <button class="save" name="mode" value="Insert">Добавить</button>
