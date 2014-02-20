@@ -92,7 +92,8 @@ class News extends Entity
             $key = $this->ToPrfxNm(static::PHOTOS_FLD);
             $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
             foreach ($sample as &$set) {
-               $set[$dateKey] = (new DateTime($set[$dateKey]))->format('d-m-Y H:i');
+               $date_var = new DateTime($set[$dateKey]);
+               $set[$dateKey] = $date_var->format('d-m-Y H:i');
                $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
             }
             break;
@@ -100,7 +101,8 @@ class News extends Entity
          case static::INFO_SCHEME:
             $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
             foreach ($sample as $key => &$set) {
-               $set[$dateKey] = (new DateTime($set[$dateKey]))->format('d-m-Y H:i');
+               $date_var = new DateTime($set[$dateKey]);
+               $set[$dateKey] = $date_var->format('d-m-Y H:i');
             }
             break;
 

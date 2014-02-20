@@ -7,7 +7,8 @@ function SetActiveItem($item = 'main')
 
 function DateToMySqlDate($date_str)
 {
-   return !empty($date_str) ? (new DateTime($date_str))->format('Y-m-d H:i:s') : null;
+   $date_var = new DateTime($date_str);
+   return !empty($date_str) ? $date_var->format('Y-m-d H:i:s') : null;
 }
 
 function SetLastViewedID($name)

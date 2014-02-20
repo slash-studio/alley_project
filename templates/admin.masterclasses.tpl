@@ -3,6 +3,7 @@
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
   <link href="/css/upload_photos.css" rel="stylesheet" />
+  <script src="/js/images.js"></script>
   <link rel="stylesheet" href="/css/jquery-ui.css">
   <script src="/js/jquery-ui.js"></script>
   <script src="/js/jquery-ui-timepicker-addon.js"></script>
@@ -37,15 +38,18 @@
       <label for="class_body_{$smarty.foreach.foo.index}">Текст:</label>
       <textarea class="class_body" name="description" id="class_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$class.master_class_description}</textarea>
       <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
-      <div class="upload_photos">
-        <button class="upload" data='{literal}{{/literal}"buttonId": "{$class.master_class_id}", "makeMain":"false", "upload_type":"masterclass", "maxSize":"1024000", "item_id":"{$class.master_class_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
-        <ul>
-          {if isset($class.master_class_photo_id)}
-            <li><a href="/scripts/uploads/{$class.master_class_photo_id}_s.jpg"><img src="/scripts/uploads/{$class.master_class_photo_id}_s.jpg" /></a><button class="x" data="{$class.master_class_photo_id}">x</button></li>
-          {/if}
-        </ul>
-      </div>
     </form>
+    <div class="upload_photos div_upload{$class.master_class_id}">
+      <form method="POST" action="/admin/upload_photo">
+        <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"masterclasses", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$class.master_class_id}", "width":"300", "height":"300", "count":"1", "sizes":"s#100#100,b#300#300"{literal}}{/literal}' />
+        <button class="upload">Загрузить фото</button>
+      </form>
+      <ul>
+        {if isset($class.master_class_photo_id)}
+          <li><a href="/scripts/uploads/{$class.master_class_photo_id}_s.jpg"><img src="/scripts/uploads/{$class.master_class_photo_id}_s.jpg" /></a><button class="x" data="{$class.master_class_photo_id}">x</button></li>
+        {/if}
+      </ul>
+    </div>
   {/foreach}
   {include file='admin.set_select.tpl'}
   <form action="/admin/masterclasses" method="post" id="add_masterclass">

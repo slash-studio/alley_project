@@ -9,12 +9,12 @@
   {include file="header.tpl"}
   <article class="news_open">
     <div class="left_block">
-      {if isset($article.news_photo_id)}<img src="/scripts/uploads/{$article.news_photo_id}_s.jpg" />{/if}
+      {if isset($article.news_photo_id)}<img src="/scripts/uploads/{$article.news_photo_id}_b.jpg" />{/if}
     </div>
     <div class="right_block">
       <h1 class="nice">{$article.news_text_head}</h1>
       <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
-      <p>{$article.news_text_body}</p>
+      <section class="text">{$article.news_text_body}</section>
     </div>
     <div class="gallery">
     {foreach from=$article.news_photos item=photo}

@@ -6,16 +6,16 @@ try {
   $ajaxOtherResult = Array('result' => true, 'message' => 'Загрузка прошла успешно!');
   $post = GetPOST();
   $item_id = $post['item_id'];
-  switch ($_POST['upload_type']) {
+  switch ($_POST['uploadType']) {
     case 'texts':
       $_POST['__file'] = $_textsImages->SetFieldByName(TextsImages::TEXT_FLD, $item_id)->Insert(true);
       break;
 
-    case 'courses_photo':
+    case 'courses':
       $_POST['__file'] = $_courseImages->SetFieldByName(CourseImages::COURSE_FLD, $item_id)->Insert(true);
       break;
 
-    case 'news_photo':
+    case 'articles':
       $_POST['__file'] = $_newsImages->SetFieldByName(NewsImages::NEWS_FLD, $item_id)->Insert(true);
       break;
 
@@ -32,7 +32,7 @@ try {
       }
       break;
       
-    case 'masterclass':
+    case 'masterclasses':
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.MasterClass.php';
       try {
          $db->link->beginTransaction();

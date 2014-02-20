@@ -8,7 +8,7 @@
 {block name='div.main'}
   {include file="header.tpl"}
   <div id="left_block" class="block">
-    {if $about.about1.texts_have_photo && isset($about.about1.texts_photo_id)}<img src="/scripts/uploads/{$about.about1.texts_photo_id}_s.jpg" />{/if}
+    {if $about.about1.texts_have_photo && isset($about.about1.texts_photo_id)}<img src="/scripts/uploads/{$about.about1.texts_photo_id}_b.jpg" />{/if}
     <div class="info">Наши телефоны: <b>+7 (914) 701-63-20</b>, <b>+7 (914) 701-63-20</b></div>
     <div class="info">Наш адрес: <b>ул. Санаторная 39, д. 4</b></div>
     <button>Показать на карте</button>

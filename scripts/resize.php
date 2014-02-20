@@ -8,16 +8,29 @@ function crop_and_resize($im, $x1, $y1, $x2, $y2, $new_width, $new_height) {
   return $new_img;
 }
 
-$uploaddir = 'uploads/';
-$image_name = $_POST['fileName'];
-$path      = $uploaddir . $image_name . '.jpg';
-$im        = imagecreatefromjpeg($path);
-$arr       = getimagesize($path);
+$uploaddir    = 'uploads/';
+$image_name   = $_POST['fileName'];
+$path         = $uploaddir . $image_name . '.jpg';
+$im           = imagecreatefromjpeg($path);
+$arr          = getimagesize($path);
+$owner_width  = $arr[0];
+$owner_height = $arr[1];
+$width        = $_POST['width'];
+$height       = $_POST['height'];
 
-$x1 = $_POST['x1'];
-$y1 = $_POST['y1'];
-$x2 = $_POST['x2'];
-$y2 = $_POST['y2'];
+$crop_type = $_POST['cropType'];
+
+if ($crop_type == 'userCrop') {
+  $x1 = $_POST['x1'];
+  $y1 = $_POST['y1'];
+  $x2 = $_POST['x2'];
+  $y2 = $_POST['y2'];
+} else {
+  $x1 = floor(($owner_width - $width) / 2);
+  $y1 = floor(($owner_height - $height) / 2);
+  $x2 = $x1 + $width;
+  $y2 = $y1 + $height;
+}
 
 $p_sizes   = explode(',', $_POST['sizes']);
 

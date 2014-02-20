@@ -20,6 +20,7 @@ if (isset($_POST['mode'])) {
    HandleAdminData($_course, $post, 'courses');
    SetLastViewedID(Course::LAST_VIEWED_ID);
 }
-$smarty->assign('courses', $_course->SetSamplingScheme(Course::WITH_PHOTOS_SCHEME)->AddOrder(Course::NAME_FLD, OT_ASC)->GetAll())
+$smarty->assign('item_id', $_GET['item_id'])
+       ->assign('courses', $_course->SetSamplingScheme(Course::WITH_PHOTOS_SCHEME)->AddOrder(Course::NAME_FLD, OT_ASC)->GetAll())
        ->assign('teachers', $_teachers->SetSamplingScheme(Teachers::COURSE_SCHEME)->GetAll())
        ->display('admin.courses.tpl');

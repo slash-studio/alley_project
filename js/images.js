@@ -4,7 +4,7 @@ $(function(){
     $('button.upload').each(function() {
       $btnUpload = $(this);
       $data = JSON.parse($btnUpload.siblings('input').val());
-      if ($btnUpload.siblings('ul').children('li').length >= $data.count) {
+      if ($btnUpload.parent('form').siblings('ul').children('li').length >= $data.count) {
         $btnUpload.hide();
       } else {
         $btnUpload.show();

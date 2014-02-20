@@ -8,7 +8,7 @@
 {block name='div.main'}
   {include file="header.tpl"}
   <div class="course">
-    {if isset($course.courses_photo_id)}<img src="/scripts/uploads/{$course.courses_photo_id}_s.jpg" class="course_logo" />{/if}
+    {if isset($course.courses_photo_id)}<img src="/scripts/uploads/{$course.courses_photo_id}_b.jpg" class="course_logo" />{/if}
     <section class="course_info">
       <h1 class="nice">{$course.courses_name}</h1>
       <span class="teacher dropdown_head">Преподаватель: <span>{$course.teachers_name}</span></span>

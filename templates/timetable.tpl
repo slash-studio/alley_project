@@ -27,7 +27,7 @@
       {elseif $smarty.foreach.i.index == 0 && $smarty.foreach.j.index != 0}
         <th>{$time.time_start} - {$time.time_end}</th>
       {elseif $smarty.foreach.i.index != 0 && $smarty.foreach.j.index == 0}
-        <th>{$day.days_of_week_name}</th>
+        <th class="left_head">{$day.days_of_week_name}</th>
       {elseif $smarty.foreach.i.index == 0 && $smarty.foreach.j.index == 0}
         <th></th>
       {/if}

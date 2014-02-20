@@ -6,7 +6,11 @@
 .courses ul li {
 	display: inline-block;
 	width: 210px;
-  margin: 10px 0;
+  margin: 10px 0; 
+}
+
+.courses ul li img {
+  border-radius: 180px;
 }
 
 .courses ul li span {
@@ -28,6 +32,7 @@ div.course {
 
 div.course img.course_logo {
   float: left;
+  border-radius: 180px;
 }
 
 div.course section.course_info {

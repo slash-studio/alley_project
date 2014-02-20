@@ -26,9 +26,9 @@
     <button class="save_text" name="save" value="Update">Сохранить</button>
   </form>
   {if $text.texts_have_photo}
-    <div class="upload_photos" id="div_upload{$text.texts_id}">
+    <div class="upload_photos div_upload{$text.texts_id}">
       <form method="POST" action="/admin/upload_photo">
-        <input type="hidden" name="data" value='{literal}{{/literal}"upload_type":"texts", "makeMain":"false", "maxSize":"1024000", "item_id":"{$text.texts_id}", "width":"450", "height":"300", "count":"1", "sizes":"s#225#150,b#450#300"{literal}}{/literal}' />
+        <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"texts", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$text.texts_id}", "width":"450", "height":"300", "count":"1", "sizes":"s#225#150,b#450#300"{literal}}{/literal}' />
         <button class="upload">Загрузить фото</button>
       </form>
       <ul>

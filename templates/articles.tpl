@@ -10,12 +10,13 @@
   {if $news.top_news|@count > 0}
   <article class="news_not_open">
     <div class="left_block">
-      <img src="/scripts/uploads/{$news.top_news.news_photo_id}_s.jpg" />
+      <img src="/scripts/uploads/{$news.top_news.news_photo_id}_m.jpg" />
     </div>
     <div class="right_block">
       <h1 class="nice">{$news.top_news.news_text_head|default:''}</h1>
       <time datetime="{$news.news_publication_date|default:''}">{$news.top_news.news_publication_date|default:''}</time>
-      <p>{$news.top_news.news_text_body|default:''}</p>
+      <section class="text">{$news.top_news.news_text_body|default:''}</section>
+      <a href="/article/{$news.top_news.news_id}">Читать далее</a>
     </div>
   </article>
   {/if}
@@ -44,7 +45,7 @@
     {/foreach}
     </section>
     {elseif $news.top_news|@count == 0}
-      <h2>Новости еще не добавлены</h2>
+       <h1 class="nice">Новости еще не добавлены</h1>
     {/if}
     <div id="nav_num">
     {foreach from=$pagesNum item=t}

@@ -1,7 +1,11 @@
 $(function() {
   $btnUpload = $('button.upload');
   $data = JSON.parse($btnUpload.attr('data'));
-
+  
+  $('span._width').text($data.width);
+  $('span._height').text($data.height);
+  $('span._size').text(($data.maxSize / 1024 / 1024).toFixed(2));
+  
   $resize = {};
 
   new AjaxUpload($btnUpload, {
@@ -98,7 +102,7 @@ $(function() {
       "/scripts/resize.php",
       $resize,
       function(data) {
-        alert(data);
+        document.location.replace(window.referer + '/?item_id=' + $data.item_id);
         /*if (data.result) {
           alert('ok');
         } else {

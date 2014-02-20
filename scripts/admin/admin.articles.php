@@ -39,6 +39,7 @@ if (isset($_POST['mode'])) {
    SetLastViewedID(News::LAST_VIEWED_ID);
 }
 
-$smarty->assign('article_level', $level)
+$smarty->assign('item_id', $_GET['item_id'])
+       ->assign('article_level', $level)
        ->assign('article_menu', $_news->GetAdminMenu())
        ->display('admin.articles.tpl');

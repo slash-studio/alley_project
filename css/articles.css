@@ -42,16 +42,22 @@ article.news_open div.right_block time, article.news_not_open div.right_block ti
 
 #other_news {
   width: 940px;
-  margin: 20px auto 0;
+  margin: 50px auto 0;
+}
+
+#other_news > h1 {
+  margin-bottom: 30px;
 }
 
 #news_left {
   display: inline-block;
+  vertical-align: top;
 }
 
 #news_right {
   margin-left: 20px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .news article {

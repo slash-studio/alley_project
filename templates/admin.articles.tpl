@@ -2,9 +2,8 @@
 {block name='title' append} - Новости{/block}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
-  <script src="/js/ajaxupload.3.5.js"></script>
-  <script src="/js/upload_photo.js"></script>
   <link href="/css/upload_photos.css" rel="stylesheet" />
+  <script src="/js/images.js"></script>
   <link href="/css/admin_articles.css" rel="stylesheet" />
   <script>
   {literal}
@@ -50,15 +49,31 @@
         <label for="article_body_{$smarty.foreach.foo.index}">Текст:</label>
         <textarea class="article_body" name="text_body" id="article_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$article.news_text_body}</textarea>
         <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
-        <div class="upload_photos">
-          <button class="upload" data='{literal}{{/literal}"buttonId": "{$article.news_id}", "makeMain":"true", "upload_type":"news_photo", "maxSize":"1024000", "item_id":"{$article.news_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
-          <ul>
-            {foreach from=$article.news_photos item=photo}
-              <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><div><input type="radio" data-table="news" data-id="{$article.news_id}" name="make_main" value="{$photo}" {if $article.news_photo_id==$photo}checked="checked"{/if} /><label for="make_main">Сделать главной</label></div></li>
-            {/foreach}
-          </ul>
-        </div>
       </form>
+      <div class="upload_photos div_upload{$article.news_id}">
+        <form method="POST" action="/admin/upload_photo">
+          <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"articles", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$article.news_id}", "width":"300", "height":"300", "count":"1", "sizes":"s#100#100,m#200#200,b#300#300"{literal}}{/literal}' />
+          <button class="upload">Загрузить главное фото</button>
+        </form>
+        <ul>
+          {if isset($article.news_photo_id)}
+            <li><a href="/scripts/uploads/{$article.news_photo_id}_s.jpg"><img src="/scripts/uploads/{$article.news_photo_id}_s.jpg" /></a><button class="x" data="{$article.news_photo_id}">x</button></li>
+          {/if}
+        </ul>
+      </div>
+      <div class="upload_photos div_upload{$article.news_id}">
+        <form method="POST" action="/admin/upload_photo">
+          <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"articles", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$article.news_id}", "width":"750", "height":"500", "count":"10", "sizes":"s#150#100,m#450#300,b#750#500"{literal}}{/literal}' />
+          <button class="upload">Загрузить фото</button>
+        </form>
+        <ul>
+          {foreach from=$article.news_photos item=photo}
+            {if $article.news_photo_id != $photo}
+              <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button></li>
+            {/if}
+          {/foreach}
+        </ul>
+      </div>
       {/foreach}
     {/if}
     {include file='admin.set_select.tpl'}

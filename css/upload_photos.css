@@ -1,5 +1,6 @@
 div.upload_photos {
   display: none;
+  max-width: 700px;
 }
 
 div.upload_photos ul {

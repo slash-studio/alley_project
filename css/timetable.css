@@ -19,3 +19,7 @@
 #timetable tr:hover {
 	background: #eee;
 }
+
+#timetable th.left_head {
+  width: 150px;
+}

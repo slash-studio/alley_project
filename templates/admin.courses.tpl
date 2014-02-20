@@ -2,9 +2,8 @@
 {block name='title' append} - Арт-курсы{/block}
 {block name='links' append}
   <script src="/js/select_plugin.js"></script>
-  <script src="/js/ajaxupload.3.5.js"></script>
-  <script src="/js/upload_photo.js"></script>
   <link href="/css/upload_photos.css" rel="stylesheet" />
+  <script src="/js/images.js"></script>
 {/block}
 {block name="div.main"}
 <div id="top_block">
@@ -32,15 +31,31 @@
     <label for="course_body_{$smarty.foreach.foo.index}">Текст:</label>
     <textarea class="course_body" name="description" id="course_body_{$smarty.foreach.foo.index}" rows="5" cols="70">{$course.courses_description}</textarea>
     <button class="save" name="mode" value="Update">Сохранить</button><button class="delete" name="mode" value="Delete">Удалить</button>
-    <div class="upload_photos">
-      <button class="upload" data='{literal}{{/literal}"buttonId": "{$course.courses_id}", "makeMain":"true", "upload_type":"courses_photo", "maxSize":"1024000", "item_id":"{$course.courses_id}", "count":"1", "sizes":"s,b"{literal}}{/literal}'>Загрузить фото</button>
-      <ul>
-        {foreach from=$course.courses_photos item=photo}
-          <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button><div><input type="radio" data-table="course" data-id="{$course.courses_id}" name="make_main" value="{$photo}" {if $course.courses_id==$photo}checked="checked"{/if} /><label for="make_main">Сделать главной</label></div></li>
-        {/foreach}
-      </ul>
-    </div>
   </form>
+  <div class="upload_photos div_upload{$course.courses_id}">
+    <form method="POST" action="/admin/upload_photo">
+      <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"courses", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$course.courses_id}", "width":"185", "height":"185", "count":"1", "sizes":"s#150#150,b#185#185"{literal}}{/literal}' />
+      <button class="upload">Загрузить аватар</button>
+    </form>
+    <ul>
+      {if isset($course.courses_photo_id)}
+        <li><a href="/scripts/uploads/{$course.courses_photo_id}_s.jpg"><img src="/scripts/uploads/{$course.courses_photo_id}_s.jpg" /></a><button class="x" data="{$course.courses_photo_id}">x</button></li>
+      {/if}
+    </ul>
+  </div>
+  <div class="upload_photos div_upload{$course.courses_id}">
+    <form method="POST" action="/admin/upload_photo">
+      <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"courses", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$course.courses_id}", "width":"750", "height":"500", "count":"10", "sizes":"s#150#100,m#450#300,b#750#500"{literal}}{/literal}' />
+      <button class="upload">Загрузить фото</button>
+    </form>
+    <ul>
+      {foreach from=$course.courses_photos item=photo}
+        {if $course.courses_photo_id != $photo}
+          <li><a href="/scripts/uploads/{$photo}_s.jpg"><img src="/scripts/uploads/{$photo}_s.jpg" /></a><button class="x" data="{$photo}">x</button></li>
+        {/if}
+      {/foreach}
+    </ul>
+  </div>
   {/foreach}
   {include file='admin.set_select.tpl'}
   {if $teachers|@count != 0}
