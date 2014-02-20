@@ -34,7 +34,7 @@
   </form>
   <div class="upload_photos div_upload{$course.courses_id}">
     <form method="POST" action="/admin/upload_photo">
-      <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"courses", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$course.courses_id}", "width":"185", "height":"185", "count":"1", "sizes":"s#150#150,b#185#185"{literal}}{/literal}' />
+      <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"courses", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$course.courses_id}", "isAvatar":"true", "width":"185", "height":"185", "count":"1", "sizes":"s#150#150,b#185#185"{literal}}{/literal}' />
       <button class="upload">Загрузить аватар</button>
     </form>
     <ul>

@@ -38,27 +38,4 @@ $(function(){
     );
     return false;
   });
-  
-  $('div.upload_photos ul li input[name="make_main"]').change(function(){
-    $input = $(this);
-    $.post(
-      "/scripts/handlers/handler.MainPhoto.php",
-      {
-        type: $input.attr('data-table'),
-        mode: 'Update',
-        params:
-          {
-            id:  $input.attr('data-id'),
-            photo_id: $input.val()
-          }
-      },
-      function(data) {
-        if (!data.result) {
-          alert(data.message);
-        }
-      },
-      "json"
-    );
-  });
 });
-

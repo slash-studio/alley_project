@@ -16,8 +16,6 @@ $_news->SetSamplingScheme(News::OTHER_SCHEME)->search->AddClause(
       '!='
    )
 );
-
-$article['news_photos'] = explode(',', $article['news_photos']);
 $smarty->assign('article', $article)
        ->assign('news', $_news->GetAll())
        ->display('article.tpl');

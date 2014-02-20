@@ -52,7 +52,7 @@
       </form>
       <div class="upload_photos div_upload{$article.news_id}">
         <form method="POST" action="/admin/upload_photo">
-          <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"articles", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$article.news_id}", "width":"300", "height":"300", "count":"1", "sizes":"s#100#100,m#200#200,b#300#300"{literal}}{/literal}' />
+          <input type="hidden" name="data" value='{literal}{{/literal}"uploadType":"articles", "cropType":"userCrop", "maxSize":"1024000", "item_id":"{$article.news_id}", "isAvatar":"true", "width":"300", "height":"300", "count":"1", "sizes":"s#100#100,m#200#200,b#300#300"{literal}}{/literal}' />
           <button class="upload">Загрузить главное фото</button>
         </form>
         <ul>

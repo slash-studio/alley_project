@@ -88,6 +88,7 @@ class News extends Entity
             $sample = $firstNews;
             break;
 
+         case static::INFO_SCHEME:
          case static::WITH_PHOTOS_SCHEME:
             $key = $this->ToPrfxNm(static::PHOTOS_FLD);
             $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
@@ -95,14 +96,6 @@ class News extends Entity
                $date_var = new DateTime($set[$dateKey]);
                $set[$dateKey] = $date_var->format('d-m-Y H:i');
                $set[$key] = !empty($set[$key]) ? explode(',', $set[$key]) : Array();
-            }
-            break;
-
-         case static::INFO_SCHEME:
-            $dateKey = $this->ToPrfxNm(static::PUBLICATION_DATE_FLD);
-            foreach ($sample as $key => &$set) {
-               $date_var = new DateTime($set[$dateKey]);
-               $set[$dateKey] = $date_var->format('d-m-Y H:i');
             }
             break;
 
@@ -193,8 +186,13 @@ class News extends Entity
             $set[$textKey] = $key == 0 ? $this->CutNewsBody($set[$textKey], '.') : $this->CutNewsBody($set[$textKey]);
          }
          $firstNews['top_news'] = array_shift($sample);
-         $resArr = array_chunk($sample, intval(static::NEWS_ON_PAGE / 2));
-         $firstNews['left_news']  = isset($resArr[0]) ? $resArr[0] : Array();
+         $tmp = Array();
+         if (count($sample) % 2 != 0) {
+            $tmp[] = array_shift($sample);
+         }
+         $mediana = count($sample) < static::NEWS_ON_PAGE ? count($sample) / 2 : intval(static::NEWS_ON_PAGE / 2);
+         $resArr = $mediana != 0 ? array_chunk($sample, $mediana) : Array($sample, Array());
+         $firstNews['left_news']  = isset($resArr[0]) ? array_merge($tmp, $resArr[0]) : Array();
          $firstNews['right_news'] = isset($resArr[1]) ? $resArr[1] : Array();
          $sample = $firstNews;
       } catch (DBException $e) {}

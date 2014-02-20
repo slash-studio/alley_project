@@ -17,6 +17,7 @@ class Image extends Entity
       @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '.jpg');
       @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '_b.jpg');
       @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '_s.jpg');
+      @unlink($_SERVER['DOCUMENT_ROOT'] . '/scripts/uploads/' . $id . '_m.jpg');
    }
 
    // public function CreateSearchForCatalog($category, $contest_id)

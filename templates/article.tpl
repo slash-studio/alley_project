@@ -24,27 +24,29 @@
     {/foreach}
     </div>
   </article>
-  <section id="other_news">
-    <h1 class="nice">Читайте также:</h1>
-    <section class="news" id="news_left">
-    {foreach from=$news.left_news item=article}
-      <article class="main">
-        {if isset($article.news_photo_id)}<a href="/article/{$article.news_id}"><img src="/scripts/uploads/{$article.news_photo_id}_s.jpg" /></a>{/if}
-        <h1><a href="/article/{$article.news_id}">{$article.news_text_head}</a></h1>
-        <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
-        <p><a href="/article/{$article.news_id}">{$article.news_text_body}</a></p>
-      </article>
-    {/foreach}
+  {if isset($news.left_news)}
+    <section id="other_news">
+      <h1 class="nice">Читайте также:</h1>
+      <section class="news" id="news_left">
+      {foreach from=$news.left_news item=article}
+        <article class="main">
+          {if isset($article.news_photo_id)}<a href="/article/{$article.news_id}"><img src="/scripts/uploads/{$article.news_photo_id}_s.jpg" /></a>{/if}
+          <h1><a href="/article/{$article.news_id}">{$article.news_text_head}</a></h1>
+          <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
+          <p><a href="/article/{$article.news_id}">{$article.news_text_body}</a></p>
+        </article>
+      {/foreach}
+      </section>
+      <section class="news" id="news_right">
+      {foreach from=$news.right_news item=article}
+        <article class="main">
+          {if isset($article.news_photo_id)}<a href="/article/{$article.news_id}"><img src="/scripts/uploads/{$article.news_photo_id}_s.jpg" /></a>{/if}
+          <h1><a href="/article/{$article.news_id}">{$article.news_text_head}</a></h1>
+          <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
+          <p><a href="/article/{$article.news_id}">{$article.news_text_body}</a></p>
+        </article>
+      {/foreach}
+      </section>
     </section>
-    <section class="news" id="news_right">
-    {foreach from=$news.right_news item=article}
-      <article class="main">
-        {if isset($article.news_photo_id)}<a href="/article/{$article.news_id}"><img src="/scripts/uploads/{$article.news_photo_id}_s.jpg" /></a>{/if}
-        <h1><a href="/article/{$article.news_id}">{$article.news_text_head}</a></h1>
-        <time datetime="{$article.news_publication_date}">{$article.news_publication_date}</time>
-        <p><a href="/article/{$article.news_id}">{$article.news_text_body}</a></p>
-      </article>
-    {/foreach}
-    </section>
-  </section>
+  {/if}
 {/block}

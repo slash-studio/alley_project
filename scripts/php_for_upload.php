@@ -12,11 +12,37 @@ try {
       break;
 
     case 'courses':
-      $_POST['__file'] = $_courseImages->SetFieldByName(CourseImages::COURSE_FLD, $item_id)->Insert(true);
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.Course.php';
+      if (empty($post['isAvatar']) || !$post['isAvatar']) {
+         $_POST['__file'] = $_courseImages->SetFieldByName(CourseImages::COURSE_FLD, $item_id)->Insert(true);
+      } else {
+         try {
+            $db->link->beginTransaction();
+            $_POST['__file'] = $_image->Insert(true);
+            $_course->SetFieldByName(Course::ID_FLD, $item_id)->SetFieldByName(Course::PHOTO_FLD, $_POST['__file'])->Update();
+            $db->link->commit();
+         } catch (DBException $e) {
+            $db->link->rollback();
+            throw new Exception($e->getMessage());
+         }
+      }
       break;
 
     case 'articles':
-      $_POST['__file'] = $_newsImages->SetFieldByName(NewsImages::NEWS_FLD, $item_id)->Insert(true);
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.News.php';
+      if (empty($post['isAvatar']) || !$post['isAvatar']) {
+         $_POST['__file'] = $_newsImages->SetFieldByName(NewsImages::NEWS_FLD, $item_id)->Insert(true);
+      } else {
+         try {
+            $db->link->beginTransaction();
+            $_POST['__file'] = $_image->Insert(true);
+            $_news->SetFieldByName(News::ID_FLD, $item_id)->SetFieldByName(News::PHOTO_FLD, $_POST['__file'])->Update();
+            $db->link->commit();
+         } catch (DBException $e) {
+            $db->link->rollback();
+            throw new Exception($e->getMessage());
+         }
+      }
       break;
 
     case 'teachers':
@@ -31,7 +57,7 @@ try {
          throw new DBException($e->getMessage());
       }
       break;
-      
+
     case 'masterclasses':
       require_once $_SERVER['DOCUMENT_ROOT'] . '/scripts/classes/class.MasterClass.php';
       try {
